@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getCourseBySlug } from "@/data/courses";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 import { ArrowRight, CheckCircle2, BookOpen, Award, Clock, DollarSign } from "lucide-react";
 
 export default async function CourseDetailsPage({ params }: { params: Promise<{ slug: string }> }) {

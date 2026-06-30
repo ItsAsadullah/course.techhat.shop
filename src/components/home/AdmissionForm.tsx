@@ -101,24 +101,28 @@ export default function AdmissionForm() {
 
   if (status === "success") {
     return (
-      <section id="admission" className="py-20 bg-gradient-to-br from-indigo-50 to-white">
-        <div className="max-w-lg mx-auto px-4 text-center">
-          <div className="bg-white rounded-3xl p-12 border border-emerald-100 shadow-xl">
-            <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-10 h-10 text-emerald-600" />
+      <section id="admission" className="py-20 bg-slate-50 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-100/50 via-slate-50 to-slate-50 pointer-events-none" />
+        <div className="max-w-lg mx-auto px-4 text-center relative z-10">
+          <div className="bg-white rounded-3xl p-12 border border-emerald-200 shadow-xl relative overflow-hidden">
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-100 rounded-full blur-[40px] pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-cyan-100 rounded-full blur-[40px] pointer-events-none" />
+            
+            <div className="w-20 h-20 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+              <CheckCircle className="w-10 h-10 text-emerald-500" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">ভর্তির আবেদন সফল হয়েছে!</h2>
-            <p className="text-slate-500 mb-6 leading-relaxed">
+            <h2 className="text-2xl font-bold text-slate-900 mb-3 drop-shadow-sm">ভর্তির আবেদন সফল হয়েছে!</h2>
+            <p className="text-slate-600 mb-6 leading-relaxed relative z-10">
               আপনার আবেদন আমরা পেয়েছি। শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ!
             </p>
-            <div className="bg-slate-50 rounded-2xl p-4 text-left text-sm">
-              <p className="text-slate-500"><span className="font-semibold text-slate-700">নাম:</span> {form.fullName}</p>
-              <p className="text-slate-500 mt-1"><span className="font-semibold text-slate-700">কোর্স:</span> {form.course}</p>
-              <p className="text-slate-500 mt-1"><span className="font-semibold text-slate-700">শিফট:</span> {shifts.find(s => s.id === form.shift)?.label}</p>
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left text-sm relative z-10">
+              <p className="text-slate-700"><span className="font-semibold text-blue-600 mr-2">নাম:</span> {form.fullName}</p>
+              <p className="text-slate-700 mt-1.5"><span className="font-semibold text-blue-600 mr-2">কোর্স:</span> {form.course}</p>
+              <p className="text-slate-700 mt-1.5"><span className="font-semibold text-blue-600 mr-2">শিফট:</span> {shifts.find(s => s.id === form.shift)?.label}</p>
             </div>
             <button
               onClick={() => { setForm(initial); setStatus("idle") }}
-              className="mt-6 text-indigo-600 font-semibold text-sm hover:text-indigo-700"
+              className="mt-6 text-blue-600 font-semibold text-sm hover:text-blue-700 hover:underline relative z-10 drop-shadow-sm"
             >
               আরেকটি আবেদন করুন →
             </button>
@@ -129,15 +133,18 @@ export default function AdmissionForm() {
   }
 
   return (
-    <section id="admission" className="py-20 bg-gradient-to-br from-indigo-50/60 to-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="admission" className="py-20 bg-slate-50 relative border-t border-slate-100">
+      {/* Decorative gradient background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/50 via-slate-50 to-slate-50 pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-indigo-600 font-semibold text-sm uppercase tracking-widest mb-3">ভর্তি ফর্ম</p>
+          <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">ভর্তি ফর্ম</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             আজই ভর্তির আবেদন করুন
           </h2>
-          <p className="text-slate-500 max-w-xl mx-auto">
+          <p className="text-slate-600 max-w-xl mx-auto">
             নিচের ফর্মটি পূরণ করুন। আমাদের প্রতিনিধি ২৪ ঘণ্টার মধ্যে আপনার সাথে যোগাযোগ করবেন।
           </p>
         </div>
@@ -145,58 +152,61 @@ export default function AdmissionForm() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left info */}
           <div className="lg:col-span-1">
-            <div className="bg-indigo-600 text-white rounded-2xl p-7 sticky top-24">
-              <h3 className="font-bold text-xl mb-5">ভর্তি তথ্য</h3>
+            <div className="bg-white border border-slate-200 rounded-2xl p-7 sticky top-24 shadow-xl overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-100 rounded-full blur-[40px] pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-100 rounded-full blur-[40px] pointer-events-none" />
+              
+              <h3 className="font-bold text-slate-900 text-xl mb-6 relative z-10">ভর্তি তথ্য</h3>
 
-              <div className="space-y-5">
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <BookOpen className="w-4 h-4" />
+              <div className="space-y-6 relative z-10">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                    <BookOpen className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">কোর্স ফি</p>
-                    <p className="text-indigo-200 text-xs mt-0.5">ভর্তি ফি: ৫০০ টাকা (একবার)</p>
-                    <p className="text-indigo-200 text-xs">মাসিক বেতন: কোর্স ভেদে ভিন্ন</p>
+                    <p className="font-semibold text-slate-800 text-sm">কোর্স ফি</p>
+                    <p className="text-slate-600 text-xs mt-1">ভর্তি ফি: ৫০০ টাকা (একবার)</p>
+                    <p className="text-slate-600 text-xs mt-0.5">মাসিক বেতন: কোর্স ভেদে ভিন্ন</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Clock className="w-4 h-4" />
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                    <Clock className="w-4 h-4 text-indigo-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">ক্লাসের সময়</p>
-                    <p className="text-indigo-200 text-xs mt-0.5">সপ্তাহে ৬ দিন (শুক্রবার বন্ধ)</p>
-                    <p className="text-indigo-200 text-xs">প্রতিটি শিফট ২ ঘণ্টা</p>
+                    <p className="font-semibold text-slate-800 text-sm">ক্লাসের সময়</p>
+                    <p className="text-slate-600 text-xs mt-1">সপ্তাহে ৬ দিন (শুক্রবার বন্ধ)</p>
+                    <p className="text-slate-600 text-xs mt-0.5">প্রতিটি শিফট ২ ঘণ্টা</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <GraduationCap className="w-4 h-4" />
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                    <GraduationCap className="w-4 h-4 text-emerald-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">সার্টিফিকেট</p>
-                    <p className="text-indigo-200 text-xs mt-0.5">সরকার অনুমোদিত সার্টিফিকেট</p>
-                    <p className="text-indigo-200 text-xs">কোর্স সম্পন্নের পর প্রদান</p>
+                    <p className="font-semibold text-slate-800 text-sm">সার্টিফিকেট</p>
+                    <p className="text-slate-600 text-xs mt-1">সরকার অনুমোদিত সার্টিফিকেট</p>
+                    <p className="text-slate-600 text-xs mt-0.5">কোর্স সম্পন্নের পর প্রদান</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Phone className="w-4 h-4" />
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-purple-50 border border-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                    <Phone className="w-4 h-4 text-purple-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">যোগাযোগ</p>
-                    <p className="text-indigo-200 text-xs mt-0.5">01XXXXXXXXX</p>
-                    <p className="text-indigo-200 text-xs">সকাল ৯টা – রাত ৯টা</p>
+                    <p className="font-semibold text-slate-800 text-sm">যোগাযোগ</p>
+                    <p className="text-slate-600 text-xs mt-1">01XXXXXXXXX</p>
+                    <p className="text-slate-600 text-xs mt-0.5">সকাল ৯টা – রাত ৯টা</p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-7 pt-6 border-t border-white/20">
-                <p className="text-xs text-indigo-200 leading-relaxed">
-                  📌 ভর্তির সময় ১ কপি পাসপোর্ট সাইজ ছবি, জন্ম সনদ / NID এর ফটোকপি প্রয়োজন।
+              <div className="mt-8 pt-6 border-t border-slate-100 relative z-10">
+                <p className="text-xs text-amber-900 leading-relaxed bg-amber-50 border border-amber-200 p-3 rounded-lg">
+                  📌 <strong className="text-amber-700 font-medium">জরুরি:</strong> ভর্তির সময় ১ কপি পাসপোর্ট সাইজ ছবি, জন্ম সনদ / NID এর ফটোকপি প্রয়োজন।
                 </p>
               </div>
             </div>
@@ -204,9 +214,9 @@ export default function AdmissionForm() {
 
           {/* Form */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-6">
+            <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-8 space-y-7">
               {status === "error" && (
-                <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-xl text-red-700 text-sm">
+                <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm shadow-sm">
                   <AlertCircle className="w-5 h-5 flex-shrink-0" />
                   <span>কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।</span>
                 </div>
@@ -214,11 +224,11 @@ export default function AdmissionForm() {
 
               {/* Section 1: Personal Info */}
               <div>
-                <h4 className="font-semibold text-slate-900 text-sm mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <User className="w-4 h-4 text-indigo-500" />
+                <h4 className="font-semibold text-slate-900 text-sm mb-5 pb-3 border-b border-slate-100 flex items-center gap-2">
+                  <User className="w-4 h-4 text-blue-600" />
                   ব্যক্তিগত তথ্য
                 </h4>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-5">
                   <Field label="শিক্ষার্থীর নাম *" error={errors.fullName as string}>
                     <input
                       type="text"
@@ -281,14 +291,14 @@ export default function AdmissionForm() {
 
               {/* Section 2: Contact */}
               <div>
-                <h4 className="font-semibold text-slate-900 text-sm mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-indigo-500" />
+                <h4 className="font-semibold text-slate-900 text-sm mb-5 pb-3 border-b border-slate-100 flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-blue-600" />
                   যোগাযোগ তথ্য
                 </h4>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-5">
                   <Field label="মোবাইল নম্বর *" error={errors.phone as string}>
-                    <div className="flex">
-                      <span className="flex items-center px-3 bg-slate-50 border border-r-0 border-slate-200 rounded-l-xl text-slate-500 text-sm font-medium">
+                    <div className="flex shadow-sm rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500/50 transition-all border border-slate-300 group hover:border-slate-400">
+                      <span className="flex items-center px-4 bg-slate-50 border-r border-slate-300 text-slate-600 text-sm font-medium">
                         +880
                       </span>
                       <input
@@ -296,7 +306,7 @@ export default function AdmissionForm() {
                         placeholder="01XXXXXXXXX"
                         value={form.phone}
                         onChange={set("phone")}
-                        className={`${inputCls(errors.phone as string)} rounded-l-none`}
+                        className={`w-full px-3.5 py-2.5 text-sm outline-none transition-all duration-200 bg-white text-slate-900 placeholder:text-slate-400 ${errors.phone ? "bg-red-50" : ""}`}
                       />
                     </div>
                   </Field>
@@ -325,11 +335,11 @@ export default function AdmissionForm() {
 
               {/* Section 3: Course */}
               <div>
-                <h4 className="font-semibold text-slate-900 text-sm mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-indigo-500" />
+                <h4 className="font-semibold text-slate-900 text-sm mb-5 pb-3 border-b border-slate-100 flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-blue-600" />
                   কোর্স ও শিফট তথ্য
                 </h4>
-                <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                <div className="grid sm:grid-cols-2 gap-5 mb-5">
                   <Field label="কোর্স নির্বাচন করুন *" error={errors.course as string} className="sm:col-span-2">
                     <SelectField value={form.course} onChange={set("course")} error={errors.course as string}>
                       <option value="">-- কোর্স বেছে নিন --</option>
@@ -340,14 +350,14 @@ export default function AdmissionForm() {
 
                 {/* Shift selector */}
                 <Field label="পছন্দের শিফট *" error={errors.shift as string}>
-                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mt-1">
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-2">
                     {shifts.map((s) => (
                       <label
                         key={s.id}
-                        className={`flex flex-col items-center p-2.5 rounded-xl border-2 cursor-pointer transition-all text-center ${
+                        className={`flex flex-col items-center p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 text-center relative overflow-hidden ${
                           form.shift === s.id
-                            ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                            : "border-slate-200 hover:border-slate-300 text-slate-600"
+                            ? "border-blue-500 bg-blue-50 text-blue-700 shadow-sm"
+                            : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-600"
                         }`}
                       >
                         <input
@@ -358,22 +368,22 @@ export default function AdmissionForm() {
                           onChange={set("shift")}
                           className="sr-only"
                         />
-                        <span className="font-semibold text-sm">{s.label}</span>
-                        <span className="text-[10px] mt-0.5 opacity-70">{s.time}</span>
+                        <span className="font-semibold text-sm relative z-10">{s.label}</span>
+                        <span className="text-[10px] mt-1 opacity-70 relative z-10">{s.time}</span>
                       </label>
                     ))}
                   </div>
-                  {errors.shift && <p className="text-red-500 text-xs mt-1">{errors.shift as string}</p>}
+                  {errors.shift && <p className="text-red-400 text-xs mt-2 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.shift as string}</p>}
                 </Field>
               </div>
 
               {/* Section 4: Education */}
               <div>
-                <h4 className="font-semibold text-slate-900 text-sm mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4 text-indigo-500" />
+                <h4 className="font-semibold text-slate-900 text-sm mb-5 pb-3 border-b border-slate-100 flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4 text-blue-600" />
                   শিক্ষাগত ও অন্যান্য তথ্য
                 </h4>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-5">
                   <Field label="সর্বোচ্চ শিক্ষাগত যোগ্যতা *" error={errors.education as string}>
                     <SelectField value={form.education} onChange={set("education")} error={errors.education as string}>
                       <option value="">-- বেছে নিন --</option>
@@ -406,22 +416,25 @@ export default function AdmissionForm() {
               </div>
 
               {/* Terms */}
-              <div>
+              <div className="pt-2">
                 <label className="flex items-start gap-3 cursor-pointer group">
-                  <input
-                    type="checkbox"
-                    checked={form.agreeTerms}
-                    onChange={set("agreeTerms")}
-                    className="w-4 h-4 mt-0.5 rounded border-slate-300 text-indigo-600 flex-shrink-0 cursor-pointer"
-                  />
-                  <span className="text-slate-600 text-sm leading-relaxed">
+                  <div className={`relative w-5 h-5 mt-0.5 rounded border flex-shrink-0 transition-colors ${form.agreeTerms ? "bg-blue-600 border-blue-600" : "border-slate-300 bg-white group-hover:border-blue-400"}`}>
+                    <input
+                      type="checkbox"
+                      checked={form.agreeTerms}
+                      onChange={set("agreeTerms")}
+                      className="absolute opacity-0 w-full h-full cursor-pointer"
+                    />
+                    {form.agreeTerms && <CheckCircle className="absolute inset-0 w-full h-full text-white p-0.5" />}
+                  </div>
+                  <span className="text-slate-600 text-sm leading-relaxed select-none">
                     আমি EduCore IT Training Center-এর{" "}
-                    <a href="#" className="text-indigo-600 hover:underline font-medium">শর্তাবলী</a>{" "}
+                    <a href="#" className="text-blue-600 hover:text-blue-700 hover:underline font-medium transition-colors">শর্তাবলী</a>{" "}
                     পড়েছি এবং ভর্তির নিয়মকানুন মেনে চলতে রাজি আছি।
                   </span>
                 </label>
                 {errors.agreeTerms && (
-                  <p className="text-red-500 text-xs mt-1 ml-7">শর্তাবলীতে সম্মতি দিন</p>
+                  <p className="text-red-400 text-xs mt-2 ml-8 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>শর্তাবলীতে সম্মতি দিন</p>
                 )}
               </div>
 
@@ -429,22 +442,25 @@ export default function AdmissionForm() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full bg-indigo-600 text-white font-semibold py-3.5 px-6 rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
+                className="w-full relative group overflow-hidden bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold py-4 px-6 rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2 text-[15px]"
               >
-                {status === "loading" ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    আবেদন পাঠানো হচ্ছে...
-                  </>
-                ) : (
-                  <>
-                    <CheckCircle className="w-5 h-5" />
-                    ভর্তির আবেদন জমা দিন
-                  </>
-                )}
+                <span className="absolute inset-0 w-full h-full -ml-10 bg-white/20 translate-x-[-100%] group-hover:animate-[shimmer_1.5s_infinite]" />
+                <span className="relative flex items-center gap-2">
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      আবেদন পাঠানো হচ্ছে...
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle className="w-5 h-5" />
+                      ভর্তির আবেদন জমা দিন
+                    </>
+                  )}
+                </span>
               </button>
 
-              <p className="text-center text-xs text-slate-400">
+              <p className="text-center text-xs text-slate-500 font-medium">
                 আবেদন জমার পর আমাদের প্রতিনিধি ২৪ ঘণ্টার মধ্যে ফোন করবেন।
               </p>
             </form>
@@ -462,9 +478,9 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label className="block text-xs font-semibold text-slate-700 mb-1.5">{label}</label>
+      <label className="block text-xs font-semibold text-slate-700 mb-2">{label}</label>
       {children}
-      {error && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{error}</p>}
+      {error && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{error}</p>}
     </div>
   )
 }
@@ -476,24 +492,26 @@ function SelectField({
   children: React.ReactNode; error?: string
 }) {
   return (
-    <div className="relative">
+    <div className="relative group">
       <select
         value={value}
         onChange={onChange}
-        className={`${inputCls(error)} appearance-none pr-10`}
+        className={`${inputCls(error)} appearance-none pr-10 cursor-pointer`}
       >
         {children}
       </select>
-      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none w-5 h-5 flex items-center justify-center bg-transparent group-hover:text-blue-600 transition-colors">
+        <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" />
+      </div>
     </div>
   )
 }
 
 function inputCls(error?: string) {
-  return `w-full px-3.5 py-2.5 text-sm border rounded-xl outline-none transition-all duration-150 bg-white
+  return `w-full px-4 py-3 text-sm border rounded-xl outline-none transition-all duration-200 bg-white text-slate-900
     ${error
-      ? "border-red-300 focus:border-red-400 focus:ring-2 focus:ring-red-100"
-      : "border-slate-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+      ? "border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 bg-red-50"
+      : "border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 hover:border-slate-400"
     }
-    placeholder:text-slate-300 text-slate-800`
+    placeholder:text-slate-400 shadow-sm`
 }

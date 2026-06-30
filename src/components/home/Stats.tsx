@@ -1,43 +1,92 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { Users, Award, Briefcase, Star } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Users, BookOpen, Trophy, Clock } from "lucide-react"
+import { motion } from "framer-motion"
+import SpotlightCard from "@/components/ui/SpotlightCard"
 
 const stats = [
-  { id: 1, name: "Successful Students", value: 5000, suffix: "+", icon: Users },
-  { id: 2, name: "Job Placements", value: 4500, suffix: "+", icon: Briefcase },
-  { id: 3, name: "Expert Instructors", value: 50, suffix: "+", icon: Award },
-  { id: 4, name: "Average Rating", value: 4.9, suffix: "/5", icon: Star },
-];
+  {
+    icon: Users,
+    value: "৫,০০০+",
+    label: "সফল শিক্ষার্থী",
+    desc: "এখন পর্যন্ত প্রশিক্ষিত",
+    color: "text-blue-600",
+    bg: "bg-blue-50",
+    shadow: "shadow-sm border border-blue-100",
+  },
+  {
+    icon: BookOpen,
+    value: "১৫+",
+    label: "কোর্স সমূহ",
+    desc: "অফলাইন ও অনলাইন",
+    color: "text-emerald-600",
+    bg: "bg-emerald-50",
+    shadow: "shadow-sm border border-emerald-100",
+  },
+  {
+    icon: Trophy,
+    value: "৯৮%",
+    label: "সাফল্যের হার",
+    desc: "পরীক্ষায় উত্তীর্ণ",
+    color: "text-amber-600",
+    bg: "bg-amber-50",
+    shadow: "shadow-sm border border-amber-100",
+  },
+  {
+    icon: Clock,
+    value: "১০+",
+    label: "বছরের অভিজ্ঞতা",
+    desc: "মানসম্পন্ন প্রশিক্ষণে",
+    color: "text-purple-600",
+    bg: "bg-purple-50",
+    shadow: "shadow-sm border border-purple-100",
+  },
+]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5 } },
+}
 
 export default function Stats() {
   return (
-    <section className="py-20 relative bg-white dark:bg-[#020617] border-y border-slate-100 dark:border-white/5 z-10 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center divide-x divide-slate-100 dark:divide-white/10">
-          {stats.map((stat, index) => (
+    <section className="py-12 bg-white border-y border-slate-100 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-100px" }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {stats.map((stat) => (
             <motion.div
-              key={stat.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="flex flex-col items-center justify-center p-4"
+              variants={itemVariants}
+              key={stat.label}
+              className="group"
             >
-              <div className="w-12 h-12 bg-cyan-50 dark:bg-cyan-500/10 rounded-full flex items-center justify-center mb-4">
-                <stat.icon className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
-              </div>
-              <div className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2">
-                {stat.value}{stat.suffix}
-              </div>
-              <div className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                {stat.name}
-              </div>
+              <SpotlightCard className="flex items-center gap-4 p-4 rounded-2xl h-full backdrop-blur-sm">
+                <div className={`w-12 h-12 rounded-xl ${stat.bg} ${stat.shadow} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                  <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                </div>
+                <div>
+                  <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+                  <p className="text-slate-900 font-semibold text-sm leading-tight">{stat.label}</p>
+                  <p className="text-slate-500 text-xs">{stat.desc}</p>
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
-import Navbar from "@/components/landing/Navbar"
-import Footer from "@/components/landing/Footer"
-import AdmissionForm from "@/components/landing/AdmissionForm"
+import Navbar from "@/components/home/Navbar"
+import Footer from "@/components/home/Footer"
+import AdmissionForm from "@/components/home/AdmissionForm"
 
 export const metadata: Metadata = {
   title: "ভর্তি ফর্ম | TechHat Computer Training Center",

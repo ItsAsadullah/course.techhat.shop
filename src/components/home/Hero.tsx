@@ -1,110 +1,285 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle, Star, Sparkles } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+import Link from "next/link"
+import { ArrowRight, CheckCircle, PlayCircle, Users, BookOpen, Award, Star } from "lucide-react"
+import { motion, useMotionValue, useSpring } from "framer-motion"
+import React, { useRef } from "react"
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-};
+const highlights = [
+  "অভিজ্ঞ ও প্রশিক্ষিত শিক্ষকমণ্ডলী",
+  "হাতে-কলমে প্রশিক্ষণ (Practical Based)",
+  "সার্টিফিকেট সরকার অনুমোদিত",
+  "চাকরির সহায়তা প্রদান করা হয়",
+]
 
-const stagger = {
+const floatingBadges = [
+  { icon: Users, value: "৫০০০+", label: "শিক্ষার্থী", color: "bg-blue-50 text-blue-700 border-blue-200 shadow-sm" },
+  { icon: Star, value: "৪.৯/৫", label: "রেটিং", color: "bg-amber-50 text-amber-700 border-amber-200 shadow-sm" },
+  { icon: Award, value: "১০০%", label: "সার্টিফিকেট", color: "bg-emerald-50 text-emerald-700 border-emerald-200 shadow-sm" },
+]
+
+const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
+}
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-slate-50 dark:bg-[#020617] -z-20 transition-colors duration-300" />
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] dark:opacity-[0.05] -z-10 mix-blend-screen" />
-      
-      {/* Glowing Orbs for Dark Mode */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-500/20 blur-[120px] rounded-full pointer-events-none -z-10 hidden dark:block" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none -z-10 hidden dark:block" />
+    <section className="relative overflow-x-clip bg-white">
+      <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-white relative min-h-[100vh] pt-24 lg:pt-28 pb-64 lg:pb-96 flex flex-col justify-start">
+        {/* Background pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage: `radial-gradient(circle, #0f172a 1px, transparent 1px)`,
+            backgroundSize: "32px 32px",
+            maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+          }}
+        />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 dark:bg-white/5 border border-cyan-100 dark:border-white/10 mb-8">
-              <Sparkles className="w-4 h-4 text-cyan-500" />
-              <span className="text-sm font-bold text-slate-700 dark:text-slate-300 tracking-wide">Premium IT Education in Bangladesh</span>
+        {/* Decorative blobs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.1, 1], 
+            y: [0, -30, 0],
+            backgroundColor: ["rgba(8, 145, 178, 0.2)", "rgba(147, 51, 234, 0.2)", "rgba(79, 70, 229, 0.2)", "rgba(8, 145, 178, 0.2)"]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          className="absolute top-20 right-0 w-[500px] h-[500px] rounded-full blur-[100px] -translate-y-1/4 translate-x-1/3 pointer-events-none" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1], 
+            x: [0, 30, 0],
+            backgroundColor: ["rgba(147, 51, 234, 0.2)", "rgba(79, 70, 229, 0.2)", "rgba(8, 145, 178, 0.2)", "rgba(147, 51, 234, 0.2)"]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-20 left-0 w-[400px] h-[400px] rounded-full blur-[100px] -translate-x-1/4 pointer-events-none" 
+        />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-16 items-center">
+          {/* Left content */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="lg:col-span-6"
+          >
+            {/* Badge */}
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm text-blue-600 text-xs font-semibold px-4 py-1.5 rounded-full border border-blue-200 shadow-sm mb-6">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
+              টেকহ্যাট কম্পিউটার ট্রেনিং সেন্টারে স্বাগতম
             </motion.div>
 
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.1]">
-              Learn Skills.<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
-                Build Future.
+            {/* Headline */}
+            <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.2] mb-6">
+              কম্পিউটার শেখা হোক
+              <br />
+              <span className="relative inline-block mt-2 w-max max-w-[100vw]">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_auto] animate-text-gradient text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[44px] whitespace-nowrap">
+                  সহজ, আধুনিক ও বাস্তবমুখী উপায়ে
+                </span>
+                <style>{`
+                  @keyframes text-gradient {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                  }
+                  .animate-text-gradient {
+                    animation: text-gradient 4s ease infinite;
+                  }
+                `}</style>
+                <svg
+                  className="absolute -bottom-2 left-0 w-full drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]"
+                  viewBox="0 0 400 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="none"
+                >
+                  <motion.path 
+                    d="M0 12 Q200 0 400 12" 
+                    stroke="#22d3ee" 
+                    strokeWidth="4" 
+                    fill="none" 
+                    strokeLinecap="round" 
+                    opacity="0.8"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.8 }}
+                    transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+                  />
+                </svg>
               </span>
             </motion.h1>
 
-            <motion.p variants={fadeIn} className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-lg leading-relaxed">
-              Master modern web development, graphics design, and digital marketing with our 100% project-based intensive training programs.
+            <motion.p variants={itemVariants} className="text-slate-600 text-lg leading-relaxed mb-8 max-w-lg">
+              ভবিষ্যতের জন্য নিজেকে দক্ষ করে তুলুন। অভিজ্ঞ প্রশিক্ষকের তত্ত্বাবধানে হাতে-কলমে প্রশিক্ষণ নিয়ে গড়ে তুলুন আপনার সফল ক্যারিয়ার।
+              <br /><br />
+              <span className="font-semibold text-slate-800">আজই ভর্তি হন আপনার পছন্দের কোর্সে।</span>
             </motion.p>
 
-            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
-              <Link href="#admission" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:-translate-y-1 transition-all">
-                Join Next Batch <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link href="#courses" className="inline-flex items-center justify-center gap-2 bg-white dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 dark:hover:bg-white/10 transition-all backdrop-blur-md">
-                <PlayCircle className="w-5 h-5 text-cyan-500" /> Explore Courses
-              </Link>
-            </motion.div>
 
-            <motion.div variants={fadeIn} className="mt-12 flex items-center gap-4">
-              <div className="flex -space-x-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-12 h-12 rounded-full border-2 border-white dark:border-[#020617] overflow-hidden">
-                    <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="Student" className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
-              <div>
-                <div className="flex items-center gap-1 text-amber-500">
-                  <Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" />
-                </div>
-                <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Trusted by 5,000+ students</p>
-              </div>
+
+            {/* CTA buttons */}
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="#courses"
+                className="inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-md text-slate-700 font-semibold px-8 py-3.5 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-slate-50 transition-all duration-300 shadow-sm hover:shadow-md text-sm group"
+              >
+                <PlayCircle className="w-4 h-4 text-blue-500 group-hover:scale-110 transition-transform" />
+                কোর্সসমূহ দেখুন
+              </Link>
+              <Link
+                href="/admission"
+                className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold px-8 py-3.5 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:-translate-y-1 text-sm overflow-hidden"
+              >
+                <span className="absolute inset-0 w-full h-full -ml-10 bg-white/20 translate-x-[-100%] group-hover:animate-[shimmer_1.5s_infinite]" />
+                <span className="relative">ভর্তি হোন</span>
+                <ArrowRight className="w-4 h-4 relative group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
           </motion.div>
 
-          {/* Right Visual */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }} 
-            animate={{ opacity: 1, scale: 1 }} 
-            transition={{ duration: 0.8, ease: "easeOut" as const }}
-            className="relative hidden lg:block"
+          {/* Right visual */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" as const }}
+            className="relative lg:col-span-6 lg:justify-self-end w-full max-w-md lg:max-w-full mx-auto lg:mx-0 mt-12 lg:mt-0"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-[3rem] blur-2xl opacity-20 dark:opacity-40" />
-            <div className="relative rounded-[3rem] overflow-hidden border border-white/20 shadow-2xl bg-white dark:bg-[#0f172a]/80 backdrop-blur-xl p-2 aspect-[4/5]">
-              <Image 
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop" 
-                alt="Students coding" 
-                fill 
-                className="object-cover rounded-[2.5rem]"
+            {/* Main visual - Instructor Photo */}
+            <TiltWrapper>
+              <img 
+                src="/Hero-Instructor-photo.png" 
+                alt="Instructor" 
+                className="w-full h-auto max-w-md lg:max-w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]"
               />
-              {/* Floating Element */}
-              <motion.div 
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -left-10 top-20 bg-white dark:bg-[#1e293b] p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-white/10 flex items-center gap-4"
+            </TiltWrapper>
+
+            {/* Floating badges */}
+            <motion.div 
+              animate={{ y: [-5, 5, -5] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-4 bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-slate-200 px-4 py-2.5 flex items-center gap-2.5 z-20"
+            >
+              <div className="bg-indigo-100 p-1.5 rounded-lg">
+                <BookOpen className="w-4 h-4 text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-500 font-medium">মোট কোর্স</p>
+                <p className="font-bold text-slate-900 text-sm leading-none">১৫+</p>
+              </div>
+            </motion.div>
+
+            {floatingBadges.map((badge, i) => (
+              <motion.div
+                key={badge.label}
+                animate={{ y: [-5, 5, -5] }}
+                transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                className={`absolute hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-md text-xs font-bold z-20 ${badge.color}`}
+                style={{
+                  bottom: i === 0 ? "-16px" : i === 1 ? "40%" : undefined,
+                  top: i === 2 ? "30%" : undefined,
+                  left: i === 0 ? "10%" : i === 1 ? "-24px" : undefined,
+                  right: i === 2 ? "-24px" : undefined,
+                }}
               >
-                <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-xl">🚀</span>
-                </div>
+                <badge.icon className="w-4 h-4" />
                 <div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Placement Rate</p>
-                  <p className="text-xl font-black text-slate-900 dark:text-white">98.5%</p>
+                  <div className="text-sm font-bold">{badge.value}</div>
+                  <div className="font-medium opacity-80">{badge.label}</div>
                 </div>
               </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+      </div>
+
+      {/* Video Embed Section with actual overlap */}
+      <div className="relative -mt-40 md:-mt-56 lg:-mt-80 z-20">
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            className="rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
+          >
+            <div className="relative aspect-video w-full rounded-[24px] overflow-hidden bg-slate-900">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/Sklc_fQBmcs" 
+                title="YouTube video player" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerPolicy="strict-origin-when-cross-origin" 
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
+  )
+}
+
+function TiltWrapper({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const springX = useSpring(x, { stiffness: 400, damping: 30 });
+  const springY = useSpring(y, { stiffness: 400, damping: 30 });
+
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = e;
+    if (!ref.current) return;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    
+    // Calculate rotation relative to center (from -1 to 1)
+    const normalizedX = (clientX - left) / width - 0.5;
+    const normalizedY = (clientY - top) / height - 0.5;
+    
+    // Max rotation in degrees
+    const maxRotate = 15;
+    
+    x.set(normalizedX * maxRotate);
+    y.set(-normalizedY * maxRotate);
+  };
+
+  const reset = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      style={{ perspective: 1200 }}
+      className="relative z-10 flex justify-center w-full"
+    >
+      <motion.div 
+        style={{ rotateY: springX, rotateX: springY, transformStyle: "preserve-3d" }} 
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.3 }}
+        className="w-full flex justify-center"
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }

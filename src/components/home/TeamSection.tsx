@@ -103,7 +103,7 @@ export default function TeamSection() {
               {/* Content */}
               <div className="pt-20 px-5 pb-5 flex flex-col flex-1">
                 {/* Name & Role */}
-                <div className="text-center mb-4 flex-shrink-0 min-h-[70px]">
+                <div className="text-center flex-shrink-0 min-h-[70px]">
                   <div className="flex items-center justify-center gap-1.5 mb-1">
                     <h3 className="text-xl font-extrabold text-slate-900">
                       {member.name}
@@ -117,7 +117,7 @@ export default function TeamSection() {
                 </div>
 
                 {/* Social Icons */}
-                <div className="flex justify-center gap-3 mb-4 flex-shrink-0 min-h-[36px]">
+                <div className="flex justify-center gap-3 flex-shrink-0 min-h-[36px]">
                   <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 cursor-pointer hover:scale-110">
                     {/* Custom LinkedIn Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -141,8 +141,8 @@ export default function TeamSection() {
                 </div>
 
                 {/* Qualifications */}
-                <div className="mb-4 flex-shrink-0 min-h-[80px]">
-                  <div className="flex items-center gap-1.5 mb-2">
+                <div className="flex-shrink-0 min-h-[72px]">
+                  <div className="flex items-center gap-1.5 mb-1">
                     <Award className="w-3.5 h-3.5 text-amber-500" />
                     <h4 className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Qualifications</h4>
                   </div>
@@ -156,8 +156,8 @@ export default function TeamSection() {
                 </div>
 
                 {/* Specialties */}
-                <div className="mb-4 flex-shrink-0 min-h-[110px]">
-                  <div className="flex items-center gap-1.5 mb-2">
+                <div className="flex-shrink-0 min-h-[100px]">
+                  <div className="flex items-center gap-1.5 mb-1">
                     <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
                     <h4 className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Specialized In</h4>
                   </div>
@@ -176,7 +176,7 @@ export default function TeamSection() {
                 </div>
 
                 {/* Statistics */}
-                <div className="grid grid-cols-3 gap-2 mb-4 flex-shrink-0 min-h-[72px]">
+                <div className="grid grid-cols-3 gap-2 flex-shrink-0 min-h-[72px]">
                   {[
                     { icon: Star, value: member.rating, label: "Rating", color: "#f59e0b" },
                     { icon: Users, value: `${member.students}+`, label: "Students", color: "#6366f1" },
@@ -191,7 +191,7 @@ export default function TeamSection() {
                 </div>
 
                 {/* CTA Button - Pushed to Bottom */}
-                <div className="mt-auto">
+                <div className="mt-auto pt-2">
                   <button className={`w-full py-2.5 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-1.5 transition-all duration-300 hover:-translate-y-0.5 ${member.highlighted
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl'
                     : 'bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg'
