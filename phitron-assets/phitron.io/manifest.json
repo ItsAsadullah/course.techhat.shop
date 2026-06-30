@@ -1,0 +1,32 @@
+{
+  "theme_color": "#0050ce",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "Phitron",
+  "short_name": "Phitron",
+  "description": "Learn and master programming to open a new career opportunity",
+  "icons": [
+    {
+      "sizes": "128x128",
+      "src": "icon-128x128.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "152x152",
+      "src": "icon-152x152.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "192x192",
+      "src": "icon-192x192.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "icon-512x512.png",
+      "type": "image/png"
+    }
+  ]
+}
