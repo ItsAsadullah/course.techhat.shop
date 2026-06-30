@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: \`\${post.title} | TechHat Blog\`,
+    title: `${post.title} | TechHat Blog`,
     description: post.content.substring(0, 160).replace(/<[^>]*>?/gm, ''), // Strips HTML tags for description
     openGraph: {
       title: post.title,
@@ -42,7 +42,7 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const relatedPosts = getRelatedPosts(post.relatedSlugs);
-  const fullUrl = \`https://techhat.com/blog/\${post.slug}\`;
+  const fullUrl = `https://techhat.com/blog/${post.slug}`;
 
   return (
     <>
