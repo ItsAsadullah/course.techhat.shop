@@ -60,11 +60,11 @@ export default function TeamSection() {
         </div>
 
         {/* Instructor Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {team.map((member, idx) => (
             <div
               key={idx}
-              className={`relative rounded-2xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300 flex flex-col hover:-translate-y-1 ${member.highlighted
+              className={`relative rounded-2xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300 flex flex-col hover:-translate-y-1 h-full ${member.highlighted
                 ? 'bg-gradient-to-br from-slate-50 to-white shadow-xl border-indigo-200 hover:shadow-2xl'
                 : 'bg-white hover:shadow-xl'
                 }`}
@@ -101,9 +101,9 @@ export default function TeamSection() {
               </div>
 
               {/* Content */}
-              <div className="pt-20 px-6 pb-6 flex flex-col flex-1">
+              <div className="pt-20 px-5 pb-5 flex flex-col flex-1">
                 {/* Name & Role */}
-                <div className="text-center mb-4 flex-shrink-0 min-h-[72px]">
+                <div className="text-center mb-4 flex-shrink-0 min-h-[70px]">
                   <div className="flex items-center justify-center gap-1.5 mb-1">
                     <h3 className="text-xl font-extrabold text-slate-900">
                       {member.name}
@@ -117,7 +117,7 @@ export default function TeamSection() {
                 </div>
 
                 {/* Social Icons */}
-                <div className="flex justify-center gap-3 mb-5 flex-shrink-0 min-h-[36px]">
+                <div className="flex justify-center gap-3 mb-4 flex-shrink-0 min-h-[36px]">
                   <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 cursor-pointer hover:scale-110">
                     {/* Custom LinkedIn Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -140,8 +140,8 @@ export default function TeamSection() {
                   </div>
                 </div>
 
-                {/* Qualifications - Fixed Height */}
-                <div className="mb-5 flex-shrink-0 min-h-[88px]">
+                {/* Qualifications */}
+                <div className="mb-4 flex-shrink-0 min-h-[80px]">
                   <div className="flex items-center gap-1.5 mb-2">
                     <Award className="w-3.5 h-3.5 text-amber-500" />
                     <h4 className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Qualifications</h4>
@@ -155,8 +155,8 @@ export default function TeamSection() {
                   </div>
                 </div>
 
-                {/* Specialties - Fixed Height */}
-                <div className="mb-5 flex-shrink-0 min-h-[112px]">
+                {/* Specialties */}
+                <div className="mb-4 flex-shrink-0 min-h-[110px]">
                   <div className="flex items-center gap-1.5 mb-2">
                     <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
                     <h4 className="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Specialized In</h4>
@@ -175,8 +175,8 @@ export default function TeamSection() {
                   </div>
                 </div>
 
-                {/* Statistics - Fixed Height */}
-                <div className="grid grid-cols-3 gap-2 mb-5 flex-shrink-0 min-h-[72px]">
+                {/* Statistics */}
+                <div className="grid grid-cols-3 gap-2 mb-4 flex-shrink-0 min-h-[72px]">
                   {[
                     { icon: Star, value: member.rating, label: "Rating", color: "#f59e0b" },
                     { icon: Users, value: `${member.students}+`, label: "Students", color: "#6366f1" },
@@ -188,23 +188,6 @@ export default function TeamSection() {
                       <div className="text-[9px] text-slate-500 font-bold">{stat.label}</div>
                     </div>
                   ))}
-                </div>
-
-                {/* Experience - Fixed Height */}
-                <div className="mb-5 flex-shrink-0 min-h-[40px]">
-                  <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-xs font-bold text-slate-700">Experience</span>
-                    <span className="text-xs font-extrabold text-indigo-600">{member.experience}+ Years</span>
-                  </div>
-                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: `${member.experience * 10}%`,
-                        background: "linear-gradient(90deg, #6366f1, #a855f7)"
-                      }}
-                    />
-                  </div>
                 </div>
 
                 {/* CTA Button - Pushed to Bottom */}
