@@ -5,7 +5,9 @@ import Link from "next/link"
 import { Menu, X, GraduationCap, Phone, ChevronDown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
-const navLinks = [
+type NavLink = { id: string; label: string } | { href: string; label: string };
+
+const navLinks: NavLink[] = [
   { id: "features", label: "কেন আমরা?" },
   { id: "enroll-steps", label: "ভর্তি প্রক্রিয়া" },
   { id: "testimonials", label: "শিক্ষার্থীদের মতামত" },
