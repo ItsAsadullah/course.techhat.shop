@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const hindSiliguri = Hind_Siliguri({ 
   subsets: ["bengali", "latin"],
@@ -36,9 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${hindSiliguri.variable} font-sans min-h-screen bg-white text-slate-900 antialiased`}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${hindSiliguri.variable} font-sans min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
