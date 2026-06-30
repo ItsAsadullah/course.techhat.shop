@@ -6,12 +6,15 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Keyboard, Mail, Lock, Loader2, AlertCircle, ArrowLeft } from "lucide-react";
 import { createBrowserClient } from "@/lib/supabase-browser";
+import { useLang } from "@/context/GlobalLangContext";
+import NavControls from "@/components/ui/NavControls";
 
 const supabase = createBrowserClient();
 
 export default function LoginForm() {
   const router = useRouter();
   const { theme } = useTheme();
+  const { t, isBn } = useLang();
   const [mounted, setMounted] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -38,7 +41,7 @@ export default function LoginForm() {
       router.push("/");
       router.refresh();
     } catch (err: any) {
-      setError(err.message || "ইমেইল বা পাসওয়ার্ড সঠিক নয়।");
+      setError(err.message || t("auth_invalid"));
     } finally {
       setLoading(false);
     }
@@ -54,16 +57,17 @@ export default function LoginForm() {
             <Keyboard className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
           <div>
-            <span className={`font-bold text-sm leading-none block ${isDark ? "text-white" : "text-slate-900"}`}>TechHat</span>
-            <span className={`text-[10px] leading-none ${isDark ? "text-white/40" : "text-slate-400"}`}>Computer Training Center</span>
+            <span className={`font-bold text-sm leading-none block ${isDark ? "text-white" : "text-slate-900"}`}>{t("techhat")}</span>
+            <span className={`text-[10px] leading-none ${isDark ? "text-white/40" : "text-slate-400"}`}>{t("computer_training")}</span>
           </div>
         </Link>
 
         {/* Controls + Back */}
         <div className="flex items-center gap-3">
+          <NavControls />
           <Link href="/" className={`flex items-center gap-1.5 text-xs font-medium transition group ${isDark ? "text-white/40 hover:text-white/80" : "text-slate-400 hover:text-slate-700"}`}>
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            <span className="font-bn">হোমপেজ</span>
+            <span className={isBn ? "font-bn" : ""}>{t("back_home")}</span>
           </Link>
         </div>
       </div>
@@ -72,9 +76,9 @@ export default function LoginForm() {
       <div className="flex-1 flex flex-col justify-center px-8 md:px-12 lg:px-16 pb-8 max-w-md mx-auto w-full">
         {/* Heading */}
         <div className="mb-8">
-          <p className="font-bn text-cyan-400 text-xs font-semibold tracking-[0.2em] uppercase mb-2">স্বাগতম</p>
-          <h1 className={`font-bn text-3xl font-black mb-1 ${isDark ? "text-white" : "text-slate-900"}`}>সাইন ইন</h1>
-          <p className={`font-bn text-sm ${isDark ? "text-white/40" : "text-slate-500"}`}>আপনার অ্যাকাউন্টে লগইন করুন</p>
+          <p className={`text-cyan-400 text-xs font-semibold tracking-[0.2em] uppercase mb-2 ${isBn ? "font-bn" : ""}`}>{t("auth_welcome")}</p>
+          <h1 className={`text-3xl font-black mb-1 ${isDark ? "text-white" : "text-slate-900"} ${isBn ? "font-bn" : ""}`}>{t("auth_login_title")}</h1>
+          <p className={`text-sm ${isDark ? "text-white/40" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{t("auth_login_sub")}</p>
         </div>
 
         {/* Error */}
@@ -88,7 +92,7 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email */}
           <div>
-            <label className={`font-bn block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"}`}>ইমেইল</label>
+            <label className={`block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{t("auth_email_label")}</label>
             <div className="relative">
               <Mail className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? "text-white/25" : "text-slate-400"}`} />
               <input
@@ -110,7 +114,7 @@ export default function LoginForm() {
 
           {/* Password */}
           <div>
-            <label className={`font-bn block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"}`}>পাসওয়ার্ড</label>
+            <label className={`block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{t("auth_pass_label")}</label>
             <div className="relative">
               <Lock className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? "text-white/25" : "text-slate-400"}`} />
               <input
@@ -142,9 +146,9 @@ export default function LoginForm() {
               transition-all duration-200 mt-3 group
             "
           >
-            <span className="font-bn relative z-10 flex items-center justify-center gap-2">
+            <span className={`relative z-10 flex items-center justify-center gap-2 ${isBn ? "font-bn" : ""}`}>
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {loading ? "লগইন হচ্ছে…" : "সাইন ইন →"}
+              {loading ? t("auth_login_loading") : t("auth_login_btn")}
             </span>
           </button>
         </form>
@@ -152,22 +156,22 @@ export default function LoginForm() {
         {/* Divider */}
         <div className="flex items-center gap-3 my-6">
           <div className={`flex-1 h-px ${isDark ? "bg-white/8" : "bg-slate-200"}`} />
-          <span className={`font-bn text-xs ${isDark ? "text-white/25" : "text-slate-400"}`}>অথবা</span>
+          <span className={`text-xs ${isDark ? "text-white/25" : "text-slate-400"} ${isBn ? "font-bn" : ""}`}>{t("or")}</span>
           <div className={`flex-1 h-px ${isDark ? "bg-white/8" : "bg-slate-200"}`} />
         </div>
 
         {/* Switch to register */}
         <p className={`text-center text-sm ${isDark ? "text-white/40" : "text-slate-500"}`}>
-          <span className="font-bn">অ্যাকাউন্ট নেই?</span>{" "}
-          <Link href="/register" className="font-bn text-cyan-400 hover:text-cyan-300 font-semibold transition">
-            বিনামূল্যে তৈরি করুন →
+          <span className={isBn ? "font-bn" : ""}>{t("auth_no_account")}</span>{" "}
+          <Link href="/register" className={`text-cyan-400 hover:text-cyan-300 font-semibold transition ${isBn ? "font-bn" : ""}`}>
+            {t("auth_create_free")}
           </Link>
         </p>
       </div>
 
       {/* ── Bottom footer ─────────────────────────────────────────── */}
       <p className={`text-center text-[11px] pb-5 ${isDark ? "text-white/15" : "text-slate-400"}`}>
-        &copy; {new Date().getFullYear()} TechHat — Md Asadullah
+        &copy; {new Date().getFullYear()} {t("techhat")} — Md Asadullah
       </p>
     </div>
   );

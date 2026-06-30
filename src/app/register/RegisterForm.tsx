@@ -6,12 +6,15 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Keyboard, User, Mail, Lock, Loader2, AlertCircle, CheckCircle2, ArrowLeft } from "lucide-react";
 import { createBrowserClient } from "@/lib/supabase-browser";
+import { useLang } from "@/context/GlobalLangContext";
+import NavControls from "@/components/ui/NavControls";
 
 const supabase = createBrowserClient();
 
 export default function RegisterForm() {
   const router = useRouter();
   const { theme } = useTheme();
+  const { t, isBn } = useLang();
   const [mounted, setMounted] = useState(false);
 
   const [name, setName] = useState("");
@@ -48,7 +51,7 @@ export default function RegisterForm() {
         router.refresh();
       }, 1000);
     } catch (err: any) {
-      setError(err.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে।");
+      setError(err.message || t("auth_reg_failed"));
     } finally {
       setLoading(false);
     }
@@ -64,16 +67,17 @@ export default function RegisterForm() {
             <Keyboard className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
           <div>
-            <span className={`font-bold text-sm leading-none block ${isDark ? "text-white" : "text-slate-900"}`}>TechHat</span>
-            <span className={`text-[10px] leading-none ${isDark ? "text-white/40" : "text-slate-400"}`}>Computer Training Center</span>
+            <span className={`font-bold text-sm leading-none block ${isDark ? "text-white" : "text-slate-900"}`}>{t("techhat")}</span>
+            <span className={`text-[10px] leading-none ${isDark ? "text-white/40" : "text-slate-400"}`}>{t("computer_training")}</span>
           </div>
         </Link>
 
         {/* Controls + Back */}
         <div className="flex items-center gap-3">
+          <NavControls />
           <Link href="/" className={`flex items-center gap-1.5 text-xs font-medium transition group ${isDark ? "text-white/40 hover:text-white/80" : "text-slate-400 hover:text-slate-700"}`}>
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            <span className="font-bn">হোমপেজ</span>
+            <span className={isBn ? "font-bn" : ""}>{t("back_home")}</span>
           </Link>
         </div>
       </div>
@@ -82,9 +86,9 @@ export default function RegisterForm() {
       <div className="flex-1 flex flex-col justify-center px-8 md:px-12 lg:px-16 pb-8 max-w-md mx-auto w-full">
         {/* Heading */}
         <div className="mb-7">
-          <p className="font-bn text-violet-400 text-xs font-semibold tracking-[0.2em] uppercase mb-2">নতুন অ্যাকাউন্ট</p>
-          <h1 className={`font-bn text-3xl font-black mb-1 ${isDark ? "text-white" : "text-slate-900"}`}>রেজিস্ট্রেশন করুন</h1>
-          <p className={`font-bn text-sm ${isDark ? "text-white/40" : "text-slate-500"}`}>আপনার নতুন অ্যাকাউন্ট তৈরি করুন</p>
+          <p className={`text-violet-400 text-xs font-semibold tracking-[0.2em] uppercase mb-2 ${isBn ? "font-bn" : ""}`}>{t("auth_new_member")}</p>
+          <h1 className={`text-3xl font-black mb-1 ${isDark ? "text-white" : "text-slate-900"} ${isBn ? "font-bn" : ""}`}>{t("auth_reg_title")}</h1>
+          <p className={`text-sm ${isDark ? "text-white/40" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{t("auth_reg_sub")}</p>
         </div>
 
         {/* Error */}
@@ -99,14 +103,14 @@ export default function RegisterForm() {
         {success && (
           <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm rounded-xl px-4 py-3 mb-4 font-bn">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
-            রেজিস্ট্রেশন সফল! হোম পেজে যাচ্ছেন...
+            {t("auth_reg_success")}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div>
-            <label className={`font-bn block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"}`}>আপনার নাম</label>
+            <label className={`block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{t("auth_name_label")}</label>
             <div className="relative">
               <User className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? "text-white/25" : "text-slate-400"}`} />
               <input
@@ -128,7 +132,7 @@ export default function RegisterForm() {
 
           {/* Email */}
           <div>
-            <label className={`font-bn block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"}`}>ইমেইল</label>
+            <label className={`block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{t("auth_email_label")}</label>
             <div className="relative">
               <Mail className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? "text-white/25" : "text-slate-400"}`} />
               <input
@@ -150,7 +154,7 @@ export default function RegisterForm() {
 
           {/* Password */}
           <div>
-            <label className={`font-bn block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"}`}>পাসওয়ার্ড</label>
+            <label className={`block text-xs font-medium mb-1.5 uppercase tracking-wide ${isDark ? "text-white/50" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{t("auth_pass_label")}</label>
             <div className="relative">
               <Lock className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? "text-white/25" : "text-slate-400"}`} />
               <input
@@ -183,37 +187,37 @@ export default function RegisterForm() {
               transition-all duration-200 mt-2
             "
           >
-            <span className="font-bn flex items-center justify-center gap-2">
+            <span className={`flex items-center justify-center gap-2 ${isBn ? "font-bn" : ""}`}>
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {loading ? "রেজিস্ট্রেশন হচ্ছে…" : "রেজিস্ট্রেশন করুন"}
+              {loading ? t("auth_reg_loading") : t("auth_reg_btn")}
             </span>
           </button>
         </form>
 
         {/* Terms hint */}
-        <p className={`font-bn text-center text-[11px] mt-3 ${isDark ? "text-white/20" : "text-slate-400"}`}>
-          অ্যাকাউন্ট তৈরি করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মত হচ্ছেন।
+        <p className={`text-center text-[11px] mt-3 ${isDark ? "text-white/20" : "text-slate-400"} ${isBn ? "font-bn" : ""}`}>
+          {t("auth_terms")}
         </p>
 
         {/* Divider */}
         <div className="flex items-center gap-3 my-5">
           <div className={`flex-1 h-px ${isDark ? "bg-white/8" : "bg-slate-200"}`} />
-          <span className={`font-bn text-xs ${isDark ? "text-white/25" : "text-slate-400"}`}>অথবা</span>
+          <span className={`text-xs ${isDark ? "text-white/25" : "text-slate-400"} ${isBn ? "font-bn" : ""}`}>{t("or")}</span>
           <div className={`flex-1 h-px ${isDark ? "bg-white/8" : "bg-slate-200"}`} />
         </div>
 
         {/* Switch to login */}
         <p className={`text-center text-sm ${isDark ? "text-white/40" : "text-slate-500"}`}>
-          <span className="font-bn">অ্যাকাউন্ট আছে?</span>{" "}
-          <Link href="/login" className="font-bn text-violet-400 hover:text-violet-300 font-semibold transition">
-            লগইন করুন →
+          <span className={isBn ? "font-bn" : ""}>{t("auth_have_account")}</span>{" "}
+          <Link href="/login" className={`text-violet-400 hover:text-violet-300 font-semibold transition ${isBn ? "font-bn" : ""}`}>
+            {t("auth_signin_link")}
           </Link>
         </p>
       </div>
 
       {/* ── Bottom footer ─────────────────────────────────────────── */}
       <p className={`text-center text-[11px] pb-5 ${isDark ? "text-white/15" : "text-slate-400"}`}>
-        &copy; {new Date().getFullYear()} TechHat — Md Asadullah
+        &copy; {new Date().getFullYear()} {t("techhat")} — Md Asadullah
       </p>
     </div>
   );
