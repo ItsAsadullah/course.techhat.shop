@@ -3,51 +3,54 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import { Frown, SearchX, BrainCircuit, Activity } from "lucide-react"
+import { useLang } from "@/context/GlobalLangContext"
 
-const steps = [
+const getSteps = (t: any) => [
   {
     id: 1,
-    intro: "রিসোর্স খুঁজে পেলেও,",
-    emphasis: "গাইডেন্স খুঁজে পাও না",
+    intro: t("rm_s1_i"),
+    emphasis: t("rm_s1_e"),
     icon: SearchX,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
-    border: "border-blue-200",
+    color: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-50 dark:bg-blue-900/30",
+    border: "border-blue-200 dark:border-blue-800",
     align: "right", // Content on the right, icon on the left
   },
   {
     id: 2,
-    intro: "টিউটোরিয়াল দেখলে বোঝো",
-    emphasis: "কিন্তু নিজে করতে পারো না",
+    intro: t("rm_s2_i"),
+    emphasis: t("rm_s2_e"),
     icon: BrainCircuit,
-    color: "text-amber-600",
-    bg: "bg-amber-50",
-    border: "border-amber-200",
+    color: "text-amber-600 dark:text-amber-400",
+    bg: "bg-amber-50 dark:bg-amber-900/30",
+    border: "border-amber-200 dark:border-amber-800",
     align: "left",
   },
   {
     id: 3,
-    intro: "নিয়ম করে চলতে গিয়ে মাঝেই",
-    emphasis: "আগ্রহ হারিয়ে ফেলো",
+    intro: t("rm_s3_i"),
+    emphasis: t("rm_s3_e"),
     icon: Activity,
-    color: "text-pink-600",
-    bg: "bg-pink-50",
-    border: "border-pink-200",
+    color: "text-pink-600 dark:text-pink-400",
+    bg: "bg-pink-50 dark:bg-pink-900/30",
+    border: "border-pink-200 dark:border-pink-800",
     align: "right",
   },
   {
     id: 4,
-    intro: "কমপ্লেক্স লজিক AI এর সাহায্যে তৈরি করতে পারলেও",
-    emphasis: "নিজে কোড লিখতে পারো না",
+    intro: t("rm_s4_i"),
+    emphasis: t("rm_s4_e"),
     icon: Frown,
-    color: "text-cyan-600",
-    bg: "bg-cyan-50",
-    border: "border-cyan-200",
+    color: "text-cyan-600 dark:text-cyan-400",
+    bg: "bg-cyan-50 dark:bg-cyan-900/30",
+    border: "border-cyan-200 dark:border-cyan-800",
     align: "left",
   },
 ]
 
 export default function Roadmap() {
+  const { t, isBn } = useLang()
+  const steps = getSteps(t)
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -74,7 +77,7 @@ export default function Roadmap() {
   const svgPath = "M 420 0 L 420 10 Q 420 30 440 30 L 708 30 Q 728 30 728 50 L 728 200 Q 728 220 708 220 L 132 220 Q 112 220 112 240 L 112 400 Q 112 420 132 420 L 708 420 Q 728 420 728 440 L 728 600 Q 728 620 708 620 L 132 620 Q 112 620 112 640 L 112 800 Q 112 820 132 820 L 400 820 Q 420 820 420 840 L 420 900";
 
   return (
-    <section className="pt-4 pb-24 lg:pt-6 bg-white relative z-10 overflow-hidden" ref={containerRef}>
+    <section className="pt-4 pb-24 lg:pt-6 bg-white dark:bg-slate-950 relative z-10 overflow-hidden" ref={containerRef}>
       {/* Decorative blobs */}
       <motion.div 
         animate={{ 
@@ -98,60 +101,75 @@ export default function Roadmap() {
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative">
-        <div className="text-center mb-16 relative z-20">
+        <div className={`text-center mb-16 relative z-20 ${isBn ? "font-bn" : ""}`}>
           <motion.h2 
             initial={{ opacity: 0, y: -50, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-6 relative z-20 flex flex-wrap justify-center gap-1.5 sm:gap-2 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 relative z-20 flex flex-wrap justify-center gap-1.5 sm:gap-2 leading-tight"
           >
-            <span className="inline-block">
-              তুমিও
-            </span>
-            <span className="inline-block">
-              কি
-            </span>
-            <span className="inline-block">
-              এমন
-            </span>
-            <span className="inline-block">
-              সমস্যার
-            </span>
-            <span className="relative inline-block whitespace-nowrap px-1">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 bg-[length:200%_auto] animate-text-gradient">
-                সম্মুখীন?
+            {isBn ? (
+              <>
+                <span className="inline-block">তুমিও</span>
+                <span className="inline-block">কি</span>
+                <span className="inline-block">এমন</span>
+                <span className="inline-block">সমস্যার</span>
+                <span className="relative inline-block whitespace-nowrap px-1">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 dark:from-blue-400 dark:via-indigo-400 dark:to-cyan-400 bg-[length:200%_auto] animate-text-gradient">
+                    সম্মুখীন?
+                  </span>
+                  <svg className="absolute -bottom-2 left-0 w-full h-4 overflow-visible" viewBox="0 0 400 20" preserveAspectRatio="none">
+                    <motion.path 
+                      d="M0,18 Q200,-2 400,18" 
+                      fill="none" 
+                      stroke="url(#title_underline_gradient)" 
+                      strokeWidth="4" 
+                      strokeLinecap="round" 
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+                      viewport={{ once: false }}
+                    />
+                    <defs>
+                      <linearGradient id="title_underline_gradient">
+                        <stop stopColor="#6366f1" />
+                        <stop offset="0.5" stopColor="#3b82f6" />
+                        <stop offset="1" stopColor="#06b6d4" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </span>
+              </>
+            ) : (
+              <span className="relative inline-block whitespace-nowrap px-1">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 dark:from-blue-400 dark:via-indigo-400 dark:to-cyan-400 bg-[length:200%_auto] animate-text-gradient">
+                  {t("rm_title")}
+                </span>
+                <svg className="absolute -bottom-2 left-0 w-full h-4 overflow-visible" viewBox="0 0 400 20" preserveAspectRatio="none">
+                  <motion.path 
+                    d="M0,18 Q200,-2 400,18" 
+                    fill="none" 
+                    stroke="url(#title_underline_gradient)" 
+                    strokeWidth="4" 
+                    strokeLinecap="round" 
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+                    viewport={{ once: false }}
+                  />
+                </svg>
               </span>
-              <svg className="absolute -bottom-2 left-0 w-full h-4 overflow-visible" viewBox="0 0 400 20" preserveAspectRatio="none">
-                <motion.path 
-                  d="M0,18 Q200,-2 400,18" 
-                  fill="none" 
-                  stroke="url(#title_underline_gradient)" 
-                  strokeWidth="4" 
-                  strokeLinecap="round" 
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-                  viewport={{ once: false }}
-                />
-                <defs>
-                  <linearGradient id="title_underline_gradient">
-                    <stop stopColor="#6366f1" />
-                    <stop offset="0.5" stopColor="#3b82f6" />
-                    <stop offset="1" stopColor="#06b6d4" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </span>
+            )}
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="text-slate-600"
+            className="text-slate-600 dark:text-slate-400"
           >
-            প্রোগ্রামিং শেখার সময় এগুলো খুব সাধারণ সমস্যা
+            {t("rm_desc")}
           </motion.p>
         </div>
 
@@ -167,11 +185,10 @@ export default function Roadmap() {
               {/* Background faint line */}
               <path 
                 d={svgPath}
-                stroke="#f1f5f9" 
+                className="stroke-slate-100 dark:stroke-slate-800 animate-dash"
                 strokeWidth="4" 
                 strokeDasharray="8 10" 
                 strokeLinecap="round" 
-                className="animate-dash"
               />
               <style>{`
                 @keyframes dash-move {
@@ -217,7 +234,7 @@ export default function Roadmap() {
                   offsetRotate: "auto",
                 }}
               >
-                <circle cx="0" cy="0" r="16" fill="white" stroke="#3b82f6" strokeWidth="2" />
+                <circle cx="0" cy="0" r="16" className="fill-white dark:fill-slate-900 stroke-blue-500" strokeWidth="2" />
                 <motion.g 
                   animate={{ rotate: isScrollingUp ? 180 : 0 }} 
                   transition={{ duration: 0.3 }}
@@ -238,6 +255,7 @@ export default function Roadmap() {
               step={step} 
               idx={idx} 
               pathLength={pathLength} 
+              isBn={isBn}
             />
           ))}
         </div>
@@ -253,12 +271,12 @@ export default function Roadmap() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="w-full max-w-sm relative"
             >
-              <div className={`w-full flex flex-row items-center gap-4 bg-white border ${step.border} rounded-2xl p-5 shadow-sm relative z-20`}>
+              <div className={`w-full flex flex-row items-center gap-4 bg-white dark:bg-slate-900 border ${step.border} rounded-2xl p-5 shadow-sm relative z-20 ${isBn ? "font-bn" : ""}`}>
                 <div className={`w-12 h-12 rounded-xl ${step.bg} border ${step.border} flex items-center justify-center flex-shrink-0`}>
                   <step.icon className={`w-6 h-6 ${step.color}`} />
                 </div>
                 <div className="flex-1 text-left">
-                  <p className="text-slate-500 text-xs font-medium mb-1">{step.intro}</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">{step.intro}</p>
                   <h3 className={`text-base font-bold ${step.color} leading-tight`}>{step.emphasis}</h3>
                 </div>
               </div>
@@ -271,11 +289,11 @@ export default function Roadmap() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: false }}
-            className="text-center mt-12 relative z-20"
+            className={`text-center mt-12 relative z-20 ${isBn ? "font-bn" : ""}`}
           >
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-full px-6 py-3 backdrop-blur-md shadow-sm">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/40 dark:to-cyan-900/40 border border-blue-200 dark:border-blue-800/50 rounded-full px-6 py-3 backdrop-blur-md shadow-sm">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-              <p className="text-blue-900 font-bold text-lg">আমাদের সল্যুশন: প্রজেক্ট-ভিত্তিক লার্নিং</p>
+              <p className="text-blue-900 dark:text-blue-200 font-bold text-lg">{t("rm_sol")}</p>
             </div>
           </motion.div>
       </div>
@@ -283,7 +301,7 @@ export default function Roadmap() {
   )
 }
 
-function StepCardDesktop({ step, idx, pathLength }: { step: any, idx: number, pathLength: any }) {
+function StepCardDesktop({ step, idx, pathLength, isBn }: { step: any, idx: number, pathLength: any, isBn: boolean }) {
   const thresholds = [
     [0.00, 0.04],
     [0.15, 0.22],
@@ -300,18 +318,18 @@ function StepCardDesktop({ step, idx, pathLength }: { step: any, idx: number, pa
   return (
     <motion.div
       style={{ top: `${y}px`, opacity, filter, y: yOffset }}
-      className="absolute w-full max-w-xl left-1/2 -translate-x-1/2 h-[120px]"
+      className={`absolute w-full max-w-xl left-1/2 -translate-x-1/2 h-[120px] ${isBn ? "font-bn" : ""}`}
     >
-      <div className={`w-full h-full flex ${step.align === "right" ? "flex-row" : "flex-row-reverse"} items-center bg-white border ${step.border} rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow relative z-20`}>
+      <div className={`w-full h-full flex ${step.align === "right" ? "flex-row" : "flex-row-reverse"} items-center bg-white dark:bg-slate-900 border ${step.border} rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] transition-shadow relative z-20`}>
         
         {/* Icon */}
-        <div className={`w-14 h-14 rounded-2xl ${step.bg} border ${step.border} flex items-center justify-center flex-shrink-0 absolute ${step.align === "right" ? "-left-7" : "-right-7"} bg-white shadow-sm`}>
+        <div className={`w-14 h-14 rounded-2xl ${step.bg} border ${step.border} flex items-center justify-center flex-shrink-0 absolute ${step.align === "right" ? "-left-7" : "-right-7"} bg-white dark:bg-slate-900 shadow-sm`}>
           <step.icon className={`w-7 h-7 ${step.color}`} />
         </div>
         
         {/* Text */}
         <div className={`flex-1 text-center px-6`}>
-          <p className="text-slate-500 text-sm font-medium mb-1">{step.intro}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">{step.intro}</p>
           <h3 className={`text-xl font-bold ${step.color} leading-tight`}>{step.emphasis}</h3>
         </div>
       </div>

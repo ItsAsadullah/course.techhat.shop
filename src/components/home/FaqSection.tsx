@@ -2,22 +2,21 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Plus, Minus, MessageCircleQuestion } from "lucide-react";
+import { useLang } from "@/context/GlobalLangContext";
 
 export default function FaqSection() {
+  const { t, isBn } = useLang();
   const [open, setOpen] = useState(0);
 
   const faqs = [
-    {
-      q: "আমি কিভাবে কোর্সে ভর্তি হব?",
-      a: "আমাদের যেকোন কোর্সে ভর্তি হলে Enroll বাটনে ক্লিক করুন এবং অনলাইনে ভর্তি হলে সরাসরি অফিসে যোগাযোগ করুন অথবা 01788-827474 এই নম্বরে কল করুন।"
-    },
-    { q: "আমি কি আমার কোর্সগুলো মোবাইল ডিভাইসে অ্যাক্সেস করতে পারব?", a: "হ্যাঁ, আপনি যেকোনো স্মার্টফোন থেকে আমাদের কোর্স অ্যাক্সেস করতে পারবেন।" },
-    { q: "আমি কতক্ষণ কোর্সে অংশগ্রহণ করতে পারব?", a: "কোর্সটি আপনার অ্যাকাউন্টে আজীবন থাকবে, আপনি যে কোনো সময় দেখতে পারবেন।" },
-    { q: "কোর্স চলাকালীন সাহায্যের প্রশ্নগুলির প্রয়োজন হলে?", a: "আমাদের ডেডিকেটেড লাইভ সাপোর্ট গ্রুপ আছে যেখানে আপনি যেকোনো সাহায্য পাবেন।" }
+    { q: t("faq_q1"), a: t("faq_a1") },
+    { q: t("faq_q2"), a: t("faq_a2") },
+    { q: t("faq_q3"), a: t("faq_a3") },
+    { q: t("faq_q4"), a: t("faq_a4") }
   ];
 
   return (
-    <section className="py-24 bg-white relative">
+    <section className="py-24 bg-white dark:bg-slate-950 relative">
       <div className="max-w-[1400px] mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
         
         {/* Left Side (Image) */}
@@ -33,18 +32,18 @@ export default function FaqSection() {
         </div>
 
         {/* Right Side (FAQ Accordion) */}
-        <div className="pt-8">
-          <div className="flex items-center gap-2 text-[#0f62fe] font-bold mb-4">
+        <div className={`pt-8 ${isBn ? "font-bn" : ""}`}>
+          <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold mb-4">
             <MessageCircleQuestion className="w-5 h-5" />
-            Frequently Asked Questions (FAQs)
+            {t("faq_tag")}
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-black text-slate-800 leading-[1.2] mb-6">
-            আপনার প্রশ্নের উত্তর খুঁজুন
+          <h2 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-white leading-[1.2] mb-6">
+            {t("faq_title")}
           </h2>
           
-          <p className="text-slate-500 leading-relaxed mb-10">
-            আমাদের প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী বিভাগে স্বাগতম! এখানে, আমরা আমাদের<br/>ব্যবহারকারীদের জিজ্ঞাসা করা কিছু সাধারণ প্রশ্নের উত্তর সংকলন করেছি।
+          <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-10">
+            {t("faq_desc1")}<br/>{t("faq_desc2")}
           </p>
 
           <div className="space-y-4">
@@ -53,16 +52,16 @@ export default function FaqSection() {
               return (
                 <div 
                   key={idx} 
-                  className={`border rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-[#0f62fe] border-[#0f62fe]' : 'bg-[#f8fafc] border-gray-100 hover:border-blue-200'}`}
+                  className={`border rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-blue-600 border-blue-600' : 'bg-slate-50 dark:bg-slate-900 border-gray-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-800'}`}
                 >
                   <button 
                     onClick={() => setOpen(isOpen ? -1 : idx)}
                     className="w-full text-left px-6 py-5 flex items-center justify-between"
                   >
-                    <span className={`font-bold text-lg ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+                    <span className={`font-bold text-lg ${isOpen ? 'text-white' : 'text-slate-800 dark:text-slate-200'}`}>
                       {faq.q}
                     </span>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${isOpen ? 'bg-white text-[#0f62fe]' : 'bg-[#0f62fe] text-white'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${isOpen ? 'bg-white text-blue-600' : 'bg-blue-600 text-white dark:bg-blue-900/50 dark:text-blue-200'}`}>
                       {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                     </div>
                   </button>

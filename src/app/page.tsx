@@ -26,18 +26,18 @@ export default function LandingPage() {
         <Stats />
         <Courses 
           id="online-courses"
-          title="আমাদের অনলাইন কোর্সসমূহ"
-          subtitle="অনলাইন কোর্স"
-          description="ঘরে বসে শিল্প-বিশেষজ্ঞদের গাইডেন্সে দক্ষতা অর্জন করুন এবং ক্যারিয়ার গড়ুন।"
+          title="courses_online_title"
+          subtitle="courses_online_sub"
+          description="courses_online_desc"
           courses={onlineCourses}
         />
         <Courses 
           id="offline-courses"
-          title="আমাদের অফলাইন কোর্সসমূহ"
-          subtitle="অফলাইন কোর্স"
-          description="হাতে-কলমে প্রশিক্ষণে প্রাকটিক্যাল লার্নিং এবং ক্যারিয়ার ডেভেলপমেন্ট করুন।"
+          title="courses_offline_title"
+          subtitle="courses_offline_sub"
+          description="courses_offline_desc"
           courses={offlineCourses}
-          backgroundColor="bg-white"
+          backgroundColor="bg-white dark:bg-slate-900"
         />
         <Features />
         <AboutSection />

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowRight, CheckCircle, PlayCircle, Users, BookOpen, Award, Star } from "lucide-react"
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import React, { useRef } from "react"
+import { useLang } from "@/context/GlobalLangContext"
 
 const highlights = [
   "অভিজ্ঞ ও প্রশিক্ষিত শিক্ষকমণ্ডলী",
@@ -12,10 +13,10 @@ const highlights = [
   "চাকরির সহায়তা প্রদান করা হয়",
 ]
 
-const floatingBadges = [
-  { icon: Users, value: "৫০০০+", label: "শিক্ষার্থী", color: "bg-blue-50 text-blue-700 border-blue-200 shadow-sm" },
-  { icon: Star, value: "৪.৯/৫", label: "রেটিং", color: "bg-amber-50 text-amber-700 border-amber-200 shadow-sm" },
-  { icon: Award, value: "১০০%", label: "সার্টিফিকেট", color: "bg-emerald-50 text-emerald-700 border-emerald-200 shadow-sm" },
+const getFloatingBadges = (t: any) => [
+  { icon: Users, value: "৫০০০+", label: t("hero_badge_students"), color: "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800 shadow-sm" },
+  { icon: Star, value: "৪.৯/৫", label: t("hero_badge_rating"), color: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800 shadow-sm" },
+  { icon: Award, value: "১০০%", label: t("hero_badge_cert"), color: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 shadow-sm" },
 ]
 
 const containerVariants = {
@@ -32,14 +33,17 @@ const itemVariants = {
 }
 
 export default function Hero() {
+  const { t, isBn } = useLang();
+  const floatingBadges = getFloatingBadges(t);
+
   return (
-    <section className="relative overflow-x-clip bg-white">
-      <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-white relative min-h-[100vh] pt-24 lg:pt-28 pb-64 lg:pb-96 flex flex-col justify-start">
+    <section className="relative overflow-x-clip bg-white dark:bg-slate-950">
+      <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative min-h-[100vh] pt-24 lg:pt-28 pb-64 lg:pb-96 flex flex-col justify-start">
         {/* Background pattern */}
         <div
-          className="absolute inset-0 opacity-[0.05]"
+          className="absolute inset-0 opacity-[0.05] dark:opacity-[0.1]"
           style={{
-            backgroundImage: `radial-gradient(circle, #0f172a 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
             backgroundSize: "32px 32px",
             maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
@@ -76,18 +80,18 @@ export default function Hero() {
             className="lg:col-span-6"
           >
             {/* Badge */}
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm text-blue-600 text-xs font-semibold px-4 py-1.5 rounded-full border border-blue-200 shadow-sm mb-6">
+            <motion.div variants={itemVariants} className={`inline-flex items-center gap-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-blue-600 dark:text-blue-400 text-xs font-semibold px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800/50 shadow-sm mb-6 ${isBn ? "font-bn" : ""}`}>
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
-              টেকহ্যাট কম্পিউটার ট্রেনিং সেন্টারে স্বাগতম
+              {t("hero_badge")}
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.2] mb-6">
-              কম্পিউটার শেখা হোক
+            <motion.h1 variants={itemVariants} className={`text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.2] mb-6 ${isBn ? "font-bn" : ""}`}>
+              {t("hero_title1")}
               <br />
               <span className="relative inline-block mt-2 w-max max-w-[100vw]">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_auto] animate-text-gradient text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[44px] whitespace-nowrap">
-                  সহজ, আধুনিক ও বাস্তবমুখী উপায়ে
+                  {t("hero_title2")}
                 </span>
                 <style>{`
                   @keyframes text-gradient {
@@ -121,29 +125,29 @@ export default function Hero() {
               </span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-slate-600 text-lg leading-relaxed mb-8 max-w-lg">
-              ভবিষ্যতের জন্য নিজেকে দক্ষ করে তুলুন। অভিজ্ঞ প্রশিক্ষকের তত্ত্বাবধানে হাতে-কলমে প্রশিক্ষণ নিয়ে গড়ে তুলুন আপনার সফল ক্যারিয়ার।
+            <motion.p variants={itemVariants} className={`text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-8 max-w-lg ${isBn ? "font-bn" : ""}`}>
+              {t("hero_desc1")}
               <br /><br />
-              <span className="font-semibold text-slate-800">আজই ভর্তি হন আপনার পছন্দের কোর্সে।</span>
+              <span className="font-semibold text-slate-800 dark:text-white">{t("hero_desc2")}</span>
             </motion.p>
 
 
 
             {/* CTA buttons */}
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
+            <motion.div variants={itemVariants} className={`flex flex-col sm:flex-row gap-4 ${isBn ? "font-bn" : ""}`}>
               <Link
                 href="#courses"
-                className="inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-md text-slate-700 font-semibold px-8 py-3.5 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-slate-50 transition-all duration-300 shadow-sm hover:shadow-md text-sm group"
+                className="inline-flex items-center justify-center gap-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-200 font-semibold px-8 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-500/50 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300 shadow-sm hover:shadow-md text-sm group"
               >
                 <PlayCircle className="w-4 h-4 text-blue-500 group-hover:scale-110 transition-transform" />
-                কোর্সসমূহ দেখুন
+                {t("hero_btn_courses")}
               </Link>
               <Link
                 href="/admission"
                 className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold px-8 py-3.5 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:-translate-y-1 text-sm overflow-hidden"
               >
                 <span className="absolute inset-0 w-full h-full -ml-10 bg-white/20 translate-x-[-100%] group-hover:animate-[shimmer_1.5s_infinite]" />
-                <span className="relative">ভর্তি হোন</span>
+                <span className="relative">{t("hero_btn_enroll")}</span>
                 <ArrowRight className="w-4 h-4 relative group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
@@ -169,14 +173,14 @@ export default function Hero() {
             <motion.div 
               animate={{ y: [-5, 5, -5] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-4 -right-4 bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-slate-200 px-4 py-2.5 flex items-center gap-2.5 z-20"
+              className={`absolute -top-4 -right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 flex items-center gap-2.5 z-20 ${isBn ? "font-bn" : ""}`}
             >
-              <div className="bg-indigo-100 p-1.5 rounded-lg">
-                <BookOpen className="w-4 h-4 text-indigo-600" />
+              <div className="bg-indigo-100 dark:bg-indigo-900/50 p-1.5 rounded-lg">
+                <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               </div>
               <div>
-                <p className="text-[10px] text-slate-500 font-medium">মোট কোর্স</p>
-                <p className="font-bold text-slate-900 text-sm leading-none">১৫+</p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{t("hero_total_courses")}</p>
+                <p className="font-bold text-slate-900 dark:text-white text-sm leading-none">১৫+</p>
               </div>
             </motion.div>
 
@@ -185,7 +189,7 @@ export default function Hero() {
                 key={badge.label}
                 animate={{ y: [-5, 5, -5] }}
                 transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-                className={`absolute hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-md text-xs font-bold z-20 ${badge.color}`}
+                className={`absolute hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-md text-xs font-bold z-20 ${badge.color} ${isBn ? "font-bn" : ""}`}
                 style={{
                   bottom: i === 0 ? "-16px" : i === 1 ? "40%" : undefined,
                   top: i === 2 ? "30%" : undefined,

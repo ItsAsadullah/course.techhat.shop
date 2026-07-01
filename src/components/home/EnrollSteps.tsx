@@ -3,55 +3,58 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import { ClipboardList, CreditCard, BookOpen, Award } from "lucide-react"
+import { useLang } from "@/context/GlobalLangContext"
 
-const steps = [
+const getSteps = (t: any) => [
   {
     id: 1,
-    intro: "ধাপ ০১",
-    emphasis: "ফর্ম পূরণ করুন",
-    desc: "অনলাইনে বা সরাসরি অফিসে এসে ভর্তির আবেদন ফর্ম পূরণ করুন।",
+    intro: t("en_s1_i"),
+    emphasis: t("en_s1_e"),
+    desc: t("en_s1_d"),
     icon: ClipboardList,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
-    border: "border-blue-200",
+    color: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-50 dark:bg-blue-900/30",
+    border: "border-blue-200 dark:border-blue-800",
     iconPos: "left",
   },
   {
     id: 2,
-    intro: "ধাপ ০২",
-    emphasis: "ফি পরিশোধ করুন",
-    desc: "ভর্তি ফি ও প্রথম মাসের বেতন পরিশোধ করুন। রসিদ সংগ্রহ করুন।",
+    intro: t("en_s2_i"),
+    emphasis: t("en_s2_e"),
+    desc: t("en_s2_d"),
     icon: CreditCard,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
+    color: "text-emerald-600 dark:text-emerald-400",
+    bg: "bg-emerald-50 dark:bg-emerald-900/30",
+    border: "border-emerald-200 dark:border-emerald-800",
     iconPos: "right",
   },
   {
     id: 3,
-    intro: "ধাপ ০৩",
-    emphasis: "ক্লাস শুরু করুন",
-    desc: "ব্যাচ ও শিফট অনুযায়ী ক্লাসে যোগ দিন। হাতে-কলমে শিখুন।",
+    intro: t("en_s3_i"),
+    emphasis: t("en_s3_e"),
+    desc: t("en_s3_d"),
     icon: BookOpen,
-    color: "text-amber-600",
-    bg: "bg-amber-50",
-    border: "border-amber-200",
+    color: "text-amber-600 dark:text-amber-400",
+    bg: "bg-amber-50 dark:bg-amber-900/30",
+    border: "border-amber-200 dark:border-amber-800",
     iconPos: "left",
   },
   {
     id: 4,
-    intro: "ধাপ ০৪",
-    emphasis: "সার্টিফিকেট নিন",
-    desc: "কোর্স সফলভাবে সম্পন্ন করলে সরকার অনুমোদিত সার্টিফিকেট পাবেন।",
+    intro: t("en_s4_i"),
+    emphasis: t("en_s4_e"),
+    desc: t("en_s4_d"),
     icon: Award,
-    color: "text-violet-600",
-    bg: "bg-violet-50",
-    border: "border-violet-200",
+    color: "text-violet-600 dark:text-violet-400",
+    bg: "bg-violet-50 dark:bg-violet-900/30",
+    border: "border-violet-200 dark:border-violet-800",
     iconPos: "center",
   },
 ]
 
 export default function EnrollSteps() {
+  const { t, isBn } = useLang()
+  const steps = getSteps(t)
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -72,23 +75,23 @@ export default function EnrollSteps() {
   const svgPath = "M 420 0 L 420 10 Q 420 30 440 30 L 708 30 Q 728 30 728 50 L 728 200 Q 728 220 708 220 L 132 220 Q 112 220 112 240 L 112 400 Q 112 420 132 420 L 708 420 Q 728 420 728 440 L 728 600 Q 728 620 708 620 L 440 620 Q 420 620 420 640 L 420 740";
 
   return (
-    <section id="enroll-steps" className="pt-20 pb-24 bg-white relative z-10 overflow-hidden border-t border-slate-100" ref={containerRef}>
+    <section id="enroll-steps" className="pt-20 pb-24 bg-white dark:bg-slate-950 relative z-10 overflow-hidden border-t border-slate-100 dark:border-slate-800/50" ref={containerRef}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative">
-        <div className="text-center mb-16 relative z-20">
+        <div className={`text-center mb-16 relative z-20 ${isBn ? "font-bn" : ""}`}>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             className="text-center mb-14"
           >
-            <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">
-              ভর্তি প্রক্রিয়া
+            <p className="text-blue-600 dark:text-blue-400 font-semibold text-sm uppercase tracking-widest mb-3">
+              {t("en_tag")}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              মাত্র ৪টি ধাপে ভর্তি সম্পন্ন
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              {t("en_title")}
             </h2>
-            <p className="text-slate-600 max-w-xl mx-auto">
-              ভর্তি প্রক্রিয়া সম্পূর্ণ সহজ ও ঝামেলামুক্ত। অনলাইনেও আবেদন করা যায়।
+            <p className="text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
+              {t("en_desc")}
             </p>
           </motion.div>
         </div>
@@ -103,11 +106,10 @@ export default function EnrollSteps() {
             >
               <path 
                 d={svgPath}
-                stroke="#f1f5f9" 
+                className="stroke-slate-100 dark:stroke-slate-800 animate-dash" 
                 strokeWidth="4" 
                 strokeDasharray="8 10" 
                 strokeLinecap="round" 
-                className="animate-dash"
               />
               <style>{`
                 @keyframes dash-move {
@@ -142,7 +144,7 @@ export default function EnrollSteps() {
                   offsetRotate: "auto",
                 }}
               >
-                <circle cx="0" cy="0" r="16" fill="white" stroke="#3b82f6" strokeWidth="2" />
+                <circle cx="0" cy="0" r="16" className="fill-white dark:fill-slate-900 stroke-blue-500" strokeWidth="2" />
                 <motion.g 
                   style={{ transformOrigin: "0px 0px" }}
                 >
@@ -160,6 +162,7 @@ export default function EnrollSteps() {
               step={step} 
               idx={idx} 
               pathLength={pathLength} 
+              isBn={isBn}
             />
           ))}
         </div>
@@ -174,14 +177,14 @@ export default function EnrollSteps() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="w-full max-w-sm relative"
             >
-              <div className={`w-full flex ${step.iconPos === 'center' ? 'flex-col text-center pt-8' : 'flex-row'} items-center gap-4 bg-white border ${step.border} rounded-2xl p-5 shadow-sm relative z-20`}>
-                <div className={`w-12 h-12 rounded-xl ${step.bg} border ${step.border} flex items-center justify-center flex-shrink-0 ${step.iconPos === 'center' ? 'absolute -top-6 left-1/2 -translate-x-1/2' : ''}`}>
+              <div className={`w-full flex ${step.iconPos === 'center' ? 'flex-col text-center pt-8' : 'flex-row'} items-center gap-4 bg-white dark:bg-slate-900 border ${step.border} rounded-2xl p-5 shadow-sm relative z-20 ${isBn ? "font-bn" : ""}`}>
+                <div className={`w-12 h-12 rounded-xl ${step.bg} border ${step.border} flex items-center justify-center flex-shrink-0 ${step.iconPos === 'center' ? 'absolute -top-6 left-1/2 -translate-x-1/2' : ''} bg-white dark:bg-slate-900`}>
                   <step.icon className={`w-6 h-6 ${step.color}`} />
                 </div>
                 <div className={`flex-1 ${step.iconPos === 'center' ? '' : 'text-left'}`}>
-                  <p className="text-slate-500 text-xs font-medium mb-1">{step.intro}</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">{step.intro}</p>
                   <h3 className={`text-base font-bold ${step.color} leading-tight`}>{step.emphasis}</h3>
-                  <p className="text-slate-600 text-xs mt-1 leading-relaxed">{step.desc}</p>
+                  <p className="text-slate-600 dark:text-slate-300 text-xs mt-1 leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             </motion.div>
@@ -193,14 +196,13 @@ export default function EnrollSteps() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: false }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-14 max-w-2xl mx-auto bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-start gap-4 shadow-sm backdrop-blur-sm relative z-20"
+          className={`mt-14 max-w-2xl mx-auto bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl p-5 flex items-start gap-4 shadow-sm backdrop-blur-sm relative z-20 ${isBn ? "font-bn" : ""}`}
         >
           <span className="text-2xl flex-shrink-0">📌</span>
           <div className="text-left">
-            <p className="font-semibold text-amber-700 text-sm mb-1">ভর্তিতে যা যা লাগবে</p>
-            <p className="text-amber-900 text-sm leading-relaxed">
-              ১ কপি পাসপোর্ট সাইজ ছবি &nbsp;|&nbsp; জাতীয় পরিচয়পত্র / জন্ম সনদ-এর ফটোকপি &nbsp;|&nbsp;
-              সর্বশেষ শিক্ষাগত সনদের ফটোকপি &nbsp;|&nbsp; ভর্তি ফি ৫০০ টাকা (নগদ বা বিকাশে)
+            <p className="font-semibold text-amber-700 dark:text-amber-400 text-sm mb-1">{t("en_req_title")}</p>
+            <p className="text-amber-900 dark:text-amber-200/80 text-sm leading-relaxed">
+              {t("en_req_desc")}
             </p>
           </div>
         </motion.div>
@@ -209,7 +211,7 @@ export default function EnrollSteps() {
   )
 }
 
-function StepCardDesktop({ step, idx, pathLength }: { step: any, idx: number, pathLength: any }) {
+function StepCardDesktop({ step, idx, pathLength, isBn }: { step: any, idx: number, pathLength: any, isBn: boolean }) {
   const thresholds = [
     [0.00, 0.10],
     [0.30, 0.45],
@@ -229,26 +231,26 @@ function StepCardDesktop({ step, idx, pathLength }: { step: any, idx: number, pa
   return (
     <motion.div
       style={{ top: `${y}px`, opacity, filter, y: yOffset }}
-      className="absolute w-full max-w-xl left-1/2 -translate-x-1/2 min-h-[120px]"
+      className={`absolute w-full max-w-xl left-1/2 -translate-x-1/2 min-h-[120px] ${isBn ? "font-bn" : ""}`}
     >
       <div className={`w-full h-full flex ${
         isCenter ? "flex-col text-center pt-8 pb-5 px-6" :
         isRight ? "flex-row-reverse text-right pr-6 pl-2" : 
         "flex-row text-left pl-6 pr-2"
-      } items-center bg-white border ${step.border} rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow relative z-20`}>
+      } items-center bg-white dark:bg-slate-900 border ${step.border} rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] transition-shadow relative z-20`}>
         
         <div className={`w-14 h-14 rounded-2xl ${step.bg} border ${step.border} flex items-center justify-center flex-shrink-0 absolute ${
           isCenter ? "left-1/2 -translate-x-1/2 -top-12" :
           isRight ? "-right-12" : 
           "-left-12"
-        } bg-white shadow-sm`}>
+        } bg-white dark:bg-slate-900 shadow-sm`}>
           <step.icon className={`w-7 h-7 ${step.color}`} />
         </div>
         
         <div className={`flex-1 w-full ${isCenter ? 'mt-2' : ''}`}>
-          <p className="text-slate-500 text-sm font-medium mb-1">{step.intro}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">{step.intro}</p>
           <h3 className={`text-xl font-bold ${step.color} leading-tight`}>{step.emphasis}</h3>
-          <p className="text-slate-600 text-sm mt-1.5 leading-relaxed">{step.desc}</p>
+          <p className="text-slate-600 dark:text-slate-300 text-sm mt-1.5 leading-relaxed">{step.desc}</p>
         </div>
       </div>
     </motion.div>

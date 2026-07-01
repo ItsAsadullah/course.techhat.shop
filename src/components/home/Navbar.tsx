@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
+import { useRouter, usePathname } from "next/navigation"
 import { Menu, X, GraduationCap, Phone, ChevronDown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import NavControls from "@/components/ui/NavControls"
@@ -15,6 +17,8 @@ const navLinks: NavLink[] = [
 ]
 
 export default function Navbar() {
+  const router = useRouter()
+  const pathname = usePathname()
   const { t, isBn } = useLang();
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -28,13 +32,22 @@ export default function Navbar() {
   }, [])
 
   const scrollToSection = (id: string) => {
+    setIsOpen(false)
+    setCoursesDropdownOpen(false)
+    setSoftwareDropdownOpen(false)
+
+    if (pathname !== "/") {
+      router.push("/#" + id)
+      return
+    }
+
+    // Update URL hash without causing a page jump
+    window.history.pushState(null, "", "/#" + id)
+
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
     }
-    setIsOpen(false)
-    setCoursesDropdownOpen(false)
-    setSoftwareDropdownOpen(false)
   }
 
   return (
@@ -54,7 +67,7 @@ export default function Navbar() {
       </div>
 
       {/* Floating Glass Nav */}
-      <div className={`w-full max-w-6xl transition-all duration-500 pointer-events-auto ${scrolled ? "px-4 sm:px-6 pt-4" : "px-0 pt-0"
+      <div className={`w-full max-w-[1440px] transition-all duration-500 pointer-events-auto ${scrolled ? "px-4 sm:px-6 pt-4" : "px-0 pt-0"
         }`}>
         <nav
           className={`relative mx-auto transition-all duration-500 rounded-full px-4 sm:px-6 hover:bg-white/40 hover:backdrop-blur-[40px] hover:border-white/80 hover:shadow-[inset_0_1px_3px_rgba(255,255,255,1),inset_0_-1px_3px_rgba(255,255,255,0.4),0_10px_40px_rgba(0,0,0,0.15)] ${scrolled
@@ -80,12 +93,12 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop nav */}
-            <div className="hidden lg:flex items-center gap-2">
+            <div className="hidden xl:flex items-center gap-1">
               {/* Courses Dropdown */}
               <div className="relative">
                 <button
                   onClick={() => setCoursesDropdownOpen(!coursesDropdownOpen)}
-                  className="text-slate-700 hover:text-blue-600 text-base font-medium px-4 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 flex items-center gap-1"
+                  className="text-slate-700 hover:text-blue-600 text-[15px] font-medium px-2.5 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 flex items-center gap-1"
                 >
                   <span className={isBn ? "font-bn" : ""}>{t("nav_courses")}</span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${coursesDropdownOpen ? "rotate-180" : ""}`} />
@@ -116,7 +129,7 @@ export default function Navbar() {
                     setSoftwareDropdownOpen(!softwareDropdownOpen);
                     setCoursesDropdownOpen(false);
                   }}
-                  className="text-slate-700 hover:text-blue-600 text-base font-medium px-4 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 flex items-center gap-1"
+                  className="text-slate-700 hover:text-blue-600 text-[15px] font-medium px-2.5 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 flex items-center gap-1"
                 >
                   <span className={isBn ? "font-bn" : ""}>{t("nav_software")}</span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${softwareDropdownOpen ? "rotate-180" : ""}`} />
@@ -141,7 +154,7 @@ export default function Navbar() {
                     <button
                       key={link.id}
                       onClick={() => scrollToSection(link.id!)}
-                      className={`text-slate-700 hover:text-blue-600 text-base font-medium px-4 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 ${isBn ? "font-bn" : ""}`}
+                      className={`text-slate-700 hover:text-blue-600 text-[15px] font-medium px-2.5 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 ${isBn ? "font-bn" : ""}`}
                     >
                       {t(link.tKey as any)}
                     </button>
@@ -152,7 +165,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`text-slate-700 hover:text-blue-600 text-base font-medium px-4 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 ${isBn ? "font-bn" : ""}`}
+                    className={`text-slate-700 hover:text-blue-600 text-[15px] font-medium px-2.5 py-2 rounded-full transition-all duration-150 hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.05)] border border-transparent hover:border-white/50 ${isBn ? "font-bn" : ""}`}
                   >
                     {t(link.tKey as any)}
                   </Link>
@@ -161,23 +174,23 @@ export default function Navbar() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-1.5">
               <NavControls />
               <Link
                 href="/login"
-                className={`text-base text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white font-medium px-4 py-2 rounded-full hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors ${isBn ? "font-bn" : ""}`}
+                className={`text-[15px] text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white font-medium px-2.5 py-2 rounded-full hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors ${isBn ? "font-bn" : ""}`}
               >
                 {t("nav_login")}
               </Link>
               <Link
                 href="/register"
-                className={`text-base text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-semibold px-6 py-2.5 rounded-full transition-all shadow-md ${isBn ? "font-bn" : ""}`}
+                className={`text-[15px] text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-semibold px-4 py-2 rounded-full transition-all shadow-md ${isBn ? "font-bn" : ""}`}
               >
                 {t("nav_register")}
               </Link>
               <Link
                 href="/admission"
-                className="relative group bg-slate-900 text-white text-base font-semibold px-6 py-2.5 rounded-full overflow-hidden shadow-md"
+                className="relative group bg-slate-900 text-white text-[15px] font-semibold px-4 py-2 rounded-full overflow-hidden shadow-md"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-80 group-hover:opacity-100 transition-opacity" />
                 <span className="relative flex items-center gap-2">
@@ -187,7 +200,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile toggle & controls */}
-            <div className="flex items-center gap-3 lg:hidden">
+            <div className="flex items-center gap-3 xl:hidden">
               <NavControls />
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -207,7 +220,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-[calc(100%+0.5rem)] inset-x-0 mx-auto w-full lg:hidden bg-white/80 backdrop-blur-2xl border border-white/60 shadow-[0_10px_40px_rgba(0,0,0,0.1)] rounded-3xl overflow-hidden"
+                className="absolute top-[calc(100%+0.5rem)] inset-x-0 mx-auto w-full xl:hidden bg-white/80 backdrop-blur-2xl border border-white/60 shadow-[0_10px_40px_rgba(0,0,0,0.1)] rounded-3xl overflow-hidden"
               >
                 <div className="py-4 px-4 space-y-1">
                   {/* Mobile Courses Links */}
