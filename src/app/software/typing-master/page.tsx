@@ -18,6 +18,8 @@ import {
   Star,
 } from "lucide-react";
 import { useLang } from "@/context/GlobalLangContext";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 // ─── Typing animation demo ─────────────────────────────────────────────────
 
@@ -258,6 +260,8 @@ export default function TypingMasterLandingPage() {
   const STEPS = getSteps(t);
 
   return (
+    <>
+    <Navbar />
     <div
       className={`min-h-screen overflow-x-hidden pt-16 transition-colors duration-300 ${
         isDark ? "bg-slate-950 text-white" : "bg-slate-50 text-slate-900"
@@ -543,5 +547,7 @@ export default function TypingMasterLandingPage() {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 }

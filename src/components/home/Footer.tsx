@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { GraduationCap, MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react"
 import { useLang } from "@/context/GlobalLangContext"
