@@ -17,8 +17,7 @@ import {
   TrendingUp,
   Star,
 } from "lucide-react";
-import Navbar from "@/components/home/Navbar";
-import Footer from "@/components/home/Footer";
+import { useLang } from "@/context/GlobalLangContext";
 
 // ─── Typing animation demo ─────────────────────────────────────────────────
 
@@ -177,11 +176,11 @@ function TypingDemo() {
 
 // ─── Features ─────────────────────────────────────────────────────────────
 
-const FEATURES = [
+const getFeatures = (t: any) => [
   {
     icon:     BookOpen,
-    title:    "কাঠামোগত পাঠ",
-    desc:     "হোম রো কী থেকে শুরু করে ধাপে ধাপে শিখুন — নতুন থেকে অ্যাডভান্সড পর্যন্ত।",
+    title:    t("tm_f1_t"),
+    desc:     t("tm_f1_d"),
     color:    "text-emerald-400",
     bg:       "bg-emerald-500/10",
     border:   "border-emerald-500/20",
@@ -189,8 +188,8 @@ const FEATURES = [
   },
   {
     icon:     Timer,
-    title:    "স্পিড টেস্ট",
-    desc:     "১, ৩ বা ৫ মিনিটের টেস্ট নিন। সময়ের সাথে WPM এবং নির্ভুলতা ট্র্যাক করুন।",
+    title:    t("tm_f2_t"),
+    desc:     t("tm_f2_d"),
     color:    "text-blue-400",
     bg:       "bg-blue-500/10",
     border:   "border-blue-500/20",
@@ -198,8 +197,8 @@ const FEATURES = [
   },
   {
     icon:     Gamepad2,
-    title:    "টাইপিং গেমস",
-    desc:     "পড়ন্ত শব্দের গেমে বিরক্তি দূর করুন। অনুশীলনকে মজাদার করুন।",
+    title:    t("tm_f3_t"),
+    desc:     t("tm_f3_d"),
     color:    "text-violet-400",
     bg:       "bg-violet-500/10",
     border:   "border-violet-500/20",
@@ -207,8 +206,8 @@ const FEATURES = [
   },
   {
     icon:     BarChart3,
-    title:    "অগ্রগতি বিশ্লেষণ",
-    desc:     "স্পিড ইতিহাস, নির্ভুলতার ট্রেন্ড এবং ব্যক্তিগত রেকর্ড এক নজরে দেখুন।",
+    title:    t("tm_f4_t"),
+    desc:     t("tm_f4_d"),
     color:    "text-amber-400",
     bg:       "bg-amber-500/10",
     border:   "border-amber-500/20",
@@ -218,28 +217,28 @@ const FEATURES = [
 
 // ─── Steps ─────────────────────────────────────────────────────────────────
 
-const STEPS = [
+const getSteps = (t: any) => [
   {
     num:      "01",
     icon:     Star,
-    title:    "বিনামূল্যে অ্যাকাউন্ট তৈরি করুন",
-    desc:     "কয়েক সেকেন্ডে সাইন আপ করুন — কোনো ক্রেডিট কার্ড লাগবে না।",
+    title:    t("tm_s1_t"),
+    desc:     t("tm_s1_d"),
     color:    "text-emerald-400",
     ring:     "ring-emerald-500/30",
   },
   {
     num:      "02",
     icon:     Target,
-    title:    "আপনার শেখার পথ বেছে নিন",
-    desc:     "কাঠামোগত পাঠ, বিনামূল্যে অনুশীলন, বা দ্রুত স্পিড টেস্ট থেকে বেছে নিন।",
+    title:    t("tm_s2_t"),
+    desc:     t("tm_s2_d"),
     color:    "text-blue-400",
     ring:     "ring-blue-500/30",
   },
   {
     num:      "03",
     icon:     TrendingUp,
-    title:    "আপনার অগ্রগতি ট্র্যাক করুন",
-    desc:     "পেশীর স্মৃতি ও নির্ভুলতা বাড়ানোর সাথে সাথে WPM বাড়তে দেখুন।",
+    title:    t("tm_s3_t"),
+    desc:     t("tm_s3_d"),
     color:    "text-violet-400",
     ring:     "ring-violet-500/30",
   },
@@ -250,13 +249,15 @@ const STEPS = [
 
 export default function TypingMasterLandingPage() {
   const { theme } = useTheme();
+  const { t, isBn } = useLang();
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
   const isDark = !mounted || theme === "dark";
+  
+  const FEATURES = getFeatures(t);
+  const STEPS = getSteps(t);
 
   return (
-    <>
-    <Navbar />
     <div
       className={`min-h-screen overflow-x-hidden pt-16 transition-colors duration-300 ${
         isDark ? "bg-slate-950 text-white" : "bg-slate-50 text-slate-900"
@@ -277,28 +278,28 @@ export default function TypingMasterLandingPage() {
       <section className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-24 lg:pt-28 lg:pb-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-medium mb-6">
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-medium mb-6 ${isBn ? "font-bn" : ""}`}>
               <Zap className="w-3.5 h-3.5" />
-              <span className="font-bn">বিনামূল্যে দ্বিভাষিক টাইপিং টিউটর</span>
+              <span>{t("tm_badge")}</span>
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mb-6 font-bn">
-              টাইপিং আয়ত্ত করুন{" "}
+            <h1 className={`text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mb-6 ${isBn ? "font-bn" : ""}`}>
+              {t("tm_title1")}
               <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                বিদ্যুৎ গতিতে
+                {t("tm_title2")}
               </span>
             </h1>
 
-            <p className={`text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8 ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>
-              বাংলা (বিজয় ও অভ্র) এবং ইংরেজি টাইপিং শিখুন — কাঠামোগত পাঠ, রিয়েল-টাইম স্পিড টেস্ট এবং মজাদার গেমস দিয়ে।
+            <p className={`text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8 ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>
+              {t("tm_desc")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-10">
               <Link
                 href="#"
-                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-white font-semibold text-[15px] hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/25 hover:scale-[1.02]"
+                className={`group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-white font-semibold text-[15px] hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/25 hover:scale-[1.02] ${isBn ? "font-bn" : ""}`}
               >
-                <span className="font-bn">বিনামূল্যে শুরু করুন</span>
+                <span>{t("tm_btn_start")}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <button
@@ -306,19 +307,19 @@ export default function TypingMasterLandingPage() {
                   isDark
                     ? "bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700"
                     : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 shadow-sm"
-                }`}
+                } ${isBn ? "font-bn" : ""}`}
               >
-                <span className="font-bn">সাইনইন ছাড়াই শুরু করুন (গেস্ট মোড)</span>
+                <span>{t("tm_btn_guest")}</span>
               </button>
             </div>
 
             <ul className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start text-sm">
               {[
-                "কোনো ক্রেডিট কার্ড লাগবে না",
-                "বিনামূল্যে চিরতরে",
-                "সব ডিভাইসে কাজ করে"
+                t("tm_check1"),
+                t("tm_check2"),
+                t("tm_check3")
               ].map((text) => (
-                <li key={text} className={`flex items-center gap-1.5 ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>
+                <li key={text} className={`flex items-center gap-1.5 ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                   {text}
                 </li>
@@ -340,14 +341,14 @@ export default function TypingMasterLandingPage() {
       >
         <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { value: "10,000+", label: "সক্রিয় শিক্ষার্থী" },
-            { value: "50 WPM",  label: "গড় উন্নতি" },
-            { value: "99%",     label: "আপটাইম" },
-            { value: "2 langs", label: "বাংলা ও ইংরেজি" },
+            { value: "10,000+", label: t("tm_stat1") },
+            { value: "50 WPM",  label: t("tm_stat2") },
+            { value: "99%",     label: t("tm_stat3") },
+            { value: "2 langs", label: t("tm_stat4") },
           ].map(({ value, label }) => (
             <div key={label}>
               <p className="text-3xl font-extrabold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">{value}</p>
-              <p className={`text-sm mt-0.5 ${isDark ? "text-slate-500" : "text-slate-500"} font-bn`}>{label}</p>
+              <p className={`text-sm mt-0.5 ${isDark ? "text-slate-500" : "text-slate-500"} ${isBn ? "font-bn" : ""}`}>{label}</p>
             </div>
           ))}
         </div>
@@ -355,15 +356,15 @@ export default function TypingMasterLandingPage() {
 
       <section id="features" className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         <div className="text-center mb-14">
-          <p className="text-emerald-400 text-sm font-semibold uppercase tracking-widest mb-3 font-bn">আপনার যা দরকার</p>
-          <h2 className="text-4xl font-extrabold font-bn">
-            একটি প্ল্যাটফর্মে,{" "}
+          <p className={`text-emerald-400 text-sm font-semibold uppercase tracking-widest mb-3 ${isBn ? "font-bn" : ""}`}>{t("tm_feat_tag")}</p>
+          <h2 className={`text-4xl font-extrabold ${isBn ? "font-bn" : ""}`}>
+            {t("tm_feat_title1")}
             <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-              সম্পূর্ণ টাইপিং দক্ষতা
+              {t("tm_feat_title2")}
             </span>
           </h2>
-          <p className={`mt-4 max-w-xl mx-auto ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>
-            প্রথম পাঠ থেকে ১০০+ WPM পর্যন্ত — সব কিছু এখানেই আছে।
+          <p className={`mt-4 max-w-xl mx-auto ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>
+            {t("tm_feat_desc")}
           </p>
         </div>
 
@@ -379,10 +380,10 @@ export default function TypingMasterLandingPage() {
               <div className={`inline-flex items-center justify-center w-11 h-11 rounded-xl ${bg} border ${border} ${color} mb-4`}>
                 <Icon className="w-5 h-5" strokeWidth={1.75} />
               </div>
-              <h3 className={`font-semibold text-base mb-2 ${isDark ? "text-white" : "text-slate-900"} font-bn`}>{title}</h3>
-              <p className={`text-sm leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>{desc}</p>
-              <div className={`mt-4 inline-flex items-center gap-1 text-xs ${color} font-medium opacity-0 group-hover:opacity-100 transition-opacity`}>
-                দেখুন <ArrowRight className="w-3 h-3" />
+              <h3 className={`font-semibold text-base mb-2 ${isDark ? "text-white" : "text-slate-900"} ${isBn ? "font-bn" : ""}`}>{title}</h3>
+              <p className={`text-sm leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>{desc}</p>
+              <div className={`mt-4 inline-flex items-center gap-1 text-xs ${color} font-medium opacity-0 group-hover:opacity-100 transition-opacity ${isBn ? "font-bn" : ""}`}>
+                {t("tm_view")} <ArrowRight className="w-3 h-3" />
               </div>
             </Link>
           ))}
@@ -397,8 +398,8 @@ export default function TypingMasterLandingPage() {
       >
         <div className="max-w-7xl mx-auto px-6 py-24">
           <div className="text-center mb-14">
-            <p className="text-emerald-400 text-sm font-semibold uppercase tracking-widest mb-3 font-bn">সহজ প্রক্রিয়া</p>
-            <h2 className={`text-4xl font-extrabold ${isDark ? "" : "text-slate-900"} font-bn`}>মিনিটেই শুরু করুন</h2>
+            <p className={`text-emerald-400 text-sm font-semibold uppercase tracking-widest mb-3 ${isBn ? "font-bn" : ""}`}>{t("tm_step_tag")}</p>
+            <h2 className={`text-4xl font-extrabold ${isDark ? "" : "text-slate-900"} ${isBn ? "font-bn" : ""}`}>{t("tm_step_title")}</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -414,12 +415,12 @@ export default function TypingMasterLandingPage() {
                 <div
                   className={`inline-block text-xs font-bold ${color} mb-2 px-2 py-0.5 rounded-full border ${
                     isDark ? "bg-slate-800 border-slate-700" : "bg-slate-100 border-slate-200"
-                  } font-bn`}
+                  } font-mono`}
                 >
-                  ধাপ {num}
+                  {isBn ? "ধাপ" : "STEP"} {num}
                 </div>
-                <h3 className={`font-semibold text-lg mb-2 ${isDark ? "text-white" : "text-slate-900"} font-bn`}>{title}</h3>
-                <p className={`text-sm leading-relaxed max-w-xs mx-auto ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>{desc}</p>
+                <h3 className={`font-semibold text-lg mb-2 ${isDark ? "text-white" : "text-slate-900"} ${isBn ? "font-bn" : ""}`}>{title}</h3>
+                <p className={`text-sm leading-relaxed max-w-xs mx-auto ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>{desc}</p>
               </div>
             ))}
           </div>
@@ -429,26 +430,26 @@ export default function TypingMasterLandingPage() {
       <section id="languages" className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-medium mb-5">
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-medium mb-5 ${isBn ? "font-bn" : ""}`}>
               <Globe className="w-3.5 h-3.5" />
-              <span className="font-bn">দ্বিভাষিক সমর্থন</span>
+              <span>{t("tm_lang_tag")}</span>
             </div>
-            <h2 className="text-4xl font-extrabold mb-4 leading-tight font-bn">
-              টাইপ করুন{" "}
+            <h2 className={`text-4xl font-extrabold mb-4 leading-tight ${isBn ? "font-bn" : ""}`}>
+              {t("tm_lang_title1")}
               <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-                বাংলা ও ইংরেজিতে
+                {t("tm_lang_title2")}
               </span>
             </h2>
-            <p className={`text-lg leading-relaxed mb-6 ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>
-              বাংলাদেশি শিক্ষার্থীদের জন্য তৈরি একমাত্র টাইপিং টিউটর। বিজয় ও অভ্র কীবোর্ড লেআউট এবং ইংরেজি শিখুন।
+            <p className={`text-lg leading-relaxed mb-6 ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>
+              {t("tm_lang_desc")}
             </p>
             <ul className="space-y-3">
               {[
-                "বিজয় কীবোর্ড লেআউট",
-                "অভ্র কীবোর্ড লেআউট",
-                "ইংরেজি QWERTY / টাচ টাইপিং"
+                t("tm_l1"),
+                t("tm_l2"),
+                t("tm_l3")
               ].map((text) => (
-                <li key={text} className={`flex items-center gap-3 text-[15px] ${isDark ? "text-slate-300" : "text-slate-700"} font-bn`}>
+                <li key={text} className={`flex items-center gap-3 text-[15px] ${isDark ? "text-slate-300" : "text-slate-700"} ${isBn ? "font-bn" : ""}`}>
                   <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
                   {text}
                 </li>
@@ -462,7 +463,7 @@ export default function TypingMasterLandingPage() {
                 flag:   "🇧🇩",
                 lang:   "বাংলা",
                 sub:    "Bangla",
-                items:  ["Bijoy কীবোর্ড", "Avro ফোনেটিক", "ইউনিকোড সাপোর্ট"],
+                items:  [t("tm_b1"), t("tm_b2"), t("tm_b3")],
                 color:  "text-emerald-400",
                 bullet: "bg-emerald-500",
                 border: "border-emerald-500/20",
@@ -472,7 +473,7 @@ export default function TypingMasterLandingPage() {
                 flag:   "🇬🇧",
                 lang:   "English",
                 sub:    "International",
-                items:  ["QWERTY layout", "Touch typing", "10-finger method"],
+                items:  [t("tm_l3"), "Touch typing", "10-finger method"],
                 color:  "text-blue-400",
                 bullet: "bg-blue-500",
                 border: "border-blue-500/20",
@@ -481,11 +482,11 @@ export default function TypingMasterLandingPage() {
             ].map(({ flag, lang: langName, sub, items, color, bullet, border, bg }) => (
               <div key={langName} className={`rounded-2xl ${bg} border ${border} p-6`}>
                 <div className="text-4xl mb-3">{flag}</div>
-                <h3 className={`font-bold text-xl mb-0.5 ${color} font-bn`}>{langName}</h3>
+                <h3 className={`font-bold text-xl mb-0.5 ${color} ${isBn ? "font-bn" : ""}`}>{langName}</h3>
                 <p className={`text-xs mb-4 ${isDark ? "text-slate-500" : "text-slate-500"}`}>{sub}</p>
                 <ul className="space-y-2">
                   {items.map((item) => (
-                    <li key={item} className={`flex items-center gap-2 text-sm ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>
+                    <li key={item} className={`flex items-center gap-2 text-sm ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${bullet} shrink-0`} />
                       {item}
                     </li>
@@ -512,37 +513,35 @@ export default function TypingMasterLandingPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500 shadow-xl shadow-emerald-500/30 mb-6 mx-auto">
               <Keyboard className="w-8 h-8 text-white" strokeWidth={1.75} />
             </div>
-            <h2 className="text-4xl lg:text-5xl font-extrabold mb-4 font-bn">
-              দ্রুত টাইপ করতে{" "}
-              <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">প্রস্তুত?</span>
+            <h2 className={`text-4xl lg:text-5xl font-extrabold mb-4 ${isBn ? "font-bn" : ""}`}>
+              {t("tm_cta_title1")}
+              <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">{t("tm_cta_title2")}</span>
             </h2>
-            <p className={`text-lg max-w-md mx-auto mb-8 ${isDark ? "text-slate-400" : "text-slate-600"} font-bn`}>
-              হাজার হাজার শিক্ষার্থী এই প্ল্যাটফর্ম দিয়ে তাদের টাইপিং গতি উন্নত করেছেন।
+            <p className={`text-lg max-w-md mx-auto mb-8 ${isDark ? "text-slate-400" : "text-slate-600"} ${isBn ? "font-bn" : ""}`}>
+              {t("tm_cta_desc")}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="#"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-emerald-500 text-white font-semibold text-base hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/25 hover:scale-[1.02]"
+                className={`group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-emerald-500 text-white font-semibold text-base hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/25 hover:scale-[1.02] ${isBn ? "font-bn" : ""}`}
               >
-                <span className="font-bn">বিনামূল্যে অ্যাকাউন্ট তৈরি করুন</span>
+                <span>{t("tm_s1_t")}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
-                href="#"
+                href="/login"
                 className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all ${
                   isDark
                     ? "bg-slate-800/80 text-slate-200 border border-slate-700 hover:bg-slate-700"
                     : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 shadow-sm"
-                }`}
+                } ${isBn ? "font-bn" : ""}`}
               >
-                <span className="font-bn">সাইন ইন</span>
+                <span>{t("nav_login")}</span>
               </Link>
             </div>
           </div>
         </div>
       </section>
     </div>
-    <Footer />
-    </>
   );
 }
