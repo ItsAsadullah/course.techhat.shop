@@ -43,10 +43,10 @@ export default async function AdminLayout({
         {!user ? (
           <>{children}</>
         ) : (
-          <>
+          <div className="flex flex-col h-[100dvh] overflow-hidden bg-admin-background">
             <MobileNav />
             <div 
-              className="flex h-screen overflow-hidden" 
+              className="flex flex-1 flex-col md:flex-row overflow-hidden relative" 
               style={{ 
                 background: 'var(--admin-sidebar-bg)',
                 backgroundSize: '320px 100%',
@@ -55,14 +55,14 @@ export default async function AdminLayout({
               }}
             >
               <AppSidebar />
-              <main className="flex-1 h-full overflow-y-auto relative bg-admin-background rounded-l-[40px] flex flex-col shadow-2xl">
+              <main className="flex-1 h-full overflow-y-auto relative bg-admin-background md:rounded-l-[40px] flex flex-col shadow-2xl w-full">
                 <TopBar email={user.email} />
-                <div className="px-6 md:px-8 pb-8 pt-4 flex-1">
+                <div className="px-3 sm:px-6 md:px-8 pb-8 pt-4 flex-1 w-full">
                   {children}
                 </div>
               </main>
             </div>
-          </>
+          </div>
         )}
       </AdminThemeProvider>
     </div>
