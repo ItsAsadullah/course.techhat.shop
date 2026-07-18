@@ -280,7 +280,7 @@ export async function getStudentPayments(studentId: string) {
   }
 
   let totalPaid = 0;
-  let totalDue = 0;
+  const totalDue = 0;
 
   const payments = admissions.map(a => {
     const course = coursesData.find(c => c.id === a.course_id);

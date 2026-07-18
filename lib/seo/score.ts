@@ -77,7 +77,7 @@ export function readabilityScore(content?: string): number {
     // Bengali/Non-English readability heuristic:
     // Avg words per sentence. If <= 15, very readable (100). If > 30, hard to read (0).
     const avgWords = words.length / sentences;
-    let score = 100 - ((avgWords - 12) * 5); // 12 words = 100, 32 words = 0
+    const score = 100 - ((avgWords - 12) * 5); // 12 words = 100, 32 words = 0
     return Math.max(0, Math.min(100, Math.round(score)));
   }
 
