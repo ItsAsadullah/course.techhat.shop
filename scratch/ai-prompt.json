@@ -1,0 +1,88 @@
+{
+  "general": {
+    "name_en": "Professional English Course Name",
+    "name_bn": "Professional Bengali Course Name",
+    "course_code": "E.g. WEB-101",
+    "tags": ["tag1", "tag2", "tag3"]
+  },
+  "content": {
+    "short_description_en": "A highly engaging 1-2 sentence short description in English. Minimum 25 characters.",
+    "short_description_bn": "A highly engaging 1-2 sentence short description in Bengali. Minimum 25 characters.",
+    "long_description_en": "Detailed course overview, what they will learn, and why this course is important. 2-3 paragraphs. Format nicely with line breaks if needed. DO NOT USE EMOJIS.",
+    "long_description_bn": "Detailed course overview in Bengali. 2-3 paragraphs. DO NOT USE EMOJIS.",
+    "learning_outcomes_en": ["Outcome 1", "Outcome 2"],
+    "learning_outcomes_bn": ["ফলাফল ১", "ফলাফল ২"],
+    "who_should_join_en": ["Audience 1"],
+    "who_should_join_bn": ["শ্রোতা ১"],
+    "requirements_en": ["Req 1"],
+    "requirements_bn": ["প্রয়োজনীয়তা ১"],
+    "career_opportunities_en": ["Career 1"],
+    "career_opportunities_bn": ["পেশা ১"],
+    "skills_en": ["Skill 1"],
+    "skills_bn": ["দক্ষতা ১"],
+    "software_used_en": ["Software 1"],
+    "software_used_bn": ["সফটওয়্যার ১"],
+    "projects_en": ["Project 1"],
+    "projects_bn": ["প্রজেক্ট ১"],
+    "target_audience_en": "Short 1-sentence target audience summary.",
+    "target_audience_bn": "Short 1-sentence target audience summary in Bengali.",
+    "faqs": [
+      {
+        "question_en": "Question in English",
+        "question_bn": "Question in Bengali",
+        "answer_en": "Answer in English",
+        "answer_bn": "Answer in Bengali"
+      }
+    ],
+    "testimonials": [
+      {
+        "author_name": "Student Name",
+        "rating": 5,
+        "body_en": "Review in English",
+        "body_bn": "Review in Bengali"
+      }
+    ]
+  },
+  "seo": {
+    "en": {
+      "meta_title": "Highly optimized SEO title in English (max 60 chars)",
+      "meta_description": "Highly optimized SEO description (max 160 chars)",
+      "meta_keywords": "keyword1, keyword2",
+      "focus_keyword": "focus keyword",
+      "canonical_url": "https://techhat.com/courses/slug",
+      "og_title": "OG Title English",
+      "og_description": "OG Description English"
+    },
+    "bn": {
+      "meta_title": "SEO title in Bengali",
+      "meta_description": "SEO description in Bengali",
+      "meta_keywords": "কিওয়ার্ড ১, কিওয়ার্ড ২",
+      "focus_keyword": "ফোকাস কিওয়ার্ড",
+      "canonical_url": "https://techhat.com/courses/slug",
+      "og_title": "OG Title Bengali",
+      "og_description": "OG Description Bengali"
+    }
+  },
+  "curriculum": {
+    "modules": [
+      {
+        "title_en": "Module Title EN",
+        "title_bn": "Module Title BN",
+        "description_en": "Module Desc EN",
+        "description_bn": "Module Desc BN",
+        "lessons": [
+          {
+            "title_en": "Lesson Title EN",
+            "title_bn": "Lesson Title BN"
+          }
+        ]
+      }
+    ]
+  },
+  "search": {
+    "manual_jsonld": "{ \"@context\": \"https://schema.org\", \"@type\": \"Course\" }"
+  },
+  "analytics": {
+    "event_config": "{ \"event_name\": \"view_course\" }"
+  }
+}

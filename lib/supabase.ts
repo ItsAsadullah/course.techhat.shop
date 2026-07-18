@@ -1,0 +1,8 @@
+import { createBrowserClient } from '@supabase/ssr'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
+const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || 'placeholder'
+
+// Uses cookies (not localStorage) so the server middleware can read the session.
+// Drop-in replacement — same API as createClient from @supabase/supabase-js.
+export const supabase = createBrowserClient(supabaseUrl, supabasePublishableKey)

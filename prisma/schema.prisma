@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model SettingGroup {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  nameEn      String
+  nameBn      String
+  description String?
+  icon        String?
+  sortOrder   Int       @default(0)
+  settings    Setting[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("setting_groups")
+}
+
+model Setting {
+  id           String        @id @default(uuid())
+  groupId      String
+  group        SettingGroup  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  key          String        @unique // e.g., 'site_name', 'admission_open'
+  type         String        // 'string', 'boolean', 'number', 'json', 'file', 'color', 'url'
+  value        String?       // Stored as string, parsed based on type
+  defaultValue String?
+  isPublic     Boolean       @default(false)
+  
+  // Multilingual overrides
+  valueBn      String?
+  
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("system_settings")
+}
