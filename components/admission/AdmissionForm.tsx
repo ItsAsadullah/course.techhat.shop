@@ -31,7 +31,7 @@ const SECTIONS = [
   { id: "declaration", key: "sec_declaration" as AdmissionTKey, fields: ["termsAccepted"] },
 ];
 
-export default function AdmissionForm({ initialData }: { initialData?: any }) {
+export default function AdmissionForm({ initialData }: { initialData?: Record<string, unknown> }) {
   const { lang } = useLang();
   const t = (key: AdmissionTKey) => admissionTranslations[lang][key];
   const [activeSection, setActiveSection] = useState(SECTIONS[0].id);
@@ -40,7 +40,7 @@ export default function AdmissionForm({ initialData }: { initialData?: any }) {
   const pathname = usePathname();
 
   const methods = useForm<AdmissionFormValues>({
-    resolver: zodResolver(admissionSchema) as any,
+    resolver: zodResolver(admissionSchema) as import("react-hook-form").Resolver<AdmissionFormValues>,
     defaultValues: {
       nationality: "Bangladeshi",
       education: [],
@@ -52,57 +52,57 @@ export default function AdmissionForm({ initialData }: { initialData?: any }) {
     if (initialData) {
       // Map initialData (which is Supabase DB format) to form format
       methods.reset({
-        fullNameEn: initialData.full_name_en || "",
-        fullNameBn: initialData.full_name_bn || "",
-        fatherName: initialData.father_name || "",
-        motherName: initialData.mother_name || "",
-        gender: initialData.gender as any || undefined,
-        religion: initialData.religion as any || undefined,
-        dob: initialData.dob || "",
-        bloodGroup: initialData.blood_group as any || undefined,
-        nationality: initialData.nationality || "Bangladeshi",
-        nid: initialData.nid || "",
-        birthCertNo: initialData.birth_cert_no || "",
-        passportNo: initialData.passport_no || "",
-        maritalStatus: initialData.marital_status as any || undefined,
-        mobile: initialData.mobile || "",
-        guardianMobile: initialData.guardian_mobile || "",
-        email: initialData.email || "",
-        emergencyContact: initialData.emergency_contact || "",
+        fullNameEn: (initialData.full_name_en as string) || "",
+        fullNameBn: (initialData.full_name_bn as string) || "",
+        fatherName: (initialData.father_name as string) || "",
+        motherName: (initialData.mother_name as string) || "",
+        gender: (initialData.gender as "male" | "female" | "other") || undefined,
+        religion: (initialData.religion as "islam" | "hindu" | "buddhist" | "christian" | "other") || undefined,
+        dob: (initialData.dob as string) || "",
+        bloodGroup: (initialData.blood_group as "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-") || undefined,
+        nationality: (initialData.nationality as string) || "Bangladeshi",
+        nid: (initialData.nid as string) || "",
+        birthCertNo: (initialData.birth_cert_no as string) || "",
+        passportNo: (initialData.passport_no as string) || "",
+        maritalStatus: (initialData.marital_status as "single" | "married") || undefined,
+        mobile: (initialData.mobile as string) || "",
+        guardianMobile: (initialData.guardian_mobile as string) || "",
+        email: (initialData.email as string) || "",
+        emergencyContact: (initialData.emergency_contact as string) || "",
         
-        education: initialData.student_education?.length > 0 
-          ? initialData.student_education.map((edu: any) => ({
-              exam: edu.exam_name || "",
-              board: edu.board || "",
-              group: edu.group_subject || "",
+        education: Array.isArray(initialData.student_education) && initialData.student_education.length > 0 
+          ? (initialData.student_education as Record<string, unknown>[]).map((edu: Record<string, unknown>) => ({
+              exam: (edu.exam_name as string) || "",
+              board: (edu.board as string) || "",
+              group: (edu.group_subject as string) || "",
               passingYear: Number(edu.passing_year) || new Date().getFullYear(),
-              rollNumber: edu.roll_no || "",
-              registrationNumber: edu.registration_no || "",
-              resultType: edu.result_type || "",
-              resultValue: edu.result_value || "",
+              rollNumber: (edu.roll_no as string) || "",
+              registrationNumber: (edu.registration_no as string) || "",
+              resultType: (edu.result_type as string) || "",
+              resultValue: (edu.result_value as string) || "",
             }))
           : [],
         
         // Mocking address and other relations since we didn't fetch them all deep
-        presentDivision: initialData.present_division || "",
-        presentDistrict: initialData.present_district || "",
-        presentUpazila: initialData.present_upazila || "",
-        presentUnion: initialData.present_union || "",
-        presentVillage: initialData.present_village || "",
-        presentPostOffice: initialData.present_post_office || "",
-        presentPostCode: initialData.present_post_code || "",
-        courseId: initialData.admissions?.[0]?.course_id || "",
-        batchId: initialData.admissions?.[0]?.batch_id || "",
-        shift: initialData.admissions?.[0]?.shift || undefined,
-        sourceOfAdmission: initialData.admissions?.[0]?.source_of_admission as any || undefined,
+        presentDivision: (initialData.present_division as string) || "",
+        presentDistrict: (initialData.present_district as string) || "",
+        presentUpazila: (initialData.present_upazila as string) || "",
+        presentUnion: (initialData.present_union as string) || "",
+        presentVillage: (initialData.present_village as string) || "",
+        presentPostOffice: (initialData.present_post_office as string) || "",
+        presentPostCode: (initialData.present_post_code as string) || "",
+        courseId: ((initialData.admissions as Record<string, unknown>[])?.[0]?.course_id as string) || "",
+        batchId: ((initialData.admissions as Record<string, unknown>[])?.[0]?.batch_id as string) || "",
+        shift: ((initialData.admissions as Record<string, unknown>[])?.[0]?.shift as string) || undefined,
+        sourceOfAdmission: ((initialData.admissions as Record<string, unknown>[])?.[0]?.source_of_admission as string) || undefined,
         
-        guardianName: initialData.guardian_name || "",
-        guardianOccupation: initialData.guardian_occupation || "",
+        guardianName: (initialData.guardian_name as string) || "",
+        guardianOccupation: (initialData.guardian_occupation as string) || "",
         guardianType: "Father",
         guardianRelationship: "Father",
         
-        photoUrl: initialData.student_documents?.find((doc: any) => doc.document_type === "photo")?.file_url || "",
-        nidUrl: initialData.student_documents?.find((doc: any) => doc.document_type === "nid")?.file_url || "",
+        photoUrl: ((initialData.student_documents as Record<string, unknown>[])?.find((doc: Record<string, unknown>) => doc.document_type === "photo")?.file_url as string) || "",
+        nidUrl: ((initialData.student_documents as Record<string, unknown>[])?.find((doc: Record<string, unknown>) => doc.document_type === "nid")?.file_url as string) || "",
         termsAccepted: true,
         courseMode: "offline",
       });
@@ -146,7 +146,7 @@ export default function AdmissionForm({ initialData }: { initialData?: any }) {
       let result;
       if (initialData && initialData.id) {
         const { updateAdmissionForm } = await import("@/lib/actions/admission");
-        result = await updateAdmissionForm(initialData.id, data);
+        result = await updateAdmissionForm(initialData.id as string, data);
       } else {
         result = await submitAdmissionForm(data);
       }
@@ -165,23 +165,24 @@ export default function AdmissionForm({ initialData }: { initialData?: any }) {
       } else {
         toast.error(result.error || "Failed to submit form");
       }
-    } catch (e: any) {
+    } catch (e) {
       toast.error("An unexpected error occurred");
       console.error(e);
     }
   };
 
-  const onError = (errors: any) => {
+  const onError = (errors: Record<string, unknown>) => {
     console.log("Validation Errors:", errors);
     
     // Extract error messages from the nested errors object
-    const getErrorMessages = (obj: any, prefix = ""): string[] => {
+    const getErrorMessages = (obj: Record<string, unknown> | unknown, prefix = ""): string[] => {
       let messages: string[] = [];
-      for (const key in obj) {
-        if (obj[key] && obj[key].message) {
-          messages.push(`${prefix}${key}: ${obj[key].message}`);
-        } else if (typeof obj[key] === "object") {
-          messages = [...messages, ...getErrorMessages(obj[key], `${prefix}${key}.`)];
+      const safeObj = obj as Record<string, any>;
+      for (const key in safeObj) {
+        if (safeObj[key] && safeObj[key].message) {
+          messages.push(`${prefix}${key}: ${safeObj[key].message}`);
+        } else if (typeof safeObj[key] === "object") {
+          messages = [...messages, ...getErrorMessages(safeObj[key], `${prefix}${key}.`)];
         }
       }
       return messages;
@@ -205,7 +206,7 @@ export default function AdmissionForm({ initialData }: { initialData?: any }) {
 
           {/* Main Form Content */}
           <div className="flex-1 min-w-0">
-            <form onSubmit={methods.handleSubmit(onSubmit as any, onError)} className="space-y-8">
+            <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-8">
               
               <PersonalInfoSection id="personal" />
               

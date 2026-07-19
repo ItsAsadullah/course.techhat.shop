@@ -193,7 +193,7 @@ export default function CurriculumAccordion({ modules }: { modules: CurriculumMo
                             }
                             
                             const durationMinutes = lesson.duration_minutes ?? 0;
-                            const hasAccess = (lesson as any)._hasAccess ?? true;
+                            const hasAccess = (lesson as Record<string, unknown>)._hasAccess ?? true;
                             const unlocked = canOpenLesson(index, lessonIndex) && hasAccess;
                             const completed = isLessonCompleted(index, lessonIndex);
                             const isActiveLesson = activeLessons[index] === lessonIndex && unlocked;

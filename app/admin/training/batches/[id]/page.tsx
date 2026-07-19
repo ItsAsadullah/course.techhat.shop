@@ -154,13 +154,13 @@ export default async function BatchDetailsPage({ params }: { params: Promise<{ i
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {roster.map((row: any) => (
+                {roster?.map((row: { id: string; status: string; student: { full_name_en: string; student_id: string; phone: string } | { full_name_en: string; student_id: string; phone: string }[] }) => (
                   <tr key={row.id} className="hover:bg-slate-50">
                     <td className="px-6 py-4">
-                      <p className="font-semibold text-slate-900">{row.student?.full_name_en}</p>
-                      <p className="text-xs text-slate-500">{row.student?.student_id}</p>
+                      <p className="font-semibold text-slate-900">{Array.isArray(row.student) ? row.student[0]?.full_name_en : row.student?.full_name_en}</p>
+                      <p className="text-xs text-slate-500">{Array.isArray(row.student) ? row.student[0]?.student_id : row.student?.student_id}</p>
                     </td>
-                    <td className="px-6 py-4">{row.student?.phone}</td>
+                    <td className="px-6 py-4">{Array.isArray(row.student) ? row.student[0]?.phone : row.student?.phone}</td>
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center rounded-full px-2 py-1 text-[11px] font-bold uppercase tracking-wide ${
                         row.status === "active" ? "bg-emerald-100 text-emerald-800" :

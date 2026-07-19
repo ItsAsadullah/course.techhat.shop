@@ -8,8 +8,17 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Loader2, CheckCircle } from "lucide-react";
 
+interface Admission {
+  id: string;
+  admission_id: string;
+  students?: Record<string, unknown>[];
+  courses?: Record<string, unknown>;
+  batches?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
 export default function PendingAdmissionsPage() {
-  const [admissions, setAdmissions] = useState<any[]>([]);
+  const [admissions, setAdmissions] = useState<Admission[]>([]);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState<string | null>(null);
 
@@ -68,17 +77,17 @@ export default function PendingAdmissionsPage() {
             ) : (
               admissions.map((adm) => (
                 <TableRow key={adm.id}>
-                  <TableCell className="font-medium text-blue-600">{adm.admission_id}</TableCell>
+                  <TableCell className="font-medium text-blue-600">{adm.admission_id as string}</TableCell>
                   <TableCell>
-                    <div className="font-semibold">{adm.students?.[0]?.full_name_en || "N/A"}</div>
-                    <div className="text-xs text-slate-500">{adm.students?.[0]?.mobile || "N/A"}</div>
+                    <div className="font-semibold">{(adm.students?.[0]?.full_name_en as string) || "N/A"}</div>
+                    <div className="text-xs text-slate-500">{(adm.students?.[0]?.mobile as string) || "N/A"}</div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline" className="uppercase">{adm.payment_method || "N/A"}</Badge>
+                    <Badge variant="outline" className="uppercase">{(adm.payment_method as string) || "N/A"}</Badge>
                   </TableCell>
-                  <TableCell className="font-mono text-sm">{adm.payment_number || "N/A"}</TableCell>
+                  <TableCell className="font-mono text-sm">{(adm.payment_number as string) || "N/A"}</TableCell>
                   <TableCell>
-                    <code className="bg-slate-100 px-2 py-1 rounded text-slate-800">{adm.trx_id || "N/A"}</code>
+                    <code className="bg-slate-100 px-2 py-1 rounded text-slate-800">{(adm.trx_id as string) || "N/A"}</code>
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary" className="bg-amber-100 text-amber-800">Pending Verification</Badge>

@@ -74,10 +74,11 @@ export default function CourseWizard({ categories, courseId, defaultValues }: Co
   const [direction, setDirection] = useState(1);
 
   const form = useForm<CourseWizardValues>({
-    resolver: zodResolver(courseWizardSchema) as any,
+    // @ts-expect-error — Zod infers sub_category_id as string|undefined but form resolver types differ slightly
+    resolver: zodResolver(courseWizardSchema),
     defaultValues: defaultValues ?? defaultWizardValues,
     mode: "onChange",
-  }) as any;
+  });
 
   const goNext = async () => {
     // Validate only the current step's fields
@@ -241,11 +242,11 @@ export default function CourseWizard({ categories, courseId, defaultValues }: Co
                 exit="exit"
                 transition={{ duration: 0.25, ease: "easeInOut" }}
               >
-                {currentStep === 1 && <Step1BasicInfo form={form} categories={categories} />}
-                {currentStep === 2 && <Step2CourseInfo form={form} />}
-                {currentStep === 3 && <Step3Media form={form} />}
-                {currentStep === 4 && <Step4Duration form={form} />}
-                {currentStep === 5 && <Step5Pricing form={form} />}
+                {currentStep === 1 && <Step1BasicInfo form={form as unknown as Parameters<typeof Step1BasicInfo>[0]["form"]} categories={categories} />}
+                {currentStep === 2 && <Step2CourseInfo form={form as unknown as Parameters<typeof Step2CourseInfo>[0]["form"]} />}
+                {currentStep === 3 && <Step3Media form={form as unknown as Parameters<typeof Step3Media>[0]["form"]} />}
+                {currentStep === 4 && <Step4Duration form={form as unknown as Parameters<typeof Step4Duration>[0]["form"]} />}
+                {currentStep === 5 && <Step5Pricing form={form as unknown as Parameters<typeof Step5Pricing>[0]["form"]} />}
               </motion.div>
             </AnimatePresence>
           </div>

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { getCourseBySlug } from "@/lib/admin/actions/courses";
 import { allCourses, getCourseBySlug as getCatalogCourseBySlug, type Course as CatalogCourse } from "@/data/courses";
 import { createClient } from "@/lib/admin/supabase/server";
@@ -36,7 +36,7 @@ type CourseSource = "database" | "catalog" | "generated";
 
 type CoursePageData = {
   source: CourseSource;
-  raw: any;
+  raw: Record<string, unknown>;
   sourceLabel: string;
   related: CatalogCourse[];
 };
@@ -316,7 +316,7 @@ const getCoursePageData = cache(async (slug: string): Promise<CoursePageData> =>
   if (publishedCourse) {
     return {
       source: "database",
-      raw: publishedCourse,
+      raw: publishedCourse as unknown as Record<string, unknown>,
       sourceLabel: "লাইভ ডাটাবেস ডেটা",
       related: allCourses,
     };
@@ -350,19 +350,19 @@ function formatDate(iso: string): string {
 }
 
 /** Normalize a raw course row into the pieces SEO needs, choosing a primary language. */
-function seoFrom(courseRaw: any, slug: string, langCookie?: "en" | "bn") {
-  const translations: any[] = courseRaw.translations || [];
-  const enT = translations.find((t: any) => t.lang === "en") || {};
-  const bnT = translations.find((t: any) => t.lang === "bn") || {};
+function seoFrom(courseRaw: Record<string, unknown>, slug: string, langCookie?: "en" | "bn") {
+  const translations: Record<string, unknown>[] = (courseRaw.translations as Record<string, unknown>[]) || [];
+  const enT = translations.find((t) => t.lang === "en") || {};
+  const bnT = translations.find((t) => t.lang === "bn") || {};
   // Which language does this URL slug belong to? (Override with cookie if available)
   const primary: "en" | "bn" = langCookie || "bn";
   const T = primary === "bn" ? bnT : enT;
   const other = primary === "bn" ? enT : bnT;
 
-  const seoRows: any[] = courseRaw.seo || [];
+  const seoRows: Record<string, unknown>[] = (courseRaw.seo as Record<string, unknown>[]) || [];
   const seo = seoRows.find((s) => s.lang === primary) || seoRows.find((s) => s.lang === "en") || {};
 
-  const media: any = Array.isArray(courseRaw.media) ? courseRaw.media[0] : courseRaw.media || {};
+  const media: Record<string, unknown> = Array.isArray(courseRaw.media) ? courseRaw.media[0] : (courseRaw.media as Record<string, unknown>) || {};
   const title = seo.meta_title || `${T.name || other.name || ""} — ${SITE.name}`;
   const description = seo.meta_description || T.short_description || other.short_description || SITE.description;
 
@@ -377,45 +377,45 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cookieStore = await cookies();
   const langCookie = cookieStore.get("techhat-lang")?.value as "en" | "bn" | undefined;
 
-  const { primary, enT, bnT, seo, media, title, description } = seoFrom(courseRaw as any, decodedSlug, langCookie);
+  const { primary, enT, bnT, seo, media, title, description } = seoFrom(courseRaw as Record<string, unknown>, decodedSlug, langCookie);
 
   const canonical = seo.canonical_url || courseUrl(decodedSlug);
   const ogImage = seo.og_image_url || media.thumbnail_url || media.banner_url || SITE.ogFallback;
-  const keywords = (seo.meta_keywords || "")
+  const keywords = ((seo.meta_keywords as string) || "")
     .split(",")
     .map((k: string) => k.trim())
     .filter(Boolean);
 
   // hreflang alternates — link both language slugs when present.
   const languages: Record<string, string> = {};
-  if (enT.slug) languages[SITE.hreflang.en] = courseUrl(enT.slug);
-  if (bnT.slug) languages[SITE.hreflang.bn] = courseUrl(bnT.slug);
+  if (enT.slug) languages[SITE.hreflang.en] = courseUrl(enT.slug as string);
+  if (bnT.slug) languages[SITE.hreflang.bn] = courseUrl(bnT.slug as string);
 
   const indexable = seo.robots_index ?? true;
 
   return {
     metadataBase: new URL(SITE_URL),
-    title,
-    description,
+    title: title as string,
+    description: description as string,
     keywords: keywords.length ? keywords : undefined,
-    alternates: { canonical, languages: Object.keys(languages).length ? languages : undefined },
+    alternates: { canonical: canonical as string, languages: Object.keys(languages).length ? languages : undefined },
     robots: indexable
       ? { index: true, follow: true }
       : { index: false, follow: false },
     openGraph: {
       type: "website",
-      url: canonical,
-      title: seo.og_title || title,
-      description: seo.og_description || description,
+      url: canonical as string,
+      title: (seo.og_title as string) || (title as string),
+      description: (seo.og_description as string) || (description as string),
       siteName: SITE.name,
       locale: SITE.locales[primary],
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [{ url: ogImage as string, width: 1200, height: 630, alt: String(title) }],
     },
     twitter: {
-      card: (seo.twitter_card as any) || "summary_large_image",
-      title: seo.og_title || title,
-      description: seo.og_description || description,
-      images: [ogImage],
+      card: ((seo.twitter_card as string) || "summary_large_image") as "summary" | "summary_large_image" | "player" | "app" | undefined,
+      title: (seo.og_title as string) || (title as string),
+      description: (seo.og_description as string) || (description as string),
+      images: [ogImage as string],
     },
   };
 }
@@ -434,16 +434,16 @@ export default async function CourseDetailPage({ params }: Props) {
   const { data: { user } } = await supabase.auth.getUser();
   const isLoggedIn = !!user;
 
-  const { primary, T, other, enT, bnT, seo, media, title, description } = seoFrom(courseRaw as any, decodedSlug, langCookie);
+  const { primary, T, other, enT, bnT, seo, media, title, description } = seoFrom(courseRaw as Record<string, unknown>, decodedSlug, langCookie);
   
-  const pricing: any = Array.isArray(courseRaw.pricing) ? courseRaw.pricing[0] : courseRaw.pricing || {};
-  const duration: any = Array.isArray(courseRaw.duration) ? courseRaw.duration[0] : courseRaw.duration || {};
-  const features: any = Array.isArray(courseRaw.features) ? courseRaw.features[0] : courseRaw.features || {};
-  const faqs: any[] = courseRaw.faqs || [];
-  const category: any = Array.isArray(courseRaw.category) ? courseRaw.category[0] : courseRaw.category || {};
+  const pricing: Record<string, unknown> = Array.isArray(courseRaw.pricing) ? courseRaw.pricing[0] : (courseRaw.pricing as Record<string, unknown>) || {};
+  const duration: Record<string, unknown> = Array.isArray(courseRaw.duration) ? courseRaw.duration[0] : (courseRaw.duration as Record<string, unknown>) || {};
+  const features: Record<string, unknown> = Array.isArray(courseRaw.features) ? courseRaw.features[0] : (courseRaw.features as Record<string, unknown>) || {};
+  const faqs: Record<string, unknown>[] = (courseRaw.faqs as Record<string, unknown>[]) || [];
+  const category: Record<string, unknown> = Array.isArray(courseRaw.category) ? courseRaw.category[0] : (courseRaw.category as Record<string, unknown>) || {};
 
   // Array content fields may be stored as JSON strings (or PG array text) in TEXT columns.
-  const parseArr = (v: unknown): any[] => {
+  const parseArr = (v: unknown): Record<string, unknown>[] => {
     if (Array.isArray(v)) return v;
     if (typeof v === "string" && v.trim()) {
       try {
@@ -451,65 +451,65 @@ export default async function CourseDetailPage({ params }: Props) {
         if (Array.isArray(p)) return p;
       } catch { }
       if (v.startsWith("{") && v.endsWith("}")) {
-        return v.slice(1, -1).split(",").map((s) => s.replace(/(^"|"$)/g, "").replace(/\\"/g, '"')).filter(Boolean);
+        return (v.slice(1, -1).split(",").map((s) => s.replace(/(^"|"$)/g, "").replace(/\\"/g, '"')).filter(Boolean) as unknown) as Record<string, unknown>[];
       }
-      return v.split("\n").filter(Boolean);
+      return (v.split("\n").filter(Boolean) as unknown) as Record<string, unknown>[];
     }
     return [];
   };
 
   const name = T.name || other.name || slugToTitle(slug);
-  const shortDesc = T.short_description || other.short_description || `TechHat IT Institute-এর ${name} কোর্সে হাতে-কলমে শেখানো হয়।`;
-  const longDesc = T.long_description || other.long_description || joinSentences([
+  const shortDesc = (T.short_description as string) || (other.short_description as string) || `TechHat IT Institute-এর ${name} কোর্সে হাতে-কলমে শেখানো হয়।`;
+  const longDesc = (T.long_description as string) || (other.long_description as string) || joinSentences([
     shortDesc,
     "কোর্সের কাঠামো, ভর্তি সাপোর্ট, এবং শেখার ফলাফল এই পেজে বিস্তারিতভাবে দেখানো হয়েছে।",
   ]);
-  const outcomes: string[] = parseArr(T.learning_outcomes || other.learning_outcomes);
-  const requirements: string[] = parseArr(T.requirements || other.requirements);
-  const whoJoin: string[] = parseArr(T.who_should_join || other.who_should_join);
-  const careers: string[] = parseArr(T.career_opportunities || other.career_opportunities);
-  const skillsCovered: any[] = parseArr(T.skills_covered || other.skills_covered);
-  const softwareUsed: any[] = parseArr(T.software_used || other.software_used);
-  const projectsList: string[] = parseArr(T.projects || other.projects);
-  const modules: any[] = Array.isArray(courseRaw.modules) ? courseRaw.modules : [];
-  const trainers: any[] = Array.isArray(courseRaw.trainers) ? courseRaw.trainers : [];
-  const testimonials = (Array.isArray(courseRaw.reviews) ? courseRaw.reviews : []).filter((r: any) => r.is_testimonial && r.is_approved);
+  const outcomes: string[] = (parseArr(T.learning_outcomes || other.learning_outcomes) as unknown) as string[];
+  const requirements: string[] = (parseArr(T.requirements || other.requirements) as unknown) as string[];
+  const whoJoin: string[] = (parseArr(T.who_should_join || other.who_should_join) as unknown) as string[];
+  const careers: string[] = (parseArr(T.career_opportunities || other.career_opportunities) as unknown) as string[];
+  const skillsCovered: Record<string, unknown>[] = parseArr(T.skills_covered || other.skills_covered);
+  const softwareUsed: Record<string, unknown>[] = parseArr(T.software_used || other.software_used);
+  const projectsList: string[] = (parseArr(T.projects || other.projects) as unknown) as string[];
+  const modules: Record<string, unknown>[] = Array.isArray(courseRaw.modules) ? (courseRaw.modules as Record<string, unknown>[]) : [];
+  const trainers: Record<string, unknown>[] = Array.isArray(courseRaw.trainers) ? (courseRaw.trainers as Record<string, unknown>[]) : [];
+  const testimonials = (Array.isArray(courseRaw.reviews) ? (courseRaw.reviews as Record<string, unknown>[]) : []).filter((r: Record<string, unknown>) => r.is_testimonial && r.is_approved);
 
-  const discountedFee = pricing.course_fee > 0 && pricing.discount_percent > 0
-    ? pricing.course_fee - (pricing.course_fee * pricing.discount_percent / 100)
-    : pricing.course_fee;
+  const discountedFee = (pricing.course_fee as number) > 0 && (pricing.discount_percent as number) > 0
+    ? (pricing.course_fee as number) - ((pricing.course_fee as number) * (pricing.discount_percent as number) / 100)
+    : (pricing.course_fee as number);
 
   // ---------- SEO: JSON-LD structured data ----------
   const canonical = seo.canonical_url || courseUrl(slug);
   const ogImage = seo.og_image_url || media.thumbnail_url || media.banner_url || null;
-  const readTime = readingTime([longDesc, ...outcomes, ...requirements]);
+  const readTime = readingTime([longDesc as string, ...outcomes, ...requirements]);
 
   const courseJsonLd = buildCourseJsonLd({
-    name,
-    description: shortDesc || name,
-    url: canonical,
-    image: ogImage,
-    courseCode: courseRaw.course_code,
+    name: name as string,
+    description: (shortDesc || name) as string,
+    url: canonical as string,
+    image: ogImage as string,
+    courseCode: courseRaw.course_code as string,
     inLanguage: primary,
-    educationalLevel: courseRaw.course_level,
-    datePublished: courseRaw.published_at,
-    dateModified: courseRaw.updated_at,
+    educationalLevel: courseRaw.course_level as string,
+    datePublished: courseRaw.published_at as string,
+    dateModified: courseRaw.updated_at as string,
     price: Math.round(discountedFee) || null,
-    currency: pricing.currency || "BDT",
+    currency: (pricing.currency as string) || "BDT",
     isFree: !!pricing.is_free,
-    ratingValue: courseRaw.average_rating || null,
-    reviewCount: courseRaw.total_reviews || null,
+    ratingValue: (courseRaw.average_rating as number) || null,
+    reviewCount: (courseRaw.total_reviews as number) || null,
     instances: [{ courseMode: courseRaw.course_type === "online" ? "online" : "blended" }],
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", url: SITE_URL },
     { name: "Courses", url: absoluteUrl("/courses") },
-    { name, url: canonical },
+    { name: name as string, url: canonical as string },
   ]);
   const faqJsonLd = buildFaqJsonLd(
     faqs.map((f) => ({
-      question: f.question_bn || f.question_en || "",
-      answer: f.answer_bn || f.answer_en || "",
+      question: (f.question_bn || f.question_en || "") as string,
+      answer: (f.answer_bn || f.answer_en || "") as string,
     }))
   );
   const graph = buildCourseGraph({
@@ -540,7 +540,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
   // Append custom features
   customFeatures.forEach((f) => {
-    FEATURE_LIST.push({ key: `custom_${f}`, icon: "✨", label: f });
+    FEATURE_LIST.push({ key: `custom_${f.name}`, icon: "✨", label: f.name as string });
   });
 
   const isBn = primary === "bn";
@@ -568,16 +568,16 @@ export default async function CourseDetailPage({ params }: Props) {
             <ChevronRight className="w-3.5 h-3.5" />
             <Link href="/courses" className="hover:text-white transition-colors">{isBn ? "কোর্সসমূহ" : "Courses"}</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-white">{name}</span>
+            <span className="text-white">{name as string}</span>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             {/* Left Content */}
             <div className="lg:col-span-2">
               <div className="flex flex-wrap items-center gap-2 mb-4">
-                {category.name_bn && (
+                {!!category.name_bn && (
                   <span className="inline-flex items-center gap-1 rounded-[4px] bg-white/10 px-2 py-1 text-xs text-white border border-white/20">
-                    <Sparkles className="w-3.5 h-3.5 text-blue-300" /> {isBn ? category.name_bn : category.name_en || category.name_bn}
+                    <Sparkles className="w-3.5 h-3.5 text-blue-300" /> {isBn ? (category.name_bn as string) : (category.name_en as string || category.name_bn as string)}
                   </span>
                 )}
                 <span className="inline-flex items-center gap-1 rounded-[4px] bg-emerald-500/20 px-2 py-1 text-xs text-emerald-400 border border-emerald-500/30">
@@ -587,9 +587,9 @@ export default async function CourseDetailPage({ params }: Props) {
                   {isBn ? "ব্যাচ - 1" : "Batch - 1"}
                 </span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">{name}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">{name as string}</h1>
               <div className="text-slate-300 text-base md:text-lg leading-relaxed mb-6 space-y-2">
-                <p>{shortDesc}</p>
+                <p>{shortDesc as string}</p>
               </div>
 
               {/* Action & Price */}
@@ -599,8 +599,8 @@ export default async function CourseDetailPage({ params }: Props) {
                 </Link>
                 <div className="flex items-center gap-3">
                   <span className="text-2xl font-bold text-white">৳{discountedFee.toLocaleString(isBn ? "bn-BD" : "en-US")}</span>
-                  {pricing.course_fee > discountedFee && (
-                    <span className="text-lg text-slate-400 line-through">৳{pricing.course_fee.toLocaleString(isBn ? "bn-BD" : "en-US")}</span>
+                  {(pricing.course_fee as number) > discountedFee && (
+                    <span className="text-lg text-slate-400 line-through">৳{(pricing.course_fee as number).toLocaleString(isBn ? "bn-BD" : "en-US")}</span>
                   )}
                 </div>
               </div>
@@ -629,9 +629,9 @@ export default async function CourseDetailPage({ params }: Props) {
           {/* Left */}
           <div className="lg:col-span-2 space-y-8">
             {/* Banner */}
-            {media.banner_url && (
+            {!!media.banner_url && (
               <div className="rounded-2xl overflow-hidden shadow-xl h-64 md:h-80">
-                <img src={media.banner_url} alt={name} className="w-full h-full object-cover" />
+                <img src={media.banner_url as string} alt={name as string} className="w-full h-full object-cover" />
               </div>
             )}
 
@@ -642,9 +642,9 @@ export default async function CourseDetailPage({ params }: Props) {
               <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">{isBn ? "এই কোর্সে যা পাবেন" : "What You'll Get in This Course"}</h2>
                 <div className="grid grid-cols-2 gap-3">
-                  {FEATURE_LIST.map(f => (
-                    <div key={f.key} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-                      <span>{f.icon}</span> {f.label}
+                  {FEATURE_LIST.map((f, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                      <span>{f.icon as string}</span> {f.label as string}
                     </div>
                   ))}
                 </div>
@@ -658,7 +658,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   <BookOpen className="w-5 h-5 text-blue-600" /> {isBn ? "কোর্স সম্পর্কে" : "About Course"}
                 </h2>
                 <div className="prose prose-slate dark:prose-invert max-w-none text-sm leading-relaxed">
-                  {longDesc.split("\n").map((line: string, i: number) => <p key={i}>{line}</p>)}
+                  {(longDesc as string).split("\n").map((line: string, i: number) => <p key={i}>{line}</p>)}
                 </div>
               </div>
             )}
@@ -692,9 +692,9 @@ export default async function CourseDetailPage({ params }: Props) {
                       <Sparkles className="w-6 h-6 text-amber-500" /> {isBn ? "যে স্কিলগুলো শিখবেন" : "Skills You'll Learn"}
                     </h2>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                      {skillsCovered.map((s: any, i: number) => {
-                        const skillName = typeof s === "string" ? s : s.name;
-                        const skillImg = typeof s === "object" ? s.image_url : "";
+                      {skillsCovered.map((s: Record<string, unknown>, i: number) => {
+                        const skillName = typeof s === "string" ? s : (s.name as string);
+                        const skillImg = typeof s === "object" ? (s.image_url as string) : "";
                         if (!skillName) return null;
 
                         const gradients = [
@@ -869,8 +869,8 @@ export default async function CourseDetailPage({ params }: Props) {
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                       {softwareUsed.map((s, i) => {
-                        const sName = typeof s === "string" ? s : s.name;
-                        const sImg = typeof s === "object" ? s.image_url : "";
+                        const sName = typeof s === "string" ? s : (s.name as string);
+                        const sImg = typeof s === "object" ? (s.image_url as string) : "";
                         if (!sName) return null;
 
                         const themes = [
@@ -912,22 +912,22 @@ export default async function CourseDetailPage({ params }: Props) {
                   <Users className="w-5 h-5 text-blue-600" /> {isBn ? "কোর্স ইন্সট্রাক্টর" : "Course Instructors"}
                 </h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {trainers.map((t: any, i: number) => {
-                    const tr = t.trainer || {};
+                  {trainers.map((t: Record<string, unknown>, i: number) => {
+                    const tr = (t.trainer || {}) as Record<string, unknown>;
                     return (
                       <div key={i} className="flex items-start gap-4 p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 hover:border-blue-200 dark:hover:border-blue-800/50 transition-colors">
                         <div className="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden shrink-0 border-2 border-white dark:border-slate-700">
                           {tr.image_url ? (
-                            <img src={tr.image_url} alt={tr.name_bn || tr.name_en} className="w-full h-full object-cover" />
+                            <img src={tr.image_url as string} alt={(tr.name_bn || tr.name_en) as string} className="w-full h-full object-cover" />
                           ) : (
                             <User className="w-full h-full p-3 text-slate-400" />
                           )}
                         </div>
                         <div>
-                          <h3 className="font-bold text-slate-900 dark:text-white">{tr.name_bn || tr.name_en}</h3>
-                          <p className="text-sm text-blue-600 dark:text-blue-400 mb-2">{tr.designation_bn || tr.designation_en}</p>
-                          {(tr.bio_bn || tr.bio_en) && (
-                            <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{tr.bio_bn || tr.bio_en}</p>
+                          <h3 className="font-bold text-slate-900 dark:text-white">{(tr.name_bn || tr.name_en) as string}</h3>
+                          <p className="text-sm text-blue-600 dark:text-blue-400 mb-2">{(tr.designation_bn || tr.designation_en) as string}</p>
+                          {!!(tr.bio_bn || tr.bio_en) && (
+                            <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{(tr.bio_bn || tr.bio_en) as string}</p>
                           )}
                         </div>
                       </div>
@@ -944,31 +944,31 @@ export default async function CourseDetailPage({ params }: Props) {
                   <Star className="w-5 h-5 text-amber-500 fill-amber-500" /> {isBn ? "শিক্ষার্থীদের মতামত" : "Student Testimonials"}
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {testimonials.map((t: any, i: number) => (
+                  {testimonials.map((t: Record<string, unknown>, i: number) => (
                     <div key={i} className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 relative">
                       <Quote className="absolute top-4 right-4 w-8 h-8 text-slate-200 dark:text-slate-800" />
                       <div className="flex gap-1 mb-3">
                         {Array.from({ length: 5 }).map((_, idx) => (
                           <Star
                             key={idx}
-                            className={`w-4 h-4 ${idx < t.rating ? 'text-amber-500 fill-amber-500' : 'text-slate-300 dark:text-slate-700'}`}
+                            className={`w-4 h-4 ${idx < (t.rating as number) ? 'text-amber-500 fill-amber-500' : 'text-slate-300 dark:text-slate-700'}`}
                           />
                         ))}
                       </div>
                       <p className="text-slate-700 dark:text-slate-300 text-sm italic mb-4 relative z-10 leading-relaxed">
-                        "{t.body}"
+                        "{t.body as string}"
                       </p>
                       <div className="flex items-center gap-3 mt-auto">
                         <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 overflow-hidden shrink-0 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold">
                           {t.author_image_url ? (
-                            <img src={t.author_image_url} alt={t.author_name} className="w-full h-full object-cover" />
+                            <img src={t.author_image_url as string} alt={t.author_name as string} className="w-full h-full object-cover" />
                           ) : (
-                            t.author_name.charAt(0).toUpperCase()
+                            (t.author_name as string).charAt(0).toUpperCase()
                           )}
                         </div>
                         <div>
-                          <p className="font-semibold text-sm text-slate-900 dark:text-white">{t.author_name}</p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400">{isBn ? "শিক্ষার্থী," : "Student,"} {name}</p>
+                          <p className="font-semibold text-sm text-slate-900 dark:text-white">{t.author_name as string}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">{isBn ? "শিক্ষার্থী," : "Student,"} {name as string}</p>
                         </div>
                       </div>
                     </div>
@@ -990,9 +990,11 @@ export default async function CourseDetailPage({ params }: Props) {
           <div className="lg:hidden">
             <PriceCard
               pricing={pricing}
+              hasPricingData={!!pricing}
               discountedFee={discountedFee}
               duration={duration}
-              brochureUrl={media.brochure_pdf_url}
+              hasDurationData={!!duration}
+              brochureUrl={media.brochure_pdf_url as string}
               media={media}
               FEATURE_LIST={FEATURE_LIST}
               slug={slug}
@@ -1006,9 +1008,11 @@ export default async function CourseDetailPage({ params }: Props) {
             <div className="sticky top-28 -mt-[480px] z-[45]">
               <PriceCard
                 pricing={pricing}
+                hasPricingData={!!pricing}
                 discountedFee={discountedFee}
                 duration={duration}
-                brochureUrl={media.brochure_pdf_url}
+                hasDurationData={!!duration}
+                brochureUrl={media.brochure_pdf_url as string}
                 media={media}
                 FEATURE_LIST={FEATURE_LIST}
                 slug={slug}
@@ -1042,7 +1046,7 @@ export default async function CourseDetailPage({ params }: Props) {
               >
                 <div className="h-40 bg-linear-to-br from-slate-900 via-blue-950 to-slate-800">
                   {course.image ? (
-                    <img src={course.image} alt={course.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={course.image as string} alt={course.name as string} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center">
                       <GraduationCap className="w-12 h-12 text-white/60" />
@@ -1052,11 +1056,11 @@ export default async function CourseDetailPage({ params }: Props) {
                 <div className="p-4">
                   <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">{course.mode === "online" ? (isBn ? "অনলাইন" : "Online") : (isBn ? "অফলাইন" : "Offline")}</p>
                   <h3 className="font-bold text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {course.name}
+                    {course.name as string}
                   </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4">{course.fullDescription}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4">{course.fullDescription as string}</p>
                   <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                    <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {course.duration}</span>
+                    <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {course.duration as string}</span>
                     <span className="font-semibold text-blue-600 dark:text-blue-400">{isBn ? "বিস্তারিত" : "Details"}</span>
                   </div>
                 </div>
@@ -1070,19 +1074,21 @@ export default async function CourseDetailPage({ params }: Props) {
 }
 
 // Price Card Component
-function PriceCard({ pricing, discountedFee, duration, brochureUrl, media, FEATURE_LIST, slug, isBn, isLoggedIn }: {
-  pricing: any;
+function PriceCard({ pricing, hasPricingData, discountedFee, duration, hasDurationData, brochureUrl, media, FEATURE_LIST, slug, isBn, isLoggedIn }: {
+  pricing: Record<string, unknown>;
+  hasPricingData: boolean;
   discountedFee: number;
-  duration: any;
+  duration: Record<string, unknown>;
+  hasDurationData: boolean;
   brochureUrl?: string;
-  media?: any;
-  FEATURE_LIST?: any[];
+  media?: Record<string, unknown>;
+  FEATURE_LIST?: Record<string, unknown>[];
   slug: string;
   isBn: boolean;
   isLoggedIn: boolean;
 }) {
-  const previewVideoUrl = getVideoEmbedUrl(media?.preview_video_url || media?.demo_video_url || media?.intro_video_url);
-  const previewVideoKind = getVideoKind(media?.preview_video_url || media?.demo_video_url || media?.intro_video_url);
+  const previewVideoUrl = getVideoEmbedUrl((media?.preview_video_url || media?.demo_video_url || media?.intro_video_url) as string);
+  const previewVideoKind = getVideoKind((media?.preview_video_url || media?.demo_video_url || media?.intro_video_url) as string);
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-[20px] border border-slate-200 dark:border-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden flex flex-col">
@@ -1091,7 +1097,7 @@ function PriceCard({ pricing, discountedFee, duration, brochureUrl, media, FEATU
       <div className="w-full relative aspect-[16/9] bg-slate-900 group border-b-4 border-emerald-500">
         {previewVideoUrl ? (
           previewVideoKind === "direct" ? (
-            <video controls className="h-full w-full bg-black object-cover" src={previewVideoUrl} poster={media?.banner_url || media?.thumbnail_url || undefined} />
+            <video controls className="h-full w-full bg-black object-cover" src={previewVideoUrl} poster={(media?.banner_url || media?.thumbnail_url || undefined) as string | undefined} />
           ) : (
             <iframe
               src={previewVideoUrl}
@@ -1103,7 +1109,7 @@ function PriceCard({ pricing, discountedFee, duration, brochureUrl, media, FEATU
           )
         ) : (
           <>
-            <img src={media?.banner_url || "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"} alt="Course Intro" className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity" />
+            <img src={(media?.banner_url || "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800") as string} alt="Course Intro" className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-16 h-16 rounded-full bg-pink-200/90 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
                 <Play className="w-8 h-8 text-pink-500 ml-1 fill-pink-500" />
@@ -1137,13 +1143,13 @@ function PriceCard({ pricing, discountedFee, duration, brochureUrl, media, FEATU
               <span className="text-3xl font-bold text-slate-900 dark:text-white">
                 ৳{Math.round(discountedFee).toLocaleString(isBn ? "bn-BD" : "en-US")}
               </span>
-              {pricing.discount_percent > 0 && (
+              {(pricing.discount_percent as number) > 0 && (
                 <span className="text-lg text-orange-400 line-through">
                   ৳{Number(pricing.course_fee).toLocaleString(isBn ? "bn-BD" : "en-US")}
                 </span>
               )}
             </div>
-            {pricing.discount_percent > 0 && (
+            {(pricing.discount_percent as number) > 0 && (
               <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold rounded-md border border-emerald-100 dark:border-emerald-800/30">
                 <CheckCircle2 className="w-3.5 h-3.5" /> {isBn ? "প্রোমো অ্যাপ্লাইড" : "Promo Applied"}
                 <span className="ml-1 px-2 py-0.5 bg-emerald-100 dark:bg-emerald-800/40 rounded text-emerald-700 dark:text-emerald-300">TECHHAT</span>
@@ -1177,7 +1183,7 @@ function PriceCard({ pricing, discountedFee, duration, brochureUrl, media, FEATU
               <div className="mt-0.5 shrink-0 bg-white rounded-full">
                  <CheckCircle2 className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               </div>
-              <span className="leading-tight">{f.label}</span>
+              <span className="leading-tight">{f.label as string}</span>
             </div>
           ))}
           {/* Default items if FEATURE_LIST is short */}

@@ -72,7 +72,7 @@ export async function POST(req: Request) {
       deviceSecret: rawSecret,
     });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('Pairing error:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }

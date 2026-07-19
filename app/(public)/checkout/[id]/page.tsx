@@ -65,17 +65,19 @@ export default async function CheckoutPage({ params }: { params: Promise<{ id: s
   }
 
   // Extract course name from nested translations
-  const translations = (order as any).courses?.course_translations || [];
-  const courseName = translations.find((t: any) => t.lang === 'en')?.name || 
-                     translations.find((t: any) => t.lang === 'bn')?.name || "কোর্স";
+  const translations: Record<string, unknown>[] = (order as Record<string, unknown>).courses ? ((order as Record<string, unknown>).courses as Record<string, unknown>).course_translations as Record<string, unknown>[] : [];
+  const courseName = (translations.find((t: Record<string, unknown>) => t.lang === 'en') as Record<string, unknown>)?.name || 
+                     (translations.find((t: Record<string, unknown>) => t.lang === 'bn') as Record<string, unknown>)?.name || "কোর্স";
+
+  const courseFee = ((order.courses as Record<string, unknown>)?.course_pricing as Record<string, unknown>[])?.[0]?.course_fee || order.final_amount;
 
   // Extract thumbnail
   let courseThumbnail = null;
-  const media = (order as any).courses?.course_media;
+  const media = (order as Record<string, unknown>).courses ? ((order as Record<string, unknown>).courses as Record<string, unknown>).course_media : null;
   if (Array.isArray(media)) {
-    courseThumbnail = media[0]?.thumbnail_url;
+    courseThumbnail = (media[0] as Record<string, unknown>)?.thumbnail_url;
   } else if (media) {
-    courseThumbnail = media.thumbnail_url;
+    courseThumbnail = (media as Record<string, unknown>).thumbnail_url;
   }
 
   const orderForClient = {

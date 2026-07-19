@@ -9,6 +9,7 @@ import {
   COURSE_LEVELS,
   COURSE_STATUSES,
   COURSE_VISIBILITIES,
+  type CourseFormValues,
 } from "@/lib/schema/course-wizard.schema";
 import type { CourseCategory } from "@/types/course";
 import { BilingualInput } from "../fields/BilingualInput";
@@ -38,7 +39,7 @@ function genCode(nameEn: string): string {
 export function Step1General({ categories }: { categories: CourseCategory[] }) {
   const { lang } = useLang();
   const t = (k: keyof typeof courseWizardT["en"]) => courseWizardT[lang][k];
-  const { register, setValue, control } = useFormContext();
+  const { register, setValue, control } = useFormContext<CourseFormValues>();
 
   const nameEn = useWatch({ control, name: "general.name_en" });
   const nameBn = useWatch({ control, name: "general.name_bn" });
@@ -95,7 +96,10 @@ export function Step1General({ categories }: { categories: CourseCategory[] }) {
                 const categoryName = categories.find(c => c.id === categoryId)?.name_en;
                 return generateTags({ name: nameEn || nameBn, category: categoryName });
               }}
-              onResult={(d) => d?.tags && setValue("general.tags", d.tags, { shouldDirty: true, shouldValidate: true })}
+              onResult={(d) => {
+                const result = d as { tags?: string[] } | null;
+                if (result?.tags) setValue("general.tags", result.tags, { shouldDirty: true, shouldValidate: true });
+              }}
             />
           }
         />
@@ -142,8 +146,9 @@ export function Step1General({ categories }: { categories: CourseCategory[] }) {
           label="AI Slug"
           action={() => generateSlug({ name: nameEn || nameBn })}
           onResult={(d) => {
-            if (d?.en) setValue("general.slug_en", d.en, { shouldDirty: true, shouldValidate: true });
-            if (d?.bn) setValue("general.slug_bn", d.bn, { shouldDirty: true, shouldValidate: true });
+            const result = d as { en?: string; bn?: string } | null;
+            if (result?.en) setValue("general.slug_en", result.en, { shouldDirty: true, shouldValidate: true });
+            if (result?.bn) setValue("general.slug_bn", result.bn, { shouldDirty: true, shouldValidate: true });
           }}
         />
       </div>

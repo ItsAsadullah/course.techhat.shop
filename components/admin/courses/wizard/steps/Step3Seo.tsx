@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useWatch, Path, PathValue } from "react-hook-form";
 import { useLang } from "@/context/GlobalLangContext";
 import { courseWizardT } from "@/lib/i18n/course-wizard";
 import { computeSeoScore } from "@/lib/seo/score";
@@ -126,20 +126,28 @@ export function Step3Seo() {
   const [tab, setTab] = useState<L>(uiLang === "bn" ? "bn" : "en");
 
   const values = useWatch({ control }) as CourseFormValues;
-  const seo = values?.seo?.[tab] || ({} as any);
-  const g = values?.general || ({} as any);
-  const c = values?.content || ({} as any);
+  const seo = values?.seo?.[tab] || ({} as NonNullable<CourseFormValues["seo"]>["en"]);
+  const g = values?.general || ({} as CourseFormValues["general"]);
+  const c = values?.content || ({} as CourseFormValues["content"]);
+
+  const seoMetaTitle = seo.meta_title;
+  const seoMetaDescription = seo.meta_description;
+  const seoFocusKeyword = seo.focus_keyword;
+  const slugEn = g.slug_en;
+  const slugBn = g.slug_bn;
+  const longDescEn = c.long_description_en;
+  const longDescBn = c.long_description_bn;
 
   const scoreResult = useMemo(
     () =>
       computeSeoScore({
-        metaTitle: seo.meta_title,
-        metaDescription: seo.meta_description,
-        slug: tab === "en" ? g.slug_en : g.slug_bn,
-        focusKeyword: seo.focus_keyword,
-        content: tab === "en" ? c.long_description_en : c.long_description_bn,
+        metaTitle: seoMetaTitle,
+        metaDescription: seoMetaDescription,
+        slug: tab === "en" ? slugEn : slugBn,
+        focusKeyword: seoFocusKeyword,
+        content: tab === "en" ? longDescEn : longDescBn,
       }),
-    [seo, g, c, tab]
+    [seoMetaTitle, seoMetaDescription, seoFocusKeyword, slugEn, slugBn, longDescEn, longDescBn, tab]
   );
 
   const slug = (tab === "en" ? g.slug_en : g.slug_bn) || "course";
@@ -176,11 +184,12 @@ export function Step3Seo() {
           label="Generate SEO with AI"
           action={() => generateSeo({ name: g.name_en || g.name_bn, shortDescription: c.short_description_en })}
           onResult={(d) => {
+            const seoData = d as Partial<Record<L, Record<string, unknown>>> | null;
             (["en", "bn"] as L[]).forEach((l) => {
-              const src = d?.[l];
+              const src = seoData?.[l];
               if (!src) return;
               Object.entries(src).forEach(([k, v]) =>
-                setValue(`seo.${l}.${k}` as any, v as any, { shouldDirty: true })
+                setValue(`seo.${l}.${k}` as Path<CourseFormValues>, v as PathValue<CourseFormValues, Path<CourseFormValues>>, { shouldDirty: true })
               );
             });
           }}

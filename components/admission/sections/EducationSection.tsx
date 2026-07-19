@@ -120,7 +120,7 @@ function EduRow({ index, remove }: { index: number; remove: () => void }) {
 
   const labelCls = "block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider whitespace-nowrap";
 
-  const edu = (errors.education as any)?.[index];
+  const edu = (errors.education as Record<string, unknown>)?.[index] as Record<string, { message?: string }> | undefined;
 
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3">

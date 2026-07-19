@@ -112,12 +112,12 @@ export function TopBar({ email }: TopBarProps) {
   ];
 
   return (
-    <div className="sticky top-0 z-40 bg-admin-background/95 backdrop-blur-md md:rounded-tl-[40px] border-b border-slate-100/50 transition-all flex flex-col">
-      <div className="px-4 md:px-8 py-3 md:py-5 flex items-center justify-between w-full gap-3 md:gap-4">
+    <div className="sticky top-0 z-40 bg-admin-background/95 backdrop-blur-md rounded-tl-[40px] border-b border-slate-100/50 transition-all flex flex-col">
+      <div className="px-8 py-5 flex items-center justify-between w-full">
       
       {/* Left: Page Title & Subtitle */}
-      <div className="hidden md:flex flex-col gap-0.5 min-w-[250px] flex-shrink-0">
-        <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight truncate">
+      <div className="flex flex-col gap-0.5 min-w-[250px] w-auto whitespace-nowrap">
+        <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight">
           {title}
         </h1>
         {subtitle && (
@@ -128,7 +128,7 @@ export function TopBar({ email }: TopBarProps) {
       </div>
 
       {/* Center: Search Bar */}
-      <div className="flex-1 flex justify-end md:justify-center max-w-2xl" ref={searchContainerRef}>
+      <div className="flex-1 flex justify-center max-w-2xl px-4" ref={searchContainerRef}>
         <div className="relative w-full max-w-lg">
           <div 
             className={cn(
@@ -144,7 +144,7 @@ export function TopBar({ email }: TopBarProps) {
               placeholder="Search here..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 placeholder:text-slate-400 h-11 md:h-12 px-3 text-sm font-medium w-full text-slate-800"
+              className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 placeholder:text-slate-400 h-12 px-3 text-sm font-medium w-full text-slate-800"
               style={{ outline: 'none', boxShadow: 'none' }}
               onFocus={() => setIsFocused(true)}
             />
@@ -224,7 +224,7 @@ export function TopBar({ email }: TopBarProps) {
       </div>
 
       {/* Right: Actions, Notifications & Profile */}
-      <div className="flex items-center justify-end gap-2 md:gap-5 w-auto flex-shrink-0">
+      <div className="flex items-center justify-end gap-5 w-auto">
         <div className="hidden xl:flex items-center gap-2 mr-2">
           <Button asChild variant="outline" className="rounded-full border-slate-200 text-slate-600 font-bold h-10 px-4 shadow-sm hover:bg-slate-50 transition-all text-xs">
             <Link href="/admin/payments/new">
@@ -258,8 +258,8 @@ export function TopBar({ email }: TopBarProps) {
       </div>
 
       {isTrainingRoute && (
-        <div className="px-4 md:px-8 -mt-2">
-          <nav className="flex space-x-6 overflow-x-auto custom-scrollbar" aria-label="Tabs">
+        <div className="px-8 -mt-2">
+          <nav className="flex space-x-6 overflow-x-auto" aria-label="Tabs">
             {trainingNavItems.map((item) => {
               const isActive =
                 item.href === "/admin/training"

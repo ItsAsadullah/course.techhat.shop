@@ -1,10 +1,10 @@
 "use client";
 
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, Path } from "react-hook-form";
 import { CourseWizardValues } from "@/lib/schema/course.schema";
 
 interface Step2Props {
-  form: any;
+  form: UseFormReturn<CourseWizardValues>;
 }
 
 const inputCls = "w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-400 transition-all placeholder:text-slate-400";
@@ -29,7 +29,7 @@ function DualField({
   labelEn: string;
   nameBn: keyof CourseWizardValues["step2"];
   nameEn: keyof CourseWizardValues["step2"];
-  form: any;
+  form: UseFormReturn<CourseWizardValues>;
   placeholderBn?: string;
   placeholderEn?: string;
   multiline?: boolean;
@@ -42,7 +42,7 @@ function DualField({
       <div>
         <label className={labelCls}>{labelBn}</label>
         <Tag
-          {...register(`step2.${nameBn}` as any)}
+          {...register(`step2.${nameBn}` as Path<CourseWizardValues>)}
           placeholder={placeholderBn}
           className={multiline ? textareaCls : inputCls}
         />
@@ -51,7 +51,7 @@ function DualField({
       <div>
         <label className={labelCls}>{labelEn}</label>
         <Tag
-          {...register(`step2.${nameEn}` as any)}
+          {...register(`step2.${nameEn}` as Path<CourseWizardValues>)}
           placeholder={placeholderEn}
           className={multiline ? textareaCls : inputCls}
         />

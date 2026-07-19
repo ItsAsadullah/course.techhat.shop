@@ -15,12 +15,13 @@ export default function CourseListActions({ course }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const handle = async (fn: () => Promise<any>, successMsg: string) => {
+  const handle = async (fn: () => Promise<{ error?: string } | void | Record<string, unknown>>, successMsg: string) => {
     setLoading(true);
     const result = await fn();
     setLoading(false);
-    if (result?.error) {
-      toast.error(result.error);
+    const typedResult = result as { error?: string } | undefined;
+    if (typedResult?.error) {
+      toast.error(typedResult.error);
     } else {
       toast.success(successMsg);
       router.refresh();

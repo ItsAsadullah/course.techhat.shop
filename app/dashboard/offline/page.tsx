@@ -2,6 +2,23 @@ import { createClient } from "@/lib/admin/supabase/server";
 import { redirect } from "next/navigation";
 import { Presentation, MapPin, Users, Calendar, Megaphone, Monitor } from "lucide-react";
 
+interface OfflineCourse {
+  id: string;
+  code: string;
+  name: string;
+  location: string;
+  schedule: string;
+  instructor: string;
+  progress: number;
+}
+
+interface Notice {
+  type: string;
+  color: string;
+  date: string;
+  title: string;
+}
+
 export default async function OfflineCoursePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -43,7 +60,7 @@ export default async function OfflineCoursePage() {
           <p className="text-slate-500">You are not enrolled in any offline courses at the moment.</p>
         </div>
       ) : (
-        courses.map((course: any) => (
+        courses.map((course: OfflineCourse) => (
           <div key={course.id} className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-10 text-white shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/3"></div>
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -98,7 +115,7 @@ export default async function OfflineCoursePage() {
               No notices right now.
             </div>
           ) : (
-            notices.map((notice: any, i: number) => (
+            notices.map((notice: Notice, i: number) => (
               <div key={i} className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
                 <div className="flex items-start justify-between mb-2">
                   <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${notice.color === 'red' ? 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400' : notice.color === 'blue' ? 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400' : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400'}`}>

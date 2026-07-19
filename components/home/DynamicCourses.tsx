@@ -69,7 +69,7 @@ export default function DynamicCourses({ courseData }: CourseDataProps) {
           title="courses_online_title"
           subtitle="courses_online_sub"
           description="courses_online_desc"
-          courses={onlineDB as any}
+          courses={onlineDB as unknown as import('@/data/courses').Course[]}
         />
       )}
       {offlineDB.length > 0 && (
@@ -78,7 +78,7 @@ export default function DynamicCourses({ courseData }: CourseDataProps) {
           title="courses_offline_title"
           subtitle="courses_offline_sub"
           description="courses_offline_desc"
-          courses={offlineDB as any}
+          courses={offlineDB as unknown as import('@/data/courses').Course[]}
           backgroundColor="bg-white dark:bg-slate-900"
         />
       )}

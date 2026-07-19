@@ -3,6 +3,17 @@ import { redirect } from "next/navigation";
 import { CreditCard, Receipt, AlertCircle, CheckCircle2, Clock, Download, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+interface Payment {
+  id: string;
+  courseName: string;
+  type: string;
+  amount: string;
+  date: string;
+  status: 'paid' | 'pending' | 'failed';
+  method?: string;
+  invoiceUrl?: string;
+}
+
 export default async function PaymentsPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -91,7 +102,7 @@ export default async function PaymentsPage() {
                   </td>
                 </tr>
               ) : (
-                payments.map((payment: any) => (
+                (payments as Payment[]).map((payment: Payment) => (
                   <tr key={payment.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="px-6 py-5">
                       <span className="font-bold text-slate-900 dark:text-white">{payment.id}</span>

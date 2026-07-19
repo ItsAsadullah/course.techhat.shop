@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
@@ -12,13 +13,11 @@ import {
   CheckCircle2,
   ChevronRight,
   CircleDollarSign,
-  Clock3,
   CreditCard,
   FileCheck2,
   FileText,
   GraduationCap,
   HeartPulse,
-  Home,
   IdCard,
   Mail,
   MapPin,
@@ -284,27 +283,7 @@ function MetricCard({
   );
 }
 
-function ProgressBar({
-  value,
-}: {
-  value: number;
-}) {
-  const safeValue = Math.max(
-    0,
-    Math.min(100, value),
-  );
 
-  return (
-    <div className="h-2 overflow-hidden rounded-full bg-slate-100">
-      <div
-        className="h-full rounded-full bg-emerald-500 transition-all"
-        style={{
-          width: `${safeValue}%`,
-        }}
-      />
-    </div>
-  );
-}
 
 function EmptyState({
   icon,
@@ -343,7 +322,34 @@ export default async function StudentDetailPage({
     notFound();
   }
 
-  const rawStudent = student.raw_data as any;
+  const rawStudent = (student as unknown as { raw_data: unknown }).raw_data as {
+    student_documents?: { id?: string; document_type?: string; file_url?: string; }[];
+    student_addresses?: { address_type?: string; village?: string; village_road?: string; address_line?: string; post_office?: string; post_code?: string; union_municipality?: string; upazila?: string; district?: string; division?: string; }[];
+    student_education?: { id?: string; exam_name?: string; board?: string; passing_year?: string; group_subject?: string; result_value?: string; result_type?: string; roll_no?: string; registration_no?: string; }[];
+    guardians?: { id?: string; name?: string; guardian_type?: string; relationship?: string; mobile?: string; }[];
+    full_name_bn?: string;
+    dob?: string;
+    father_name?: string;
+    mother_name?: string;
+    gender?: string;
+    religion?: string;
+    marital_status?: string;
+    nationality?: string;
+    blood_group?: string;
+    nid?: string;
+    birth_cert_no?: string;
+    mobile?: string;
+    email?: string;
+    guardian_mobile?: string;
+    admission_no?: string;
+    student_type?: string;
+    admission_session?: string;
+    session?: string;
+    batch_name?: string;
+    batch?: string;
+    shift?: string;
+    registration_no?: string;
+  };
 
   const documents =
     rawStudent?.student_documents ?? [];
@@ -357,25 +363,20 @@ export default async function StudentDetailPage({
   const guardiansList =
     rawStudent?.guardians ?? [];
 
-  const payments = student.payments ?? [];
-  const enrollments = student.enrollments ?? [];
-  const activeEnrollment = enrollments.find((e: any) => e.status === "active") || enrollments[0];
+  const payments = ((student as unknown as { payments?: unknown }).payments as Record<string, unknown>[] | undefined) ?? [];
+  const enrollments = ((student as unknown as { enrollments?: unknown }).enrollments as Record<string, unknown>[] | undefined) ?? [];
+  const activeEnrollment = enrollments.find((e: Record<string, unknown>) => e.status === "active") || enrollments[0];
 
-  const photoDocument = documents.find(
-    (document: any) =>
-      document.document_type === "photo",
+  const profilePicture = documents.find(
+    (document: Record<string, unknown>) =>
+      document.document_type === "photo" && document.file_url
   );
 
-  const photoUrl = photoDocument?.file_url;
+  const photoUrl = profilePicture?.file_url;
 
   const presentAddress = addresses.find(
-    (address: any) =>
-      address.address_type === "present",
-  );
-
-  const permanentAddress = addresses.find(
-    (address: any) =>
-      address.address_type === "permanent",
+    (address: Record<string, unknown>) =>
+      address.address_type === "present"
   );
 
   const totalCourseFee =
@@ -454,10 +455,11 @@ export default async function StudentDetailPage({
             <div className="flex min-w-0 flex-col items-center gap-5 sm:flex-row sm:items-stretch">
               <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-slate-100 shadow-lg sm:h-32 sm:w-32">
                 {photoUrl ? (
-                  <img
-                    src={photoUrl}
+                  <Image
+                    src={photoUrl as string}
                     alt={student.name || "Student"}
-                    className="h-full w-full object-cover object-top"
+                    fill
+                    className="object-cover object-top"
                   />
                 ) : (
                   <span className="text-3xl font-bold text-slate-400">
@@ -584,7 +586,7 @@ export default async function StudentDetailPage({
           <MetricCard
             label="Payment Progress"
             value={`${paymentProgress.toFixed(1)}%`}
-            description={`${enrollments.filter((enrollment: any) => enrollment.status === "active").length} active course${enrollments.filter((enrollment: any) => enrollment.status === "active").length === 1 ? "" : "s"}`}
+            description={`${enrollments.filter((enrollment: Record<string, unknown>) => enrollment.status === "active").length} active course${enrollments.filter((enrollment: Record<string, unknown>) => enrollment.status === "active").length === 1 ? "" : "s"}`}
             icon={<Activity className="h-5 w-5" />}
             tone="purple"
           />
@@ -646,7 +648,7 @@ export default async function StudentDetailPage({
               <DataField
                 label="Student Type"
                 value={titleCase(
-                  activeEnrollment?.course?.course_type ||
+                  (activeEnrollment?.course as Record<string, unknown>)?.course_type as string ||
                   rawStudent?.student_type,
                 )}
               />
@@ -654,7 +656,7 @@ export default async function StudentDetailPage({
               <DataField
                 label="Admission Session"
                 value={
-                  activeEnrollment?.batch?.session ||
+                  (activeEnrollment?.batch as Record<string, unknown>)?.session as string ||
                   rawStudent?.admission_session ||
                   rawStudent?.session ||
                   "—"
@@ -664,7 +666,7 @@ export default async function StudentDetailPage({
               <DataField
                 label="Batch"
                 value={
-                  activeEnrollment?.batch_name ||
+                  activeEnrollment?.batch_name as string ||
                   rawStudent?.batch_name ||
                   rawStudent?.batch ||
                   "—"
@@ -674,7 +676,7 @@ export default async function StudentDetailPage({
               <DataField
                 label="Shift"
                 value={titleCase(
-                  activeEnrollment?.shift?.name_en ||
+                  (activeEnrollment?.shift as Record<string, unknown>)?.name_en as string ||
                   rawStudent?.shift
                 )}
               />
@@ -682,7 +684,7 @@ export default async function StudentDetailPage({
               <DataField
                 label="Registration No."
                 value={
-                  activeEnrollment?.enrollment_code ||
+                  (activeEnrollment?.enrollment_code as string) ||
                   rawStudent?.registration_no || "—"
                 }
                 mono
@@ -976,7 +978,7 @@ export default async function StudentDetailPage({
             {guardiansList.length > 0 ? (
               <div className="divide-y divide-slate-100">
                 {guardiansList.map(
-                  (guardian: any, index: number) => (
+                  (guardian: { id?: string; name?: string; guardian_type?: string; relationship?: string; mobile?: string; }, index: number) => (
                     <div
                       key={
                         guardian.id ??
@@ -1075,7 +1077,7 @@ export default async function StudentDetailPage({
             {educationList.length > 0 ? (
               <div className="divide-y divide-slate-100">
                 {educationList.map(
-                  (education: any, index: number) => (
+                  (education: { id?: string; exam_name?: string; board?: string; passing_year?: string; group_subject?: string; result_value?: string; result_type?: string; roll_no?: string; registration_no?: string; }, index: number) => (
                     <div
                       key={
                         education.id ??
@@ -1185,13 +1187,13 @@ export default async function StudentDetailPage({
             {documents.length > 0 ? (
               <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
                 {documents.map(
-                  (document: any, index: number) => (
+                  (document: { id?: string; document_type?: string; file_url?: string; }, index: number) => (
                     <a
                       key={
                         document.id ??
                         `${document.document_type}-${index}`
                       }
-                      href={document.file_url}
+                      href={document.file_url as string}
                       target="_blank"
                       rel="noreferrer"
                       className="group flex items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/50"
@@ -1203,7 +1205,7 @@ export default async function StudentDetailPage({
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-semibold text-slate-800">
                           {titleCase(
-                            document.document_type,
+                            document.document_type as string,
                           )}
                         </p>
 
@@ -1366,7 +1368,7 @@ export default async function StudentDetailPage({
             />
 
             <div className="p-5 sm:p-6">
-              {enrollments.length > 0 ? <div className="space-y-3">{enrollments.map((enrollment: any) => <div key={enrollment.id} className="rounded-2xl border border-slate-200 p-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="font-bold text-slate-950">{enrollment.course_name}</p><p className="mt-1 text-xs text-slate-500">{enrollment.batch_name || "No batch"} · {titleCase(enrollment.status)}</p></div><Badge variant="outline" className="capitalize">{enrollment.status}</Badge></div><div className="mt-3 grid grid-cols-3 gap-3 border-t border-slate-100 pt-3 text-xs"><span className="text-slate-500">Final fee <strong className="block font-mono text-slate-900">৳{formatMoney(enrollment.final_fee)}</strong></span><span className="text-slate-500">Paid <strong className="block font-mono text-emerald-700">৳{formatMoney(enrollment.total_paid)}</strong></span><span className="text-slate-500">Due <strong className="block font-mono text-rose-700">৳{formatMoney(enrollment.current_due)}</strong></span></div><div className="mt-3 flex justify-end"><Button size="sm" variant="outline" asChild><Link href={`/admin/payments/new?student_id=${id}&enrollment_id=${enrollment.id}`}>Receive Payment</Link></Button></div></div>)}</div> : <div className="rounded-xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No course has been assigned yet.</div>}
+              {enrollments.length > 0 ? <div className="space-y-3">{enrollments.map((enrollment: Record<string, unknown>) => <div key={enrollment.id as string} className="rounded-2xl border border-slate-200 p-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="font-bold text-slate-950">{enrollment.course_name as string}</p><p className="mt-1 text-xs text-slate-500">{enrollment.batch_name as string || "No batch"} · {titleCase(enrollment.status as string)}</p></div><Badge variant="outline" className="capitalize">{enrollment.status as string}</Badge></div><div className="mt-3 grid grid-cols-3 gap-3 border-t border-slate-100 pt-3 text-xs"><span className="text-slate-500">Final fee <strong className="block font-mono text-slate-900">৳{formatMoney(enrollment.final_fee as number)}</strong></span><span className="text-slate-500">Paid <strong className="block font-mono text-emerald-700">৳{formatMoney(enrollment.total_paid as number)}</strong></span><span className="text-slate-500">Due <strong className="block font-mono text-rose-700">৳{formatMoney(enrollment.current_due as number)}</strong></span></div><div className="mt-3 flex justify-end"><Button size="sm" variant="outline" asChild><Link href={`/admin/payments/new?student_id=${id}&enrollment_id=${enrollment.id}`}>Receive Payment</Link></Button></div></div>)}</div> : <div className="rounded-xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No course has been assigned yet.</div>}
             </div>
           </section>
 
@@ -1388,9 +1390,9 @@ export default async function StudentDetailPage({
 
             {payments.length > 0 ? (
               <div className="divide-y divide-slate-100">
-                {payments.map((payment: any) => (
+                {payments.map((payment: Record<string, unknown>) => (
                   <div
-                    key={payment.id}
+                    key={payment.id as string}
                     className="group flex items-center gap-3 px-5 py-4 transition hover:bg-slate-50/70"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
@@ -1399,13 +1401,13 @@ export default async function StudentDetailPage({
 
                     <div className="min-w-0 flex-1">
                       <p className="font-mono text-sm font-bold text-emerald-700">
-                        ৳{formatMoney(payment.amount)}
+                        ৳{formatMoney(payment.amount as number)}
                       </p>
 
                       <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-slate-500">
                         <span>
                           {formatDate(
-                            payment.payment_date,
+                            payment.payment_date as string,
                           )}
                         </span>
 
@@ -1413,7 +1415,7 @@ export default async function StudentDetailPage({
 
                         <span>
                           {titleCase(
-                            payment.payment_method,
+                            payment.payment_method as string,
                           )}
                         </span>
                       </div>

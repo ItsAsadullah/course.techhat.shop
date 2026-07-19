@@ -2,6 +2,7 @@ import { getTrainingLabs } from "@/lib/admin/actions/training-labs";
 import { Plus, MonitorPlay } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import type { TrainingLab } from "@/types/admin/training";
 
 export const metadata = {
   title: "Training Labs",
@@ -43,7 +44,7 @@ export default async function TrainingLabsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {labs.map((lab: any) => (
+                {labs?.map((lab: TrainingLab) => (
                   <tr key={lab.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <p className="font-semibold text-slate-900">{lab.name}</p>

@@ -51,8 +51,8 @@ export default async function DashboardAdmissionPage() {
       .single();
     
     if (rawStudent) {
-      const presentAddr = rawStudent.student_addresses?.find((a: any) => a.address_type === "present") || {};
-      const permanentAddr = rawStudent.student_addresses?.find((a: any) => a.address_type === "permanent") || {};
+      const presentAddr = rawStudent.student_addresses?.find((a: Record<string, unknown>) => a.address_type === "present") || {};
+      const permanentAddr = rawStudent.student_addresses?.find((a: Record<string, unknown>) => a.address_type === "permanent") || {};
       
       initialData = {
         ...rawStudent,

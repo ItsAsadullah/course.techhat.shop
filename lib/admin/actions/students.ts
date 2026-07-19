@@ -6,6 +6,37 @@ import { createClient } from "@/lib/admin/supabase/server";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import type { Student } from "@/types/admin";
 
+type TranslationRow = { lang: string; name?: string };
+type PaymentRow = { amount?: number | string; payment_date?: string };
+type MediaRow = { thumbnail_url?: string };
+type EnrollmentRow = { 
+  status?: string; 
+  final_fee?: number | string; 
+  total_paid?: number | string;
+  payments?: PaymentRow[]; 
+  course?: { course_translations?: TranslationRow[]; course_media?: MediaRow | MediaRow[]; course_type?: string }; 
+  batch?: { name_en?: string; name_bn?: string; session?: string };
+  shift?: { name_en?: string };
+  course_name?: string;
+};
+type DocRow = { document_type?: string; file_url?: string };
+type StudentRow = {
+  id: string;
+  student_code?: string;
+  full_name_en?: string;
+  full_name_bn?: string;
+  mobile?: string;
+  email?: string;
+  gender?: string;
+  created_at?: string;
+  admission_date?: string;
+  guardians?: { name?: string; occupation?: string }[];
+  student_documents?: DocRow[];
+  course_enrollments?: EnrollmentRow[];
+  payments?: PaymentRow[];
+  student_addresses?: { address_type?: string; division?: string; district?: string; upazila?: string; union_municipality?: string; village?: string; post_office?: string; post_code?: string }[];
+};
+
 // ── Helper: get admin client (bypasses RLS) ───────────────────
 function getAdminClient() {
   return createSupabaseClient(
@@ -41,16 +72,16 @@ export async function getStudents(filters?: { search?: string, gender?: string, 
     throw new Error(`Failed to fetch students: ${error.message}`);
   }
 
-  let students = (data || []).map((student: any) => {
+  let students = (data || []).map((student: StudentRow) => {
     const enrollments = student.course_enrollments || [];
-    const totalFee = enrollments.reduce((sum: number, enrollment: any) => sum + Number(enrollment.final_fee || 0), 0);
-    const totalPaid = enrollments.reduce((sum: number, enrollment: any) => sum + (enrollment.payments || []).reduce((paymentSum: number, payment: { amount: number }) => paymentSum + Number(payment.amount || 0), 0), 0);
-    const activeEnrollment = enrollments.find((enrollment: any) => enrollment.status === "active") || enrollments[0];
+    const totalFee = enrollments.reduce((sum: number, enrollment: EnrollmentRow) => sum + Number(enrollment.final_fee || 0), 0);
+    const totalPaid = enrollments.reduce((sum: number, enrollment: EnrollmentRow) => sum + (enrollment.payments || []).reduce((paymentSum: number, payment: PaymentRow) => paymentSum + Number(payment.amount || 0), 0), 0);
+    const activeEnrollment = enrollments.find((enrollment: EnrollmentRow) => enrollment.status === "active") || enrollments[0];
     const translations = activeEnrollment?.course?.course_translations || [];
-    const courseName = translations.find((translation: any) => translation.lang === "en")?.name || translations.find((translation: any) => translation.lang === "bn")?.name || null;
+    const courseName = translations.find((translation: TranslationRow) => translation.lang === "en")?.name || translations.find((translation: TranslationRow) => translation.lang === "bn")?.name || null;
     const batchName = activeEnrollment?.batch?.name_en || activeEnrollment?.batch?.name_bn || null;
     const guardianName = student.guardians?.[0]?.name || null;
-    const photoDoc = (student.student_documents || []).find((doc: any) => doc.document_type === "photo");
+    const photoDoc = (student.student_documents || []).find((doc: DocRow) => doc.document_type === "photo");
 
     const courseMedia = Array.isArray(activeEnrollment?.course?.course_media) 
       ? activeEnrollment.course.course_media[0] 
@@ -121,12 +152,12 @@ export async function getStudentById(id: string) {
 
   if (enrollmentError) console.error("Failed to fetch student enrollments:", enrollmentError);
 
-  const enrollments = (enrollmentRows || []).map((enrollment: any) => {
+  const enrollments = (enrollmentRows || []).map((enrollment: EnrollmentRow) => {
     const enrolledPayments = enrollment.payments || [];
-    const enrollmentPaid = enrolledPayments.reduce((sum: number, payment: any) => sum + Number(payment.amount || 0), 0);
+    const enrollmentPaid = enrolledPayments.reduce((sum: number, payment: PaymentRow) => sum + Number(payment.amount || 0), 0);
     const finalFee = Number(enrollment.final_fee || 0);
     const translations = enrollment.course?.course_translations || [];
-    const name = translations.find((translation: any) => translation.lang === "en")?.name || translations.find((translation: any) => translation.lang === "bn")?.name || "Unnamed course";
+    const name = translations.find((translation: TranslationRow) => translation.lang === "en")?.name || translations.find((translation: TranslationRow) => translation.lang === "bn")?.name || "Unnamed course";
     return {
       ...enrollment,
       course_name: name,
@@ -137,12 +168,12 @@ export async function getStudentById(id: string) {
     };
   });
 
-  const totalCourseFee = enrollments.reduce((sum: number, enrollment: any) => sum + Number(enrollment.final_fee || 0), 0);
-  const totalPaid = enrollments.reduce((sum: number, enrollment: any) => sum + Number(enrollment.total_paid || 0), 0);
+  const totalCourseFee = enrollments.reduce((sum: number, enrollment: EnrollmentRow) => sum + Number(enrollment.final_fee || 0), 0);
+  const totalPaid = enrollments.reduce((sum: number, enrollment: EnrollmentRow) => sum + Number(enrollment.total_paid || 0), 0);
   const allPayments = (student.payments || []).sort(
-    (a: any, b: any) => new Date(b.payment_date).getTime() - new Date(a.payment_date).getTime(),
+    (a: PaymentRow, b: PaymentRow) => new Date(b.payment_date || 0).getTime() - new Date(a.payment_date || 0).getTime(),
   );
-  const firstEnrollment = enrollments.find((enrollment: any) => enrollment.status === "active") || enrollments[0];
+  const firstEnrollment = enrollments.find((enrollment: EnrollmentRow) => enrollment.status === "active") || enrollments[0];
 
   return {
     id: student.id,
@@ -163,11 +194,11 @@ export async function getStudentById(id: string) {
       total_paid: totalPaid,
       current_due: Math.max(totalCourseFee - totalPaid, 0),
       payment_progress: totalCourseFee > 0 ? Math.min((totalPaid / totalCourseFee) * 100, 100) : 100,
-      active_enrollment_count: enrollments.filter((enrollment: any) => enrollment.status === "active").length,
+      active_enrollment_count: enrollments.filter((enrollment: EnrollmentRow) => enrollment.status === "active").length,
     },
     // Pass the full student record for deep details view
     raw_data: student,
-  } as any;
+  } as unknown as Student;
 }
 
 // ── Get raw student for edit (deep relations) ─────────────────
@@ -188,8 +219,8 @@ export async function getRawStudentForEdit(id: string) {
 
   if (!student) return null;
 
-  const presentAddr = student.student_addresses?.find((a: any) => a.address_type === "present") || {};
-  const firstGuardian = student.guardians?.[0] || {};
+  const presentAddr = (student as StudentRow).student_addresses?.find((a) => a.address_type === "present") || {};
+  const firstGuardian = (student as StudentRow).guardians?.[0] || {};
 
   return {
     ...student,
@@ -294,7 +325,7 @@ export async function createStudent(formData: FormData) {
 export async function updateStudent(id: string, formData: FormData) {
   const supabaseAdmin = getAdminClient();
 
-  const rawData: Record<string, any> = {
+  const rawData: Record<string, string | number> = {
     full_name_en: formData.get("name") as string,
     mobile: formData.get("phone") as string,
     total_course_fee: Number(formData.get("total_course_fee") || 0),

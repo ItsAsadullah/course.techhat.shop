@@ -22,9 +22,9 @@ export async function initializeCheckout(admissionId: string) {
   }
 
   // 2. Calculate base amount (fee - discount)
-  const coursesObj: any = admission.courses;
+  const coursesObj: Record<string, unknown> | Record<string, unknown>[] = admission.courses as unknown as Record<string, unknown> | Record<string, unknown>[];
   const baseFeeStr = Array.isArray(coursesObj) ? coursesObj[0]?.fee : coursesObj?.fee;
-  const baseFee = parseFloat(baseFeeStr || "0");
+  const baseFee = parseFloat((baseFeeStr as string) || "0");
   const discount = parseFloat(admission.discount || "0");
   const finalFee = baseFee - discount;
   const baseAmountMinor = Math.round(finalFee * 100);

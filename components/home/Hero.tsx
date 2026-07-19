@@ -14,7 +14,7 @@ const highlights = [
   "চাকরির সহায়তা প্রদান করা হয়",
 ]
 
-const getFloatingBadges = (t: any) => [
+const getFloatingBadges = (t: ReturnType<typeof useLang>["t"]) => [
   { icon: Users, value: "৫০০০+", label: t("hero_badge_students"), color: "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800 shadow-sm" },
   { icon: Star, value: "৪.৯/৫", label: t("hero_badge_rating"), color: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800 shadow-sm" },
   { icon: Award, value: "১০০%", label: t("hero_badge_cert"), color: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 shadow-sm" },

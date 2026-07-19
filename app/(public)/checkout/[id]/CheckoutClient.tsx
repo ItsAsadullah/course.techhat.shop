@@ -452,7 +452,7 @@ export default function CheckoutClient({
       } else {
         toast.error(res.error);
       }
-    } catch (err: any) {
+    } catch (err) {
       toast.error("Failed to apply coupon");
     } finally {
       setApplyingCoupon(false);

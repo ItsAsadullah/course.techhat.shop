@@ -2,10 +2,22 @@
 
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
-import { ClipboardList, CreditCard, BookOpen, Award } from "lucide-react"
+import { LucideIcon, ClipboardList, CreditCard, BookOpen, Award } from "lucide-react"
 import { useLang } from "@/context/GlobalLangContext"
 
-const getSteps = (t: any) => [
+interface Step {
+  id: number;
+  intro: string;
+  emphasis: string;
+  desc: string;
+  icon: LucideIcon;
+  color: string;
+  bg: string;
+  border: string;
+  iconPos: string;
+}
+
+const getSteps = (t: ReturnType<typeof useLang>["t"]): Step[] => [
   {
     id: 1,
     intro: t("en_s1_i"),
@@ -211,7 +223,7 @@ export default function EnrollSteps() {
   )
 }
 
-function StepCardDesktop({ step, idx, pathLength, isBn }: { step: any, idx: number, pathLength: any, isBn: boolean }) {
+function StepCardDesktop({ step, idx, pathLength, isBn }: { step: Step, idx: number, pathLength: import("framer-motion").MotionValue<number>, isBn: boolean }) {
   const thresholds = [
     [0.00, 0.10],
     [0.30, 0.45],

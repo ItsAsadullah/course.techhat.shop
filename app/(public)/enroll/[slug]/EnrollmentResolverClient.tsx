@@ -7,16 +7,35 @@ import { createOrder } from "@/lib/actions/orders";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Phone, MapPin, CheckCircle2, ChevronRight, CalendarDays, Clock, Users, ShieldCheck, ArrowRight, Loader2, Map } from "lucide-react";
 
+interface CourseData {
+  id: string;
+  nameEn: string;
+  type: string;
+  fee: number;
+  discountPercent: number;
+  finalPrice: number;
+  thumbnail: string | null;
+}
+
+interface BatchData {
+  id: string;
+  name_en: string;
+  class_days: string;
+  class_time_start: string;
+  class_time_end: string;
+  available_seats: number;
+}
+
 export default function EnrollmentResolverClient({
   course,
   user,
   student,
   availableBatches,
 }: {
-  course: any;
-  user: any;
-  student: any;
-  availableBatches: any[];
+  course: CourseData;
+  user: Record<string, unknown>;
+  student: Record<string, unknown>;
+  availableBatches: BatchData[];
 }) {
   const router = useRouter();
   
@@ -26,11 +45,11 @@ export default function EnrollmentResolverClient({
   
   // Form State
   const [formData, setFormData] = useState({
-    fullNameEn: student?.full_name_en || "",
-    fullNameBn: student?.full_name_bn || "",
-    mobile: student?.mobile || user.phone || "",
-    guardianMobile: student?.guardian_mobile || "",
-    bloodGroup: student?.blood_group || "",
+    fullNameEn: (student?.full_name_en as string) || "",
+    fullNameBn: (student?.full_name_bn as string) || "",
+    mobile: (student?.mobile as string) || (user.phone as string) || "",
+    guardianMobile: (student?.guardian_mobile as string) || "",
+    bloodGroup: (student?.blood_group as string) || "",
     village: "",
     union: "",
     upazila: "",
@@ -69,7 +88,7 @@ export default function EnrollmentResolverClient({
       } else {
         router.push(`/checkout/${res.orderId}`);
       }
-    } catch (err: any) {
+    } catch (err) {
       toast.error("An error occurred");
       setLoading(false);
     }

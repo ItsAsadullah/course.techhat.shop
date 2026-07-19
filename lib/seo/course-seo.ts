@@ -45,17 +45,21 @@ export async function getPublishedCoursesForSeo(limit = 1000): Promise<PublicCou
 
   if (error || !data) return [];
 
-  return data.map((row: any) => {
-    const tr: any[] = row.translations || [];
-    const en = tr.find((t) => t.lang === "en") || {};
-    const bn = tr.find((t) => t.lang === "bn") || {};
-    const media = Array.isArray(row.media) ? row.media[0] : row.media || {};
-    const category = Array.isArray(row.category) ? row.category[0] : row.category || {};
-    const seoRows: any[] = row.seo || [];
+  return data.map((row: Record<string, unknown>) => {
+    type TrRow = { lang: string; name?: string; slug?: string; short_description?: string };
+    const tr = (row.translations as TrRow[]) || [];
+    const empty: TrRow = { lang: "" };
+    const en = tr.find((t) => t.lang === "en") ?? empty;
+    const bn = tr.find((t) => t.lang === "bn") ?? empty;
+    const mediaRaw = row.media;
+    const media = (Array.isArray(mediaRaw) ? mediaRaw[0] : mediaRaw || {}) as { thumbnail_url?: string; intro_video_url?: string };
+    const categoryRaw = row.category;
+    const category = (Array.isArray(categoryRaw) ? categoryRaw[0] : categoryRaw || {}) as { name_en?: string };
+    const seoRows = ((row.seo as Array<{ robots_index?: boolean }>) || []);
     const robots_index = seoRows.length ? seoRows.every((s) => s.robots_index !== false) : true;
 
     return {
-      id: row.id,
+      id: row.id as string,
       slug_en: en.slug || "",
       slug_bn: bn.slug || "",
       name_en: en.name || "",
@@ -65,8 +69,8 @@ export async function getPublishedCoursesForSeo(limit = 1000): Promise<PublicCou
       thumbnail: media.thumbnail_url || null,
       intro_video_url: media.intro_video_url || null,
       category_en: category.name_en || null,
-      updated_at: row.updated_at,
-      published_at: row.published_at,
+      updated_at: row.updated_at as string,
+      published_at: (row.published_at as string) || null,
       robots_index,
     };
   });

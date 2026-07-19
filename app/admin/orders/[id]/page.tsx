@@ -330,8 +330,8 @@ export default async function AdminOrderDetailPage({
 
   const { order, session, review } = result;
 
-  const student = order.students as any;
-  const course = order.courses as any;
+  const student = order.students as { id?: string; full_name_en?: string; full_name_bn?: string; mobile?: string; email?: string; guardian_mobile?: string; };
+  const course = order.courses as Record<string, unknown>;
 
   const hasPendingReview =
     review?.status === "PENDING";
@@ -503,7 +503,7 @@ export default async function AdminOrderDetailPage({
               <OrderCancelAction
                 orderId={id}
                 studentName={
-                  student?.full_name_en || "Student"
+                  (student?.full_name_en as string) || "Student"
                 }
               />
             ) : null}
@@ -632,7 +632,7 @@ export default async function AdminOrderDetailPage({
               <OrderApproveActions
                 reviewId={review.id}
                 studentName={
-                  student?.full_name_en || "Student"
+                  (student?.full_name_en as string) || "Student"
                 }
                 trxId={review.submitted_trx_id}
                 amountStr={formatMoney(payableAmount)}
@@ -671,7 +671,7 @@ export default async function AdminOrderDetailPage({
                     </p>
 
                     <h3 className="mt-1.5 text-lg font-semibold leading-7 text-slate-950">
-                      {course?.title || "Course unavailable"}
+                      {(course?.title as string) || "Course unavailable"}
                     </h3>
 
                     <p className="mt-2 text-xs text-slate-500">

@@ -1,10 +1,10 @@
 "use client";
 
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, Path } from "react-hook-form";
 import { CourseWizardValues } from "@/lib/schema/course.schema";
 
 interface Step5Props {
-  form: any;
+  form: UseFormReturn<CourseWizardValues>;
 }
 
 const inputCls = "w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-400 transition-all placeholder:text-slate-400";
@@ -20,13 +20,13 @@ function Toggle({
   name: keyof CourseWizardValues["step5"];
   label: string;
   desc?: string;
-  form: any;
+  form: UseFormReturn<CourseWizardValues>;
 }) {
   const { register, watch } = form;
-  const checked = watch(`step5.${name}` as any);
+  const checked = watch(`step5.${name}` as Path<CourseWizardValues>);
   return (
     <label className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${checked ? "border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"}`}>
-      <input type="checkbox" {...register(`step5.${name}` as any)} className="sr-only" />
+      <input type="checkbox" {...register(`step5.${name}` as Path<CourseWizardValues>)} className="sr-only" />
       <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-colors ${checked ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600"}`}>
         {checked && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
       </div>

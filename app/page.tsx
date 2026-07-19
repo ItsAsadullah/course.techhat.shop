@@ -19,8 +19,10 @@ export const revalidate = 60; // Revalidate every 60 seconds
 export default async function LandingPage() {
   // Fetch live courses from database
   const courseData = await getHomepageCourses().catch(() => ({
-    featured: [] as any[], popular: [] as any[], online: [] as any[], offline: [] as any[], all: [] as any[]
-  }));
+    featured: [], popular: [], online: [], offline: [], all: [],
+  }) as Awaited<ReturnType<typeof getHomepageCourses>>);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const safeData = courseData as unknown as Parameters<typeof DynamicCourses>[0]["courseData"];
 
   return (
     <>
@@ -29,7 +31,7 @@ export default async function LandingPage() {
         <Hero />
         <Roadmap />
         <Stats />
-        <DynamicCourses courseData={courseData as any} />
+        <DynamicCourses courseData={safeData} />
         <Features />
         <AboutSection />
         <EnrollSteps />

@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import SpotlightCard from "@/components/ui/SpotlightCard"
 import { useLang } from "@/context/GlobalLangContext"
 
-const getStats = (t: any, isBn: boolean) => [
+const getStats = (t: ReturnType<typeof useLang>["t"], isBn: boolean) => [
   {
     icon: Users,
     value: isBn ? "৫,০০০+" : "5,000+",

@@ -1,11 +1,11 @@
 "use client";
 
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, Path } from "react-hook-form";
 import { CourseWizardValues } from "@/lib/schema/course.schema";
 import { UploadCloud, Video, FileText, Link as LinkIcon, PlayCircle } from "lucide-react";
 
 interface Step3Props {
-  form: any;
+  form: UseFormReturn<CourseWizardValues>;
 }
 
 const inputCls = "w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-400 transition-all placeholder:text-slate-400";
@@ -82,7 +82,7 @@ export default function Step3Media({ form }: Step3Props) {
               <button
                 key={value}
                 type="button"
-                onClick={() => setValue("step3.intro_video_type", value as any)}
+                onClick={() => setValue("step3.intro_video_type" as Path<CourseWizardValues>, value)}
                 className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
                   isActive
                     ? "border-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"

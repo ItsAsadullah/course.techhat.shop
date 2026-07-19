@@ -110,6 +110,9 @@ export interface AdminEnrollment {
 export interface AdminEnrollmentListItem extends AdminEnrollment {
   student_name: string;
   student_mobile: string | null;
+  student_photo?: string | null;
+  student_reg_no?: string | null;
+  course_thumbnail?: string | null;
 }
 
 export interface EnrollmentPayment extends Payment {

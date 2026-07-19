@@ -16,8 +16,16 @@ interface SelectFieldProps {
   placeholder?: string;
 }
 
-function fieldError(errors: any, name: string): string | undefined {
-  return name.split(".").reduce((o: any, k) => o?.[k], errors)?.message;
+function fieldError(errors: import("react-hook-form").FieldErrors, name: string): string | undefined {
+  let o: unknown = errors;
+  for (const k of name.split(".")) {
+    if (o && typeof o === "object" && k in o) {
+      o = (o as Record<string, unknown>)[k];
+    } else {
+      return undefined;
+    }
+  }
+  return (o as { message?: string })?.message;
 }
 
 export function SelectField({ label, name, options, required, placeholder }: SelectFieldProps) {

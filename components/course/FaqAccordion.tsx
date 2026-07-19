@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-export default function FaqAccordion({ faqs }: { faqs: any[] }) {
+export default function FaqAccordion({ faqs }: { faqs: Record<string, unknown>[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
@@ -29,7 +29,7 @@ export default function FaqAccordion({ faqs }: { faqs: any[] }) {
               className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-colors"
             >
               <p className="font-semibold text-slate-900 dark:text-white pr-4">
-                {faq.question_bn || faq.question_en}
+                {(faq.question_bn as string) || (faq.question_en as string)}
               </p>
               <div
                 className={`w-6 h-6 flex items-center justify-center rounded-full text-slate-500 transition-transform duration-300 shrink-0 ${
@@ -46,7 +46,7 @@ export default function FaqAccordion({ faqs }: { faqs: any[] }) {
             >
               <div className="overflow-hidden">
                 <div className="p-4 pt-0 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-transparent">
-                  {faq.answer_bn || faq.answer_en}
+                  {(faq.answer_bn as string) || (faq.answer_en as string)}
                 </div>
               </div>
             </div>

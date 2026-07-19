@@ -54,7 +54,7 @@ const TYPE_COLORS: Record<string, string> = {
   recorded: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
 };
 
-const STATUS_STYLES: Record<string, { label: string; icon: any; cls: string }> = {
+const STATUS_STYLES: Record<string, { label: string; icon: React.ElementType; cls: string }> = {
   published: {
     label: "প্রকাশিত",
     icon: CheckCircle2,
@@ -82,7 +82,7 @@ const FALLBACK_GRADIENTS = [
   "from-cyan-500 to-sky-600",
 ];
 
-const CATEGORY_ICONS: Record<string, any> = {
+const CATEGORY_ICONS: Record<string, React.ElementType> = {
   "web development": Code2,
   programming: Code2,
   "graphics & design": Palette,

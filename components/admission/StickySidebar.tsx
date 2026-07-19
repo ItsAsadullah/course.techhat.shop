@@ -14,18 +14,18 @@ interface StickySidebarProps {
 export default function StickySidebar({ sections, activeSection }: StickySidebarProps) {
   const { lang } = useLang();
   const t = (key: AdmissionTKey) => admissionTranslations[lang][key];
-  const { watch } = useFormContext<any>();
+  const { watch } = useFormContext<Record<string, unknown>>();
   
-  const formValues = watch() as Record<string, any>;
+  const formValues = watch() as Record<string, unknown>;
 
   const isSectionComplete = (fields?: string[]) => {
     if (!fields || fields.length === 0) return false;
     return fields.every(field => {
       const keys = field.split('.');
-      let val: any = formValues;
+      let val: Record<string, unknown> | unknown = formValues;
       for (const k of keys) {
         if (val === undefined || val === null) break;
-        val = val[k];
+        val = (val as Record<string, unknown>)[k];
       }
       return val !== undefined && val !== null && val !== "" && val !== false;
     });

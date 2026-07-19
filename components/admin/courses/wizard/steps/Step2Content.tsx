@@ -1,6 +1,8 @@
 "use client";
 
 import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
+import type { Path } from "react-hook-form";
+import type { CourseFormValues } from "@/lib/schema/course-wizard.schema";
 import { Plus, Trash2 } from "lucide-react";
 import { useLang } from "@/context/GlobalLangContext";
 import { courseWizardT } from "@/lib/i18n/course-wizard";
@@ -14,7 +16,7 @@ import { generateDescriptions, generateFaq } from "@/lib/admin/actions/ai-course
 export function Step2Content() {
   const { lang } = useLang();
   const t = (k: keyof typeof courseWizardT["en"]) => courseWizardT[lang][k];
-  const { register, control, setValue } = useFormContext();
+  const { register, control, setValue } = useFormContext<CourseFormValues>();
 
   const nameEn = useWatch({ control, name: "general.name_en" });
   const nameBn = useWatch({ control, name: "general.name_bn" });
@@ -23,21 +25,21 @@ export function Step2Content() {
   const faqs = useFieldArray({ control, name: "content.faqs" });
   const testimonials = useFieldArray({ control, name: "content.testimonials" });
 
-  const applyDescriptions = (d: any) => {
+  const applyDescriptions = (d: Record<string, unknown>) => {
     const map: Record<string, string> = {
-      short_description_en: d.short_description_en,
-      short_description_bn: d.short_description_bn,
-      long_description_en: d.long_description_en,
-      long_description_bn: d.long_description_bn,
+      short_description_en: d.short_description_en as string,
+      short_description_bn: d.short_description_bn as string,
+      long_description_en: d.long_description_en as string,
+      long_description_bn: d.long_description_bn as string,
     };
-    Object.entries(map).forEach(([k, v]) => v && setValue(`content.${k}`, v, { shouldDirty: true }));
+    Object.entries(map).forEach(([k, v]) => v && setValue(`content.${k}` as Path<CourseFormValues>, v, { shouldDirty: true }));
     const arrays = [
       "learning_outcomes_en", "learning_outcomes_bn",
       "requirements_en", "requirements_bn",
       "who_should_join_en", "who_should_join_bn",
       "career_opportunities_en", "career_opportunities_bn",
     ];
-    arrays.forEach((k) => Array.isArray(d[k]) && setValue(`content.${k}`, d[k], { shouldDirty: true }));
+    arrays.forEach((k) => Array.isArray(d[k]) && setValue(`content.${k}` as Path<CourseFormValues>, d[k], { shouldDirty: true }));
   };
 
   const aiCtx = { name: nameEn || nameBn, shortDescription: shortEn };
@@ -48,7 +50,10 @@ export function Step2Content() {
         <AiAssistButton
           label="Generate all content with AI"
           action={() => generateDescriptions(aiCtx)}
-          onResult={applyDescriptions}
+          onResult={(d) => {
+            const result = d as Record<string, unknown>;
+            applyDescriptions(result);
+          }}
         />
       </div>
 
@@ -90,7 +95,10 @@ export function Step2Content() {
           <div className="flex gap-2">
             <AiAssistButton
               action={() => generateFaq(aiCtx)}
-              onResult={(d) => d?.faqs && setValue("content.faqs", d.faqs, { shouldDirty: true })}
+              onResult={(d) => {
+                const result = d as { faqs?: Array<{ question_en: string; question_bn: string; answer_en: string; answer_bn: string }> } | null;
+                if (result?.faqs) setValue("content.faqs", result.faqs, { shouldDirty: true });
+              }}
             />
             <button
               type="button"
@@ -190,7 +198,7 @@ export function Step2Content() {
             <label key={feature.key} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 font-bn select-none cursor-pointer p-2 rounded-lg border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
               <input
                 type="checkbox"
-                {...register(`content.features.${feature.key}`)}
+                {...register(`content.features.${feature.key}` as Path<CourseFormValues>)}
                 className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
               />
               {feature.label}

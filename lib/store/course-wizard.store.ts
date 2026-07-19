@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { CourseFormValues } from "@/lib/schema/course-wizard.schema";
 
 // =====================================================
 // Course Wizard UI state (not form data — RHF owns that).
@@ -16,7 +17,7 @@ interface CourseWizardState {
   lastSavedAt: number | null;
   isDirty: boolean;
   completedSteps: Record<string, boolean>;
-  formValues: any | null;
+  formValues: CourseFormValues | null;
 
   setCourseId: (id: string | null) => void;
   setActiveStep: (key: string) => void;
@@ -24,7 +25,7 @@ interface CourseWizardState {
   setSaveStatus: (status: SaveStatus, savedAt?: number | null) => void;
   setDirty: (dirty: boolean) => void;
   setStepCompleted: (key: string, done: boolean) => void;
-  setFormValues: (values: any) => void;
+  setFormValues: (values: CourseFormValues) => void;
   reset: () => void;
 }
 
@@ -36,7 +37,7 @@ const initial = {
   lastSavedAt: null as number | null,
   isDirty: false,
   completedSteps: {} as Record<string, boolean>,
-  formValues: null as any | null,
+  formValues: null as CourseFormValues | null,
 };
 
 export const useCourseWizardStore = create<CourseWizardState>((set) => ({

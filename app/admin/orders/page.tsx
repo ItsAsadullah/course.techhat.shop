@@ -278,7 +278,7 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
 
                     <TableCell>
                       <p className="text-sm text-slate-700 font-medium line-clamp-1 max-w-[160px]">
-                        {(order.course as any)?.title || "—"}
+                        {(order.course as Record<string, unknown>)?.title as string || "—"}
                       </p>
                     </TableCell>
 

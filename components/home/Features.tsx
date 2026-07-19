@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import SpotlightCard from "@/components/ui/SpotlightCard"
 import { useLang } from "@/context/GlobalLangContext"
 
-const getFeatures = (t: any) => [
+const getFeatures = (t: ReturnType<typeof useLang>["t"]) => [
   {
     icon: Cpu,
     title: t("feat_card1_t"),

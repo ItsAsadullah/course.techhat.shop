@@ -76,7 +76,8 @@ export function CourseWizard({
   };
 
   const methods = useForm<CourseFormValues>({
-    resolver: zodResolver(courseWizardSchemaV2) as any,
+    // @ts-expect-error \u2014 Zod optional().default("") infers string|undefined but resolver expects strict string
+    resolver: zodResolver(courseWizardSchemaV2),
     defaultValues: getInitialValues(),
     mode: "onChange",
   });
@@ -129,8 +130,8 @@ export function CourseWizard({
       for (const step of WIZARD_STEPS) {
         const field = STEP_FIELD_MAP[step.key];
         if (!field) continue;
-        const schema = (courseWizardSchemaV2.shape as any)[field];
-        setStepCompleted(step.key, schema.safeParse(values[field]).success);
+        const schema = (courseWizardSchemaV2.shape as Record<string, { safeParse: (val: unknown) => { success: boolean } }>)[field];
+        setStepCompleted(step.key, schema?.safeParse(values[field])?.success ?? false);
       }
     },
     [setStepCompleted]
@@ -150,17 +151,17 @@ export function CourseWizard({
       setFormValues(values);
 
       if (!idRef.current) {
-        const res: any = await createCourseDraft();
+        const res = (await createCourseDraft()) as { error?: string; courseId?: string };
         if (res?.error) {
           setSaveStatus("error");
           toast.error(res.error);
           return;
         }
-        idRef.current = res.courseId;
-        setStoreCourseId(res.courseId);
+        idRef.current = res.courseId ?? null;
+        setStoreCourseId(res.courseId ?? null);
         // Removed auto course code generation here since we removed autosave
       }
-      const res: any = await saveCourse(idRef.current!, values);
+      const res = (await saveCourse(idRef.current!, values)) as { error?: string };
       if (res?.error) {
         setSaveStatus("error");
         toast.error(res.error);
@@ -168,9 +169,9 @@ export function CourseWizard({
         setSaveStatus("saved", Date.now());
         computeCompletion(values);
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       setSaveStatus("error");
-      toast.error(e?.message || "Save failed");
+      toast.error((e as Error)?.message || "Save failed");
     } finally {
       savingRef.current = false;
       if (pendingRef.current) {
@@ -178,7 +179,7 @@ export function CourseWizard({
         doSave();
       }
     }
-  }, [computeCompletion, methods, setSaveStatus, setStoreCourseId]);
+  }, [computeCompletion, methods, setSaveStatus, setStoreCourseId, setFormValues]);
 
   // ----- warn on unload if dirty -----
   useEffect(() => {
@@ -207,7 +208,7 @@ export function CourseWizard({
     try {
       if (!idRef.current) await doSave();
       if (!idRef.current) return;
-      const res: any = await publishCourse(idRef.current, methods.getValues());
+      const res = (await publishCourse(idRef.current, methods.getValues())) as { error?: string };
       if (res?.error) {
         toast.error(res.error);
       } else {
@@ -254,9 +255,9 @@ export function CourseWizard({
       } else if (res?.data) {
         const d = res.data;
         // Helper to safely set values
-        const setVal = (path: string, val: any) => {
+        const setVal = (path: string, val: unknown) => {
           if (val !== undefined && val !== null && val !== "") {
-            methods.setValue(path as any, val, { shouldDirty: true, shouldValidate: true });
+            methods.setValue(path as import("react-hook-form").Path<CourseFormValues>, val as import("react-hook-form").PathValue<CourseFormValues, import("react-hook-form").Path<CourseFormValues>>, { shouldDirty: true, shouldValidate: true });
           }
         };
 
@@ -325,8 +326,8 @@ export function CourseWizard({
         
         toast.success("Course content auto-filled!", { id: loadingToast });
       }
-    } catch (e: any) {
-      toast.error(e?.message || "Generation failed", { id: loadingToast });
+    } catch (e: unknown) {
+      toast.error((e as Error)?.message || "Generation failed", { id: loadingToast });
     } finally {
       setIsGenerating(false);
     }

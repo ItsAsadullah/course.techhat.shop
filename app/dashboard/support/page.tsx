@@ -1,7 +1,16 @@
 import { createClient } from "@/lib/admin/supabase/server";
 import { redirect } from "next/navigation";
-import { Ticket, Search, PlusCircle, MessageSquare, Clock, CheckCircle2 } from "lucide-react";
+import { Ticket as TicketIcon, Search, PlusCircle, MessageSquare, Clock, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+
+interface Ticket {
+  id: string;
+  subject: string;
+  date: string;
+  department: string;
+  priority: 'high' | 'medium' | 'low';
+  status: 'open' | 'resolved';
+}
 
 export default async function SupportPage() {
   const supabase = await createClient();
@@ -43,7 +52,7 @@ export default async function SupportPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 flex items-center justify-center shrink-0">
-            <Ticket className="w-6 h-6" />
+            <TicketIcon className="w-6 h-6" />
           </div>
           <div>
             <p className="text-3xl font-bold text-slate-900 dark:text-white leading-tight">{totalTickets}</p>
@@ -103,12 +112,12 @@ export default async function SupportPage() {
               {tickets.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-slate-500 font-medium">
-                    <Ticket className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                    <TicketIcon className="w-12 h-12 text-slate-300 mx-auto mb-3" />
                     No support tickets found.
                   </td>
                 </tr>
               ) : (
-                tickets.map((ticket: any) => (
+                tickets.map((ticket: Ticket) => (
                   <tr key={ticket.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="px-6 py-5">
                       <p className="font-bold text-slate-900 dark:text-white mb-0.5">{ticket.subject}</p>

@@ -127,7 +127,13 @@ export const contentSchema = z.object({
     has_freelancing_guide: z.boolean().default(false),
     has_cv_review: z.boolean().default(false),
     has_portfolio_review: z.boolean().default(false),
-  }).default({} as any),
+  }).default({
+    has_certificate: false, has_lifetime_support: false, has_community_access: false,
+    has_private_group: false, has_live_qa: false, has_projects: false, has_assignments: false,
+    has_exam: false, has_final_project: false, has_job_guideline: false,
+    has_internship_support: false, has_career_support: false, has_freelancing_guide: false,
+    has_cv_review: false, has_portfolio_review: false,
+  }),
 });
 
 // ---------- STEP 3: SEO (per language) ----------

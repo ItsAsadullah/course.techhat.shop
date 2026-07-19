@@ -2,6 +2,14 @@ import { createClient } from "@/lib/admin/supabase/server";
 import { redirect } from "next/navigation";
 import { Award, Download, Share2, CheckCircle2, ShieldCheck, Lock } from "lucide-react";
 
+interface Certificate {
+  courseName: string;
+  status: 'issued' | 'locked';
+  issueDate?: string;
+  grade?: string;
+  progress?: number;
+}
+
 export default async function CertificatesPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -44,7 +52,7 @@ export default async function CertificatesPage() {
             <p className="text-slate-500 mb-6 max-w-md mx-auto">You haven't earned any certificates yet. Complete your courses to unlock them.</p>
           </div>
         ) : (
-          certificates.map((cert: any, idx: number) => (
+          (certificates as Certificate[]).map((cert: Certificate, idx: number) => (
             <div key={idx} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col group">
             
             {/* Certificate Preview */}

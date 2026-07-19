@@ -33,7 +33,7 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
       e.student_name?.toLowerCase().includes(s) || 
       e.student_mobile?.includes(s) || 
       e.course_name?.toLowerCase().includes(s) ||
-      (e as any).enrollment_code?.toLowerCase().includes(s)
+      (e as unknown as Record<string, unknown>).enrollment_code?.toString().toLowerCase().includes(s)
     );
   }
 
@@ -165,7 +165,7 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
                   </td>
                 </tr>
               ) : (
-                filtered.map((enrollment: any) => {
+                filtered.map((enrollment) => {
                   const feeProgress = enrollment.final_fee > 0 ? (enrollment.total_paid / enrollment.final_fee) * 100 : 0;
                   
                   return (

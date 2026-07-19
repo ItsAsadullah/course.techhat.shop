@@ -4,6 +4,37 @@ import Link from "next/link";
 import { User, Mail, Phone, MapPin, Briefcase, GraduationCap, FileText, CheckCircle2, Edit3, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+interface Address {
+  address_type: string;
+  village: string;
+  union_municipality: string;
+  upazila: string;
+  district: string;
+}
+
+interface Document {
+  document_type: string;
+  file_url: string;
+}
+
+interface Education {
+  exam_name: string;
+  board: string;
+  passing_year: string;
+  group_subject?: string;
+  result_value: string;
+  result_type: string;
+  roll_no?: string;
+  registration_no?: string;
+}
+
+interface Guardian {
+  name: string;
+  guardian_type?: string;
+  relationship?: string;
+  mobile?: string;
+}
+
 export default async function ProfilePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -78,8 +109,8 @@ export default async function ProfilePage() {
     );
   }
 
-  const presentAddr = rawStudent.student_addresses?.find((a: any) => a.address_type === "present") || {};
-  const permanentAddr = rawStudent.student_addresses?.find((a: any) => a.address_type === "permanent") || {};
+  const presentAddr = rawStudent.student_addresses?.find((a: Address) => a.address_type === "present") || {};
+  const permanentAddr = rawStudent.student_addresses?.find((a: Address) => a.address_type === "permanent") || {};
   
   const student = {
     ...rawStudent,
@@ -93,7 +124,7 @@ export default async function ProfilePage() {
     permanent_district: permanentAddr.district,
   };
 
-  const photoDoc = rawStudent.student_documents?.find((doc: any) => doc.document_type === "photo");
+  const photoDoc = rawStudent.student_documents?.find((doc: Document) => doc.document_type === "photo");
   const photoUrl = photoDoc?.file_url;
   const educationList = rawStudent.student_education || [];
   const guardiansList = rawStudent.guardians || [];
@@ -235,7 +266,7 @@ export default async function ProfilePage() {
                 <GraduationCap className="w-5 h-5 text-purple-500" /> Educational Qualifications
               </h3>
               <div className="space-y-4">
-                {educationList.map((edu: any, idx: number) => (
+                {educationList.map((edu: Education, idx: number) => (
                   <div key={idx} className="bg-slate-50 dark:bg-slate-800/50 p-4 md:p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
                       <div>
@@ -286,7 +317,7 @@ export default async function ProfilePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {guardiansList.map((guardian: any, idx: number) => (
+                    {guardiansList.map((guardian: Guardian, idx: number) => (
                       <tr key={idx} className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                         <td className="py-3 px-4 font-bold text-slate-900 dark:text-white">
                           {guardian.name}

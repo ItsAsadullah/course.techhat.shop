@@ -180,7 +180,7 @@ export default function AppearanceSettingsPage() {
                       }
                     }
 
-                    const updateGradient = (updates: any) => {
+                    const updateGradient = (updates: Record<string, unknown>) => {
                       const newState = { isRadial, angle, startColor, startPos, endColor, endPos, ...updates };
                       const newCss = newState.isRadial 
                         ? `radial-gradient(circle at center, ${newState.startColor} ${newState.startPos}%, ${newState.endColor} ${newState.endPos}%)`

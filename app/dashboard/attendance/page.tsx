@@ -40,7 +40,7 @@ export default async function AttendancePage() {
 
   const getStatus = (day: number) => {
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    const record = records.find((r: any) => r.date === dateStr);
+    const record = records.find((r: Record<string, unknown>) => r.date === dateStr);
     
     if (record) return record.status;
     

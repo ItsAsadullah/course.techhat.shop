@@ -7,8 +7,8 @@ import { toast } from "sonner";
 interface AiAssistButtonProps {
   label?: string;
   /** Runs the AI action; return {data}|{error}. On data, apply it to the form. */
-  action: () => Promise<{ data?: unknown; error?: string } | any>;
-  onResult: (data: any) => void;
+  action: () => Promise<{ data?: unknown; error?: string }>;
+  onResult: (data: unknown) => void;
   className?: string;
 }
 
@@ -27,8 +27,9 @@ export function AiAssistButton({ label = "AI", action, onResult, className }: Ai
       } else {
         toast.error("No content returned");
       }
-    } catch (e: any) {
-      toast.error(e?.message || "AI request failed");
+    } catch (e: unknown) {
+      const error = e as Error;
+      toast.error(error?.message || "AI request failed");
     } finally {
       setLoading(false);
     }

@@ -130,12 +130,12 @@ export default function Courses({ id, title, subtitle, description, courses, bac
           viewport={{ once: false }}
           className={`text-center mb-14 ${isBn ? "font-bn" : ""}`}
         >
-          <p className="text-blue-600 dark:text-blue-400 font-semibold text-sm uppercase tracking-widest mb-3">{(t as any)(subtitle)}</p>
+          <p className="text-blue-600 dark:text-blue-400 font-semibold text-sm uppercase tracking-widest mb-3">{t(subtitle as Parameters<typeof t>[0])}</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-            {(t as any)(title)}
+            {t(title as Parameters<typeof t>[0])}
           </h2>
           <p className="text-slate-600 dark:text-slate-300 max-w-xl mx-auto text-base leading-relaxed">
-            {(t as any)(description)}
+            {t(description as Parameters<typeof t>[0])}
           </p>
         </motion.div>
 

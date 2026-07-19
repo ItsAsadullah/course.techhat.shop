@@ -2,6 +2,21 @@ import { createClient } from "@/lib/admin/supabase/server";
 import { redirect } from "next/navigation";
 import { MonitorPlay, Video, Clock, Users, ArrowUpRight, CheckCircle2 } from "lucide-react";
 
+interface LiveClass {
+  platform: string;
+  topic: string;
+  courseName: string;
+  time: string;
+  trainer: string;
+  joinLink?: string;
+}
+
+interface Recording {
+  id: string;
+  title: string;
+  date: string;
+}
+
 export default async function LiveClassesPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -49,7 +64,7 @@ export default async function LiveClassesPage() {
               <p className="text-slate-500">You don't have any upcoming live classes scheduled at this time.</p>
             </div>
           ) : (
-            upcomingClasses.map((cls: any, i: number) => (
+            upcomingClasses.map((cls: LiveClass, i: number) => (
               <div key={i} className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:border-blue-500/30 transition-colors">
                 {i === 0 && (
                   <div className="absolute top-0 right-0 px-4 py-1.5 bg-red-500 text-white text-xs font-bold uppercase tracking-wider rounded-bl-2xl">
@@ -114,7 +129,7 @@ export default async function LiveClassesPage() {
               No previous recordings available.
             </div>
           ) : (
-            recordings.map((rec: any) => (
+            recordings.map((rec: Recording) => (
               <div key={rec.id} className="bg-white dark:bg-slate-900 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white mb-1">{rec.title}</h4>

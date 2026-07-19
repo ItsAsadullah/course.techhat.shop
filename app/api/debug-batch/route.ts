@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   try {
     const data = await getTrainingBatchById(id);
     return NextResponse.json({ success: true, data });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message, stack: err.stack });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: (err as Error).message, stack: (err as Error).stack });
   }
 }

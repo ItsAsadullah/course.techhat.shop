@@ -21,8 +21,8 @@ export default async function ReceiptPage({ params }: ReceiptPageProps) {
   }
 
   const receiptNo = payment.id.slice(0, 8).toUpperCase();
-  const translations = (payment.enrollment as any)?.course?.course_translations || [];
-  const courseName = translations.find((item: any) => item.lang === "en")?.name || translations.find((item: any) => item.lang === "bn")?.name || "Legacy / Unassigned Payment";
+  const translations: Record<string, unknown>[] = (payment.enrollment as unknown as Record<string, unknown>)?.course ? (((payment.enrollment as unknown as Record<string, unknown>).course as Record<string, unknown>).course_translations as Record<string, unknown>[]) : [];
+  const courseName = (translations.find((item: Record<string, unknown>) => item.lang === "en")?.name || translations.find((item: Record<string, unknown>) => item.lang === "bn")?.name || "Legacy / Unassigned Payment") as string;
 
   return (
     <div className="space-y-6">

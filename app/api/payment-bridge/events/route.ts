@@ -174,7 +174,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: 'Event processed successfully', matchStatus: finalStatus });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Event processing error:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }

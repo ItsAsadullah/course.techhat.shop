@@ -130,10 +130,10 @@ export default function Navbar() {
         >
           <div className="mx-auto max-w-[1440px] px-4 flex justify-center items-center gap-2 text-slate-600 dark:text-slate-300">
             <Sparkles className="w-3.5 h-3.5 text-cyan-500" />
-            <span className={isBn ? "font-bn" : ""}>{t("nav_register" as any)}</span>
+            <span className={isBn ? "font-bn" : ""}>{t("nav_register" as never)}</span>
             <span className="hidden sm:inline text-slate-300 dark:text-slate-600">•</span>
             <Phone className="hidden sm:inline w-3 h-3 text-cyan-500" />
-            <span className="hidden sm:inline">{t("nav_contact" as any)} <strong className="text-slate-900 dark:text-white">01XXXXXXXXX</strong></span>
+            <span className="hidden sm:inline">{t("nav_contact" as never)} <strong className="text-slate-900 dark:text-white">01XXXXXXXXX</strong></span>
             <span className="hidden lg:inline text-slate-400 dark:text-slate-600">• 8:00 AM - 9:00 PM</span>
           </div>
         </div>
@@ -244,7 +244,7 @@ export default function Navbar() {
                       onClick={() => scrollToSection(link.id!)}
                       className={`rounded-full px-4 py-2 text-[14px] font-medium transition-all duration-200 border ${pathname === "/" ? "text-slate-700 dark:text-slate-200" : "text-slate-500 dark:text-slate-400"} hover:bg-slate-900 hover:text-white hover:border-slate-900 border-transparent ${isBn ? "font-bn" : ""}`}
                     >
-                      {t(link.tKey as any)}
+                      {t(link.tKey as never)}
                     </button>
                   );
                 }
@@ -255,7 +255,7 @@ export default function Navbar() {
                     href={link.href}
                     className={`rounded-full px-4 py-2 text-[14px] font-medium transition-all duration-200 border ${pathname === link.href ? "bg-slate-900 text-white border-slate-900" : "text-slate-700 dark:text-slate-200 border-transparent hover:bg-slate-900 hover:text-white hover:border-slate-900"} ${isBn ? "font-bn" : ""}`}
                   >
-                    {t(link.tKey as any)}
+                    {t(link.tKey as never)}
                   </Link>
                 );
               })}
@@ -408,7 +408,7 @@ export default function Navbar() {
                           onClick={() => scrollToSection(link.id!)}
                           className={`block w-full text-left px-4 py-3 text-slate-700 dark:text-slate-200 text-base font-medium rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-900 hover:text-cyan-600 transition-colors ${isBn ? "font-bn" : ""}`}
                         >
-                          {t(link.tKey as any)}
+                          {t(link.tKey as never)}
                         </button>
                       );
                     }
@@ -420,7 +420,7 @@ export default function Navbar() {
                         onClick={() => setIsOpen(false)}
                         className={`block px-4 py-3 text-slate-700 dark:text-slate-200 text-base font-medium rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-900 hover:text-cyan-600 transition-colors ${isBn ? "font-bn" : ""}`}
                       >
-                        {t(link.tKey as any)}
+                        {t(link.tKey as never)}
                       </Link>
                     );
                   })}

@@ -15,6 +15,8 @@ type Lesson = {
   completed: boolean;
   current?: boolean;
   locked?: boolean;
+  videoUrl?: string;
+  content?: string;
 };
 
 type Module = {
@@ -54,20 +56,20 @@ export default async function CoursePlayerPage({ params }: { params: Promise<{ i
 
   // Map database modules to playlist format
   let totalLessons = 0;
-  const playlist: Module[] = modules.map((mod: any) => {
+  const playlist: Module[] = modules.map((mod: Record<string, unknown>) => {
     return {
-      module: mod.title_en,
-      lessons: mod.course_lessons?.sort((a: any, b: any) => a.sort_order - b.sort_order).map((lesson: any) => {
+      module: mod.title_en as string,
+      lessons: (mod.course_lessons as Record<string, unknown>[])?.sort((a: Record<string, unknown>, b: Record<string, unknown>) => (a.sort_order as number) - (b.sort_order as number)).map((lesson: Record<string, unknown>) => {
         totalLessons++;
         return {
-          id: lesson.id,
-          title: lesson.title_en,
-          type: lesson.lesson_type,
+          id: lesson.id as string,
+          title: lesson.title_en as string,
+          type: lesson.lesson_type as string,
           duration: `${lesson.duration_minutes} mins`,
-          completed: completedLessonIds.includes(lesson.id),
+          completed: completedLessonIds.includes(lesson.id as string),
           current: false, // We'll set the first incomplete as current later if needed
-          videoUrl: lesson.video_url,
-          content: lesson.content
+          videoUrl: lesson.video_url as string | undefined,
+          content: lesson.content as string | undefined
         };
       }) || []
     };

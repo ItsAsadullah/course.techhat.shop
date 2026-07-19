@@ -69,10 +69,11 @@ export default function SingleCourseForm({ categories, courseId, defaultValues, 
   const [isGenerating, setIsGenerating] = useState(false);
 
   const form = useForm<CourseWizardValues>({
-    resolver: zodResolver(courseWizardSchema) as any,
+    // @ts-expect-error — Zod infers sub_category_id as string|undefined but resolver types differ slightly
+    resolver: zodResolver(courseWizardSchema),
     defaultValues: defaultValues ?? defaultWizardValues,
     mode: "onChange",
-  }) as any;
+  });
 
   const { register, watch, setValue, getValues, formState: { errors } } = form;
 
@@ -98,20 +99,21 @@ export default function SingleCourseForm({ categories, courseId, defaultValues, 
     }
   };
 
-  const onError = (errors: any) => {
-    console.log("Validation Errors:", errors);
+  const onError = (formErrors: import("react-hook-form").FieldErrors) => {
+    console.log("Validation Errors:", formErrors);
     
-    const getFirstError = (obj: any): string | null => {
-      if (!obj) return null;
-      if (obj.message) return obj.message;
-      for (const key in obj) {
-        const val = getFirstError(obj[key]);
+    const getFirstError = (obj: unknown): string | null => {
+      if (!obj || typeof obj !== "object") return null;
+      const record = obj as Record<string, unknown>;
+      if (record.message && typeof record.message === "string") return record.message;
+      for (const key in record) {
+        const val = getFirstError(record[key]);
         if (val) return val;
       }
       return null;
     };
     
-    const msg = getFirstError(errors);
+    const msg = getFirstError(formErrors);
     toast.error(msg ? `ভুল তথ্য: ${msg}` : "ফর্মের কিছু তথ্য ভুল বা অসম্পূর্ণ আছে। লাল দাগ দেয়া ফিল্ডগুলো চেক করুন।");
   };
 
@@ -180,6 +182,7 @@ export default function SingleCourseForm({ categories, courseId, defaultValues, 
   const e5 = errors.step5 || {};
 
   return (
+    // @ts-expect-error — SubmitHandler type mismatch from Zod schema inference, safe at runtime
     <form onSubmit={form.handleSubmit(onSubmit, onError)} className="space-y-6 max-w-[1400px]">
       
       {/* AI Generate Bar */}

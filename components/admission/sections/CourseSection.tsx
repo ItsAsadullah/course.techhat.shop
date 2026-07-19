@@ -11,7 +11,7 @@ export default function CourseSection({ id }: { id: string }) {
   const { register, watch, setValue, formState: { errors } } = useFormContext<AdmissionFormValues>();
   const { lang } = useLang();
   const t = (key: AdmissionTKey) => admissionTranslations[lang][key];
-  const [courses, setCourses] = useState<any[]>([]);
+  const [courses, setCourses] = useState<Record<string, unknown>[]>([]);
 
   useEffect(() => {
     async function loadCourses() {
@@ -45,9 +45,9 @@ export default function CourseSection({ id }: { id: string }) {
   
   let totalFee = 0;
   if (selectedCourse) {
-    totalFee = selectedCourse.course_fee || 0;
+    totalFee = (selectedCourse.course_fee as number) || 0;
     if (selectedCourse.has_certificate && selectedCourse.certificate_option === "paid" && wantsCertificate) {
-      totalFee += (selectedCourse.certificate_fee || 0);
+      totalFee += ((selectedCourse.certificate_fee as number) || 0);
     }
   }
 
@@ -62,8 +62,8 @@ export default function CourseSection({ id }: { id: string }) {
           <select {...register("courseId")} className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:ring-1 focus:ring-blue-400">
             <option value="">{t("select")}</option>
             {courses.map((c) => (
-              <option key={c.id} value={c.id}>
-                {lang === "bn" ? c.name_bn || c.name_en : c.name_en} - ৳{c.course_fee}
+              <option key={c.id as string} value={c.id as string}>
+                {lang === "bn" ? (c.name_bn as string) || (c.name_en as string) : (c.name_en as string)} - ৳{c.course_fee as number}
               </option>
             ))}
           </select>
@@ -106,10 +106,10 @@ export default function CourseSection({ id }: { id: string }) {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between items-center">
               <span className="text-slate-600 dark:text-slate-400">কোর্স ফি (Course Fee)</span>
-              <span className="font-medium text-slate-800 dark:text-slate-200">৳{selectedCourse.course_fee}</span>
+              <span className="font-medium text-slate-800 dark:text-slate-200">৳{selectedCourse.course_fee as number}</span>
             </div>
 
-            {selectedCourse.has_certificate && selectedCourse.certificate_option === "paid" && (
+            {Boolean(selectedCourse.has_certificate) && selectedCourse.certificate_option === "paid" && (
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2 cursor-pointer group">
                   <input 
@@ -122,7 +122,7 @@ export default function CourseSection({ id }: { id: string }) {
                   </span>
                 </label>
                 <span className="font-medium text-slate-800 dark:text-slate-200">
-                  {wantsCertificate ? `+ ৳${selectedCourse.certificate_fee}` : `৳${selectedCourse.certificate_fee}`}
+                  {wantsCertificate ? `+ ৳${selectedCourse.certificate_fee as number}` : `৳${selectedCourse.certificate_fee as number}`}
                 </span>
               </div>
             )}

@@ -3,6 +3,16 @@ import { redirect } from "next/navigation";
 import { ClipboardList, Clock, CheckCircle2, AlertCircle, FileText, UploadCloud, Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+interface Assignment {
+  id: string;
+  title: string;
+  dueDate: string;
+  courseName: string;
+  status: 'pending' | 'submitted' | 'graded';
+  marks?: number;
+  totalMarks: number;
+}
+
 export default async function AssignmentsPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -27,9 +37,9 @@ export default async function AssignmentsPage() {
   const { getStudentAssignments } = await import("@/lib/actions/studentData");
   const assignments = await getStudentAssignments(studentId);
 
-  const pendingCount = assignments.filter((a: any) => a.status === 'pending').length;
-  const submittedCount = assignments.filter((a: any) => a.status === 'submitted').length;
-  const gradedCount = assignments.filter((a: any) => a.status === 'graded').length;
+  const pendingCount = assignments.filter((a: Assignment) => a.status === 'pending').length;
+  const submittedCount = assignments.filter((a: Assignment) => a.status === 'submitted').length;
+  const gradedCount = assignments.filter((a: Assignment) => a.status === 'graded').length;
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -100,7 +110,7 @@ export default async function AssignmentsPage() {
                   </td>
                 </tr>
               ) : (
-                assignments.map((assignment: any) => (
+                assignments.map((assignment: Assignment) => (
                   <tr key={assignment.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="px-6 py-5">
                       <p className="font-bold text-slate-900 dark:text-white text-base mb-1">{assignment.title}</p>

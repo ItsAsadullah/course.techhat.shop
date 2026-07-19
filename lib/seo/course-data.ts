@@ -36,13 +36,16 @@ export async function getPublishedCoursesForSeo(): Promise<SeoCourseListItem[]> 
 
   if (error || !data) return [];
 
-  return data.map((row: any) => {
-    const tr: any[] = row.translations || [];
-    const en = tr.find((t) => t.lang === "en") || {};
-    const bn = tr.find((t) => t.lang === "bn") || {};
-    const media = Array.isArray(row.media) ? row.media[0] : row.media || {};
+  return data.map((row: Record<string, unknown>) => {
+    type TrRow = { lang: string; name?: string; slug?: string; short_description?: string };
+    const tr = (row.translations as TrRow[]) || [];
+    const empty: TrRow = { lang: "" };
+    const en = tr.find((t) => t.lang === "en") ?? empty;
+    const bn = tr.find((t) => t.lang === "bn") ?? empty;
+    const mediaRaw = row.media;
+    const media = (Array.isArray(mediaRaw) ? mediaRaw[0] : mediaRaw || {}) as { thumbnail_url?: string; intro_video_url?: string };
     return {
-      id: row.id,
+      id: row.id as string,
       slug_en: en.slug || null,
       slug_bn: bn.slug || null,
       name_en: en.name || null,
@@ -51,8 +54,8 @@ export async function getPublishedCoursesForSeo(): Promise<SeoCourseListItem[]> 
       short_bn: bn.short_description || null,
       thumbnail_url: media?.thumbnail_url || null,
       intro_video_url: media?.intro_video_url || null,
-      published_at: row.published_at || null,
-      updated_at: row.updated_at || null,
+      published_at: (row.published_at as string) || null,
+      updated_at: (row.updated_at as string) || null,
     };
   });
 }

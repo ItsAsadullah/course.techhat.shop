@@ -109,7 +109,7 @@ export async function getAdminOrders(filter: OrderStatus = "all") {
 
   // Fetch course names from course_translations (EN)
   const courseIds = [...new Set(orders.map((o: any) => o.course_id).filter(Boolean))];
-  const courseNameMap: Record<string, string> = {};
+  let courseNameMap: Record<string, string> = {};
   if (courseIds.length > 0) {
     const { data: translations } = await supabase
       .from("course_translations")
@@ -132,7 +132,7 @@ export async function getAdminOrders(filter: OrderStatus = "all") {
     )
     .filter(Boolean);
 
-  const reviewsMap: Record<string, any> = {};
+  let reviewsMap: Record<string, any> = {};
 
   if (sessionIds.length > 0) {
     const { data: reviews } = await supabase

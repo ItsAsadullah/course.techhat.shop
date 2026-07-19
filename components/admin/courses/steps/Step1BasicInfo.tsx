@@ -3,6 +3,7 @@
 import type { CourseWizardValues } from "@/lib/schema/course.schema";
 import type { CourseCategory } from "@/types/course";
 import { useEffect } from "react";
+import type { UseFormReturn } from "react-hook-form";
 
 const COURSE_TYPES = [
   { value: "offline", label: "অফলাইন (Offline)" },
@@ -29,7 +30,7 @@ const STATUSES = [
 ];
 
 interface Step1Props {
-  form: any;
+  form: UseFormReturn<CourseWizardValues>;
   categories: CourseCategory[];
 }
 
