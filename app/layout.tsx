@@ -9,6 +9,8 @@ import PwaRegistration from "@/components/PwaRegistration";
 import { Toaster } from "sonner";
 import { getSettingsByGroup } from "@/lib/actions/settings.actions";
 import { SiteSettingsProvider } from "@/context/SiteSettingsContext";
+import { HomepageContentProvider } from "@/context/HomepageContentContext";
+import { getHomepageContent } from "@/lib/actions/homepage.actions";
 
 const hindSiliguri = Hind_Siliguri({
   subsets: ["bengali", "latin"],
@@ -25,7 +27,6 @@ export async function generateMetadata(): Promise<Metadata> {
   const orgName = getSetting('org_name', 'TechHat');
   const orgShortName = getSetting('org_short_name', 'TechHat');
   const siteDomain = getSetting('site_domain', 'course.techhat.shop');
-  const siteLogo = getSetting('site_logo', '/logo.png');
   const siteFavicon = getSetting('site_favicon', '/favicon.ico');
   const siteOgImage = getSetting('site_og_image', 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop');
 
@@ -64,8 +65,12 @@ export default async function RootLayout({
   const langCookie = cookieStore.get("techhat-lang")?.value as "en" | "bn" | undefined;
   const initialLang = langCookie || "bn";
 
-  // Fetch settings for global client provider
-  const generalGroup = await getSettingsByGroup('general');
+  // Fetch settings and homepage content in parallel
+  const [generalGroup, homepageContent] = await Promise.all([
+    getSettingsByGroup('general'),
+    getHomepageContent(),
+  ]);
+
   const getSetting = (key: string, defaultVal: string = '') => {
     return generalGroup?.settings.find(s => s.key === key)?.value || defaultVal;
   };
@@ -76,6 +81,8 @@ export default async function RootLayout({
     siteOgImage: getSetting('site_og_image', '/logo.png'),
     orgName: getSetting('org_name', 'TechHat'),
     orgShortName: getSetting('org_short_name', 'TechHat'),
+    orgSubtitle: getSetting('org_subtitle', 'Computer Training Center'),
+    heroInstructorImage: getSetting('hero_instructor_image', '/Hero-Instructor-photo.png'),
   };
 
   return (
@@ -84,10 +91,12 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <GlobalLangProvider initialLang={initialLang}>
             <SiteSettingsProvider settings={siteSettings}>
-              <PwaRegistration />
-              <DisableRightClick />
-              {children}
-              <Toaster richColors position="top-right" />
+              <HomepageContentProvider content={homepageContent}>
+                <PwaRegistration />
+                <DisableRightClick />
+                {children}
+                <Toaster richColors position="top-right" />
+              </HomepageContentProvider>
             </SiteSettingsProvider>
           </GlobalLangProvider>
         </ThemeProvider>

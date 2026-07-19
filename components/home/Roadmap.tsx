@@ -3,7 +3,7 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import { LucideIcon, Frown, SearchX, BrainCircuit, Activity } from "lucide-react"
-import { useLang } from "@/context/GlobalLangContext"
+import { useHomepage } from "@/lib/hooks/useHomepage"
 
 interface Step {
   id: number;
@@ -16,52 +16,17 @@ interface Step {
   align: string;
 }
 
-const getSteps = (t: ReturnType<typeof useLang>["t"]): Step[] => [
-  {
-    id: 1,
-    intro: t("rm_s1_i"),
-    emphasis: t("rm_s1_e"),
-    icon: SearchX,
-    color: "text-blue-600 dark:text-blue-400",
-    bg: "bg-blue-50 dark:bg-blue-900/30",
-    border: "border-blue-200 dark:border-blue-800",
-    align: "right", // Content on the right, icon on the left
-  },
-  {
-    id: 2,
-    intro: t("rm_s2_i"),
-    emphasis: t("rm_s2_e"),
-    icon: BrainCircuit,
-    color: "text-amber-600 dark:text-amber-400",
-    bg: "bg-amber-50 dark:bg-amber-900/30",
-    border: "border-amber-200 dark:border-amber-800",
-    align: "left",
-  },
-  {
-    id: 3,
-    intro: t("rm_s3_i"),
-    emphasis: t("rm_s3_e"),
-    icon: Activity,
-    color: "text-pink-600 dark:text-pink-400",
-    bg: "bg-pink-50 dark:bg-pink-900/30",
-    border: "border-pink-200 dark:border-pink-800",
-    align: "right",
-  },
-  {
-    id: 4,
-    intro: t("rm_s4_i"),
-    emphasis: t("rm_s4_e"),
-    icon: Frown,
-    color: "text-cyan-600 dark:text-cyan-400",
-    bg: "bg-cyan-50 dark:bg-cyan-900/30",
-    border: "border-cyan-200 dark:border-cyan-800",
-    align: "left",
-  },
-]
 
 export default function Roadmap() {
-  const { t, isBn } = useLang()
-  const steps = getSteps(t)
+  const { h, isBn } = useHomepage()
+  
+  const steps: Step[] = [
+    { id: 1, intro: h('rm_s1_i', 'rm_s1_i'), emphasis: h('rm_s1_e', 'rm_s1_e'), icon: SearchX, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-900/30", border: "border-blue-200 dark:border-blue-800", align: "right" },
+    { id: 2, intro: h('rm_s2_i', 'rm_s2_i'), emphasis: h('rm_s2_e', 'rm_s2_e'), icon: BrainCircuit, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-900/30", border: "border-amber-200 dark:border-amber-800", align: "left" },
+    { id: 3, intro: h('rm_s3_i', 'rm_s3_i'), emphasis: h('rm_s3_e', 'rm_s3_e'), icon: Activity, color: "text-pink-600 dark:text-pink-400", bg: "bg-pink-50 dark:bg-pink-900/30", border: "border-pink-200 dark:border-pink-800", align: "right" },
+    { id: 4, intro: h('rm_s4_i', 'rm_s4_i'), emphasis: h('rm_s4_e', 'rm_s4_e'), icon: Frown, color: "text-cyan-600 dark:text-cyan-400", bg: "bg-cyan-50 dark:bg-cyan-900/30", border: "border-cyan-200 dark:border-cyan-800", align: "left" },
+  ]
+  
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -155,7 +120,7 @@ export default function Roadmap() {
             ) : (
               <span className="relative inline-block whitespace-nowrap px-1">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 dark:from-blue-400 dark:via-indigo-400 dark:to-cyan-400 bg-[length:200%_auto] animate-text-gradient">
-                  {t("rm_title")}
+                  {h('rm_title', 'rm_title')}
                 </span>
                 <svg className="absolute -bottom-2 left-0 w-full h-4 overflow-visible" viewBox="0 0 400 20" preserveAspectRatio="none">
                   <motion.path 
@@ -180,7 +145,7 @@ export default function Roadmap() {
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="text-slate-600 dark:text-slate-400"
           >
-            {t("rm_desc")}
+            {h('rm_desc', 'rm_desc')}
           </motion.p>
         </div>
 
@@ -304,7 +269,7 @@ export default function Roadmap() {
           >
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/40 dark:to-cyan-900/40 border border-blue-200 dark:border-blue-800/50 rounded-full px-6 py-3 backdrop-blur-md shadow-sm">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-              <p className="text-blue-900 dark:text-blue-200 font-bold text-lg">{t("rm_sol")}</p>
+              <p className="text-blue-900 dark:text-blue-200 font-bold text-lg">{h('rm_sol', 'rm_sol')}</p>
             </div>
           </motion.div>
       </div>

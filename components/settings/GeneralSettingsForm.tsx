@@ -103,6 +103,16 @@ export function GeneralSettingsForm({ initialGroup }: GeneralSettingsFormProps) 
         </div>
 
         <div className="grid gap-2">
+          <Label htmlFor="org_subtitle">{isBn ? 'প্রতিষ্ঠানের সাবটাইটেল' : 'Organization Subtitle'}</Label>
+          <Input 
+            id="org_subtitle" 
+            placeholder="Computer Training Center"
+            value={getValue('org_subtitle', activeLanguage)}
+            onChange={(e) => isBn ? updateSettingBn('org_subtitle', e.target.value) : updateSetting('org_subtitle', e.target.value)}
+          />
+        </div>
+
+        <div className="grid gap-2">
           <Label htmlFor="site_domain">Website Domain (e.g. course.techhat.shop)</Label>
           <Input 
             id="site_domain" 
@@ -157,7 +167,7 @@ export function GeneralSettingsForm({ initialGroup }: GeneralSettingsFormProps) 
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 pt-4 border-t border-slate-100 dark:border-slate-800">
           <div className="space-y-2">
             <FileUpload
               label="Site Logo (Header)"
@@ -184,6 +194,16 @@ export function GeneralSettingsForm({ initialGroup }: GeneralSettingsFormProps) 
               value={getValue('site_og_image', 'en')}
               onUpload={(url) => updateSetting('site_og_image', url)}
               onRemove={() => updateSetting('site_og_image', '')}
+              folder="settings"
+              accept="image/*"
+            />
+          </div>
+          <div className="space-y-2">
+            <FileUpload
+              label="Hero Instructor Photo"
+              value={getValue('hero_instructor_image', 'en')}
+              onUpload={(url) => updateSetting('hero_instructor_image', url)}
+              onRemove={() => updateSetting('hero_instructor_image', '')}
               folder="settings"
               accept="image/*"
             />

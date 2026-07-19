@@ -3,7 +3,7 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion"
 import { LucideIcon, ClipboardList, CreditCard, BookOpen, Award } from "lucide-react"
-import { useLang } from "@/context/GlobalLangContext"
+import { useHomepage } from "@/lib/hooks/useHomepage"
 
 interface Step {
   id: number;
@@ -17,56 +17,57 @@ interface Step {
   iconPos: string;
 }
 
-const getSteps = (t: ReturnType<typeof useLang>["t"]): Step[] => [
-  {
-    id: 1,
-    intro: t("en_s1_i"),
-    emphasis: t("en_s1_e"),
-    desc: t("en_s1_d"),
-    icon: ClipboardList,
-    color: "text-blue-600 dark:text-blue-400",
-    bg: "bg-blue-50 dark:bg-blue-900/30",
-    border: "border-blue-200 dark:border-blue-800",
-    iconPos: "left",
-  },
-  {
-    id: 2,
-    intro: t("en_s2_i"),
-    emphasis: t("en_s2_e"),
-    desc: t("en_s2_d"),
-    icon: CreditCard,
-    color: "text-emerald-600 dark:text-emerald-400",
-    bg: "bg-emerald-50 dark:bg-emerald-900/30",
-    border: "border-emerald-200 dark:border-emerald-800",
-    iconPos: "right",
-  },
-  {
-    id: 3,
-    intro: t("en_s3_i"),
-    emphasis: t("en_s3_e"),
-    desc: t("en_s3_d"),
-    icon: BookOpen,
-    color: "text-amber-600 dark:text-amber-400",
-    bg: "bg-amber-50 dark:bg-amber-900/30",
-    border: "border-amber-200 dark:border-amber-800",
-    iconPos: "left",
-  },
-  {
-    id: 4,
-    intro: t("en_s4_i"),
-    emphasis: t("en_s4_e"),
-    desc: t("en_s4_d"),
-    icon: Award,
-    color: "text-violet-600 dark:text-violet-400",
-    bg: "bg-violet-50 dark:bg-violet-900/30",
-    border: "border-violet-200 dark:border-violet-800",
-    iconPos: "center",
-  },
-]
 
 export default function EnrollSteps() {
-  const { t, isBn } = useLang()
-  const steps = getSteps(t)
+  const { h, isBn } = useHomepage()
+  
+  const steps: Step[] = [
+    {
+      id: 1,
+      intro: h('en_s1_i', 'en_s1_i'),
+      emphasis: h('en_s1_e', 'en_s1_e'),
+      desc: h('en_s1_d', 'en_s1_d'),
+      icon: ClipboardList,
+      color: "text-blue-600 dark:text-blue-400",
+      bg: "bg-blue-50 dark:bg-blue-900/30",
+      border: "border-blue-200 dark:border-blue-800",
+      iconPos: "left",
+    },
+    {
+      id: 2,
+      intro: h('en_s2_i', 'en_s2_i'),
+      emphasis: h('en_s2_e', 'en_s2_e'),
+      desc: h('en_s2_d', 'en_s2_d'),
+      icon: CreditCard,
+      color: "text-emerald-600 dark:text-emerald-400",
+      bg: "bg-emerald-50 dark:bg-emerald-900/30",
+      border: "border-emerald-200 dark:border-emerald-800",
+      iconPos: "right",
+    },
+    {
+      id: 3,
+      intro: h('en_s3_i', 'en_s3_i'),
+      emphasis: h('en_s3_e', 'en_s3_e'),
+      desc: h('en_s3_d', 'en_s3_d'),
+      icon: BookOpen,
+      color: "text-amber-600 dark:text-amber-400",
+      bg: "bg-amber-50 dark:bg-amber-900/30",
+      border: "border-amber-200 dark:border-amber-800",
+      iconPos: "left",
+    },
+    {
+      id: 4,
+      intro: h('en_s4_i', 'en_s4_i'),
+      emphasis: h('en_s4_e', 'en_s4_e'),
+      desc: h('en_s4_d', 'en_s4_d'),
+      icon: Award,
+      color: "text-violet-600 dark:text-violet-400",
+      bg: "bg-violet-50 dark:bg-violet-900/30",
+      border: "border-violet-200 dark:border-violet-800",
+      iconPos: "center",
+    },
+  ]
+  
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -97,13 +98,13 @@ export default function EnrollSteps() {
             className="text-center mb-14"
           >
             <p className="text-blue-600 dark:text-blue-400 font-semibold text-sm uppercase tracking-widest mb-3">
-              {t("en_tag")}
+              {h('en_tag', 'en_tag')}
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-              {t("en_title")}
+              {h('en_title', 'en_title')}
             </h2>
             <p className="text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
-              {t("en_desc")}
+              {h('en_desc', 'en_desc')}
             </p>
           </motion.div>
         </div>
@@ -212,9 +213,9 @@ export default function EnrollSteps() {
         >
           <span className="text-2xl flex-shrink-0">📌</span>
           <div className="text-left">
-            <p className="font-semibold text-amber-700 dark:text-amber-400 text-sm mb-1">{t("en_req_title")}</p>
+            <p className="font-semibold text-amber-700 dark:text-amber-400 text-sm mb-1">{h('en_req_title', 'en_req_title')}</p>
             <p className="text-amber-900 dark:text-amber-200/80 text-sm leading-relaxed">
-              {t("en_req_desc")}
+              {h('en_req_desc', 'en_req_desc')}
             </p>
           </div>
         </motion.div>

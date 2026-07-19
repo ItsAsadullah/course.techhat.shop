@@ -23,7 +23,7 @@ export default function Navbar() {
   const router = useRouter()
   const pathname = usePathname()
   const { t, isBn } = useLang();
-  const { siteLogo, orgName } = useSiteSettings();
+  const { siteLogo, orgName, orgSubtitle } = useSiteSettings();
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [coursesDropdownOpen, setCoursesDropdownOpen] = useState(false)
@@ -164,7 +164,7 @@ export default function Navbar() {
               <div className="leading-none">
                 <p className="font-bold text-slate-900 dark:text-white text-[16px] md:text-[17px] tracking-tight">{orgName || "TechHat"}</p>
                 <p className="text-[10px] md:text-[11px] text-cyan-600 dark:text-cyan-400 font-semibold tracking-[0.18em] uppercase">
-                  Computer Training Center
+                  {orgSubtitle || "Computer Training Center"}
                 </p>
               </div>
             </Link>

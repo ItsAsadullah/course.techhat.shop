@@ -3,46 +3,7 @@
 import { Users, BookOpen, Trophy, Clock } from "lucide-react"
 import { motion } from "framer-motion"
 import SpotlightCard from "@/components/ui/SpotlightCard"
-import { useLang } from "@/context/GlobalLangContext"
-
-const getStats = (t: ReturnType<typeof useLang>["t"], isBn: boolean) => [
-  {
-    icon: Users,
-    value: isBn ? "৫,০০০+" : "5,000+",
-    label: t("stat_students_label"),
-    desc: t("stat_students_desc"),
-    color: "text-blue-600 dark:text-blue-400",
-    bg: "bg-blue-50 dark:bg-blue-900/30",
-    shadow: "shadow-sm border border-blue-100 dark:border-blue-800",
-  },
-  {
-    icon: BookOpen,
-    value: isBn ? "১৫+" : "15+",
-    label: t("stat_courses_label"),
-    desc: t("stat_courses_desc"),
-    color: "text-emerald-600 dark:text-emerald-400",
-    bg: "bg-emerald-50 dark:bg-emerald-900/30",
-    shadow: "shadow-sm border border-emerald-100 dark:border-emerald-800",
-  },
-  {
-    icon: Trophy,
-    value: isBn ? "৯৮%" : "98%",
-    label: t("stat_success_label"),
-    desc: t("stat_success_desc"),
-    color: "text-amber-600 dark:text-amber-400",
-    bg: "bg-amber-50 dark:bg-amber-900/30",
-    shadow: "shadow-sm border border-amber-100 dark:border-amber-800",
-  },
-  {
-    icon: Clock,
-    value: isBn ? "১০+" : "10+",
-    label: t("stat_exp_label"),
-    desc: t("stat_exp_desc"),
-    color: "text-purple-600 dark:text-purple-400",
-    bg: "bg-purple-50 dark:bg-purple-900/30",
-    shadow: "shadow-sm border border-purple-100 dark:border-purple-800",
-  },
-]
+import { useHomepage } from "@/lib/hooks/useHomepage"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -58,8 +19,46 @@ const itemVariants = {
 }
 
 export default function Stats() {
-  const { t, isBn } = useLang();
-  const stats = getStats(t, isBn);
+  const { h, isBn } = useHomepage();
+
+  const stats = [
+    {
+      icon: Users,
+      value: h('stat_students_value', 'stat_students_label'),
+      label: h('stat_students_label', 'stat_students_label'),
+      desc: h('stat_students_desc' as any, 'stat_students_desc' as any),
+      color: "text-blue-600 dark:text-blue-400",
+      bg: "bg-blue-50 dark:bg-blue-900/30",
+      shadow: "shadow-sm border border-blue-100 dark:border-blue-800",
+    },
+    {
+      icon: BookOpen,
+      value: h('stat_courses_value', 'stat_courses_label'),
+      label: h('stat_courses_label', 'stat_courses_label'),
+      desc: h('stat_courses_desc' as any, 'stat_courses_desc' as any),
+      color: "text-emerald-600 dark:text-emerald-400",
+      bg: "bg-emerald-50 dark:bg-emerald-900/30",
+      shadow: "shadow-sm border border-emerald-100 dark:border-emerald-800",
+    },
+    {
+      icon: Trophy,
+      value: h('stat_success_value', 'stat_success_label'),
+      label: h('stat_success_label', 'stat_success_label'),
+      desc: h('stat_success_desc' as any, 'stat_success_desc' as any),
+      color: "text-amber-600 dark:text-amber-400",
+      bg: "bg-amber-50 dark:bg-amber-900/30",
+      shadow: "shadow-sm border border-amber-100 dark:border-amber-800",
+    },
+    {
+      icon: Clock,
+      value: h('stat_exp_value', 'stat_exp_label'),
+      label: h('stat_exp_label', 'stat_exp_label'),
+      desc: h('stat_exp_desc' as any, 'stat_exp_desc' as any),
+      color: "text-purple-600 dark:text-purple-400",
+      bg: "bg-purple-50 dark:bg-purple-900/30",
+      shadow: "shadow-sm border border-purple-100 dark:border-purple-800",
+    },
+  ];
 
   return (
     <section className="py-12 bg-white dark:bg-slate-950 border-y border-slate-100 dark:border-slate-800 relative z-10">

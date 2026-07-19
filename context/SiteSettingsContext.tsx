@@ -8,6 +8,8 @@ interface SiteSettings {
   siteOgImage: string;
   orgName: string;
   orgShortName: string;
+  orgSubtitle: string;
+  heroInstructorImage: string;
 }
 
 const SiteSettingsContext = createContext<SiteSettings | undefined>(undefined);

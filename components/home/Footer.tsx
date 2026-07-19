@@ -2,7 +2,9 @@
 
 import Link from "next/link"
 import { GraduationCap, MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react"
-import { useLang } from "@/context/GlobalLangContext"
+import { useHomepage } from "@/lib/hooks/useHomepage"
+import { useSiteSettings } from "@/context/SiteSettingsContext"
+import Image from "next/image"
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
@@ -38,11 +40,37 @@ const getShifts = (isBn: boolean) => [
 ]
 
 export default function Footer() {
-  const { t, isBn } = useLang();
+  const { h, isBn } = useHomepage();
+  const { siteLogo, orgName } = useSiteSettings();
   
-  const quickLinks = getQuickLinks(isBn);
-  const courseLinks = getCourseLinks(isBn);
-  const shifts = getShifts(isBn);
+  const quickLinks = [
+    { href: "/#courses", label: isBn ? "কোর্সসমূহ" : "Courses" },
+    { href: "/#features", label: isBn ? "কেন আমরা?" : "Why Us?" },
+    { href: "/admissions", label: isBn ? "ভর্তি ফর্ম" : "Admission Form" },
+    { href: "/#testimonials", label: isBn ? "শিক্ষার্থীদের মতামত" : "Student Reviews" },
+    { href: "/admin", label: isBn ? "অ্যাডমিন প্যানেল" : "Admin Panel" },
+  ];
+  const courseLinks = [
+    isBn ? "মাইক্রোসফট অফিস" : "Microsoft Office",
+    isBn ? "গ্রাফিক ডিজাইন" : "Graphic Design",
+    isBn ? "ওয়েব ডেভেলপমেন্ট" : "Web Development",
+    isBn ? "ডিজিটাল মার্কেটিং" : "Digital Marketing",
+    isBn ? "ভিডিও এডিটিং" : "Video Editing",
+    isBn ? "Python প্রোগ্রামিং" : "Python Programming",
+  ];
+  const shifts = [
+    { label: isBn ? "সকাল শিফট" : "Morning Shift", time: isBn ? "৮:০০ – ১০:০০ AM" : "8:00 – 10:00 AM" },
+    { label: isBn ? "দুপুর শিফট" : "Noon Shift", time: isBn ? "১০:০০ – ১২:০০ PM" : "10:00 – 12:00 PM" },
+    { label: isBn ? "বিকাল শিফট" : "Afternoon Shift", time: isBn ? "২:০০ – ৪:০০ PM" : "2:00 – 4:00 PM" },
+    { label: isBn ? "সন্ধ্যা শিফট" : "Evening Shift", time: isBn ? "৫:০০ – ৭:০০ PM" : "5:00 – 7:00 PM" },
+    { label: isBn ? "রাত শিফট" : "Night Shift", time: isBn ? "৭:০০ – ৯:০০ PM" : "7:00 – 9:00 PM" },
+  ];
+
+  const phone = h('ft_phone') || '+880 1788-827474';
+  const email = h('ft_email') || 'info@techhat.shop';
+  const facebook = h('ft_facebook') || 'https://facebook.com';
+  const youtube = h('ft_youtube') || 'https://youtube.com';
+  const whatsapp = h('ft_whatsapp') || 'https://wa.me/8801788827474';
 
   return (
     <footer id="contact" className={`bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-300 relative border-t border-slate-100 dark:border-slate-800 overflow-hidden ${isBn ? "font-bn" : ""}`}>
@@ -57,17 +85,21 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-6 group">
-              <div className="w-10 h-10 bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-blue-800 rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-all">
-                <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+              <div className="w-10 h-10 bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-blue-800 rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-all overflow-hidden">
+                {siteLogo ? (
+                  <Image src={siteLogo} alt={orgName} width={32} height={32} className="object-contain" />
+                ) : (
+                  <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+                )}
               </div>
               <div>
-                <p className="font-bold text-slate-900 dark:text-white text-[18px] leading-none tracking-wide group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">EduCore</p>
+                <p className="font-bold text-slate-900 dark:text-white text-[18px] leading-none tracking-wide group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{orgName || 'TechHat'}</p>
                 <p className="text-[10px] text-blue-500 dark:text-blue-400 font-semibold tracking-widest uppercase mt-0.5">IT Training Center</p>
               </div>
             </Link>
 
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-7">
-              {t("ft_desc")}
+              {h('ft_desc', 'ft_desc')}
             </p>
 
             {/* Contact info */}
@@ -75,26 +107,26 @@ export default function Footer() {
               <div className="flex items-start gap-3 group cursor-pointer">
                 <MapPin className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0 mt-0.5 group-hover:animate-bounce" />
                 <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                  {t("ft_addr")}
+                  {h('ft_addr', 'ft_addr')}
                 </span>
               </div>
               <div className="flex items-center gap-3 group">
                 <Phone className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0 group-hover:rotate-12 transition-transform" />
-                <a href="tel:+8801XXXXXXXXX" className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  +880 1XXX-XXXXXX
+                <a href={`tel:${phone}`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  {phone}
                 </a>
               </div>
               <div className="flex items-center gap-3 group">
                 <Mail className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0 group-hover:-rotate-12 transition-transform" />
-                <a href="mailto:info@educore.com.bd" className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  info@educore.com.bd
+                <a href={`mailto:${email}`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  {email}
                 </a>
               </div>
               <div className="flex items-start gap-3 group cursor-pointer">
                 <Clock className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0 mt-0.5 group-hover:rotate-90 transition-transform duration-500" />
                 <div className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                  <p>{t("ft_days")}</p>
-                  <p>{t("ft_hours")}</p>
+                  <p>{h('ft_days', 'ft_days')}</p>
+                  <p>{h('ft_hours', 'ft_hours')}</p>
                 </div>
               </div>
             </div>
@@ -148,10 +180,10 @@ export default function Footer() {
               ))}
             </ul>
 
-            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-4 uppercase tracking-wider">{t("ft_sm")}</h4>
+            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-4 uppercase tracking-wider">{isBn ? 'সোশ্যাল মিডিয়া' : 'Social Media'}</h4>
             <div className="flex gap-3">
               <a
-                href="https://facebook.com"
+                href={facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:shadow-sm rounded-xl flex items-center justify-center transition-all group"
@@ -160,7 +192,7 @@ export default function Footer() {
                 <FacebookIcon className="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
               </a>
               <a
-                href="https://youtube.com"
+                href={youtube}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-300 dark:hover:border-red-700 hover:bg-red-50 dark:hover:bg-red-900/30 hover:shadow-sm rounded-xl flex items-center justify-center transition-all group"
@@ -169,7 +201,7 @@ export default function Footer() {
                 <YoutubeIcon className="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors" />
               </a>
               <a
-                href="https://wa.me/8801XXXXXXXXX"
+                href={whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:shadow-sm rounded-xl flex items-center justify-center transition-all group"
@@ -196,7 +228,7 @@ export default function Footer() {
       <div className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-slate-600 dark:text-slate-400 text-sm text-center sm:text-left">
-            © {new Date().getFullYear()} <span className="text-slate-900 dark:text-white font-medium">EduCore</span> IT Training Center. {t("ft_rights")}
+            © {new Date().getFullYear()} <span className="text-slate-900 dark:text-white font-medium">{orgName || 'TechHat'}</span> IT Training Center. {isBn ? 'সকল অধিকার সংরক্ষিত।' : 'All rights reserved.'}
           </p>
           <div className="flex items-center gap-5 text-xs text-slate-500 dark:text-slate-400 font-medium">
             <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{t("ft_privacy")}</a>

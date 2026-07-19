@@ -2,10 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Lightbulb, MessageSquare, Trophy, FileText, MonitorPlay, Award, BookOpen } from "lucide-react";
-import { useLang } from "@/context/GlobalLangContext";
+import { useHomepage } from "@/lib/hooks/useHomepage";
 
 export default function AboutSection() {
-  const { t, isBn } = useLang();
+  const { h, isBn } = useHomepage();
   
   return (
     <section id="about" className="py-24 bg-[#f4f8fb] dark:bg-slate-950 overflow-hidden">
@@ -68,15 +68,15 @@ export default function AboutSection() {
         <div className={`lg:pl-8 ${isBn ? "font-bn" : ""}`}>
           <div className="flex items-center gap-2 text-[#0f62fe] dark:text-blue-400 font-bold mb-4">
             <div className="w-4 h-4 border-2 border-[#0f62fe] dark:border-blue-400 rounded-sm"></div>
-            {t("about_tag")}
+            {h('about_tag', 'about_tag')}
           </div>
           
           <h2 className="text-4xl lg:text-5xl font-black text-slate-800 dark:text-white leading-[1.2] mb-6">
-            {t("about_title")}
+            {h('about_title', 'about_title')}
           </h2>
           
           <p className="text-slate-600 dark:text-slate-300 mb-10 leading-relaxed">
-            {t("about_desc")}
+            {h('about_desc', 'about_desc')}
           </p>
           
           <div className="grid sm:grid-cols-2 gap-8 mb-10">
@@ -85,8 +85,8 @@ export default function AboutSection() {
                 <FileText className="w-5 h-5 text-[#0f62fe] dark:text-blue-400" />
               </div>
               <div>
-                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{t("about_card1_t")}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t("about_card1_d")}</p>
+                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{h('about_card1_t', 'about_card1_t')}</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{h('about_card1_d', 'about_card1_d')}</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -94,8 +94,8 @@ export default function AboutSection() {
                 <BookOpen className="w-5 h-5 text-orange-500 dark:text-orange-400" />
               </div>
               <div>
-                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{t("about_card2_t")}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t("about_card2_d")}</p>
+                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{h('about_card2_t', 'about_card2_t')}</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{h('about_card2_d', 'about_card2_d')}</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -103,8 +103,8 @@ export default function AboutSection() {
                 <MonitorPlay className="w-5 h-5 text-red-500 dark:text-red-400" />
               </div>
               <div>
-                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{t("about_card3_t")}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t("about_card3_d")}</p>
+                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{h('about_card3_t', 'about_card3_t')}</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{h('about_card3_d', 'about_card3_d')}</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -112,14 +112,14 @@ export default function AboutSection() {
                 <Award className="w-5 h-5 text-green-500 dark:text-green-400" />
               </div>
               <div>
-                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{t("about_card4_t")}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t("about_card4_d")}</p>
+                <h4 className="font-bold text-slate-800 dark:text-white mb-2">{h('about_card4_t', 'about_card4_t')}</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{h('about_card4_d', 'about_card4_d')}</p>
               </div>
             </div>
           </div>
           
           <Link href="#courses" className="bg-[#0f62fe] dark:bg-blue-600 text-white px-8 py-3.5 rounded-full font-bold inline-flex items-center gap-2 hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30">
-            {t("about_btn")} <ArrowUpRight className="w-5 h-5" />
+            {h('about_btn', 'about_btn')} <ArrowUpRight className="w-5 h-5" />
           </Link>
         </div>
       </div>

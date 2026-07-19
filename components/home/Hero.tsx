@@ -1,24 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, CheckCircle, PlayCircle, Users, BookOpen, Award, Star } from "lucide-react"
+import { ArrowRight, PlayCircle, Users, BookOpen, Award, Star } from "lucide-react"
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import React, { useRef } from "react"
-import { useLang } from "@/context/GlobalLangContext"
 import { CustomYouTubePlayer } from "@/components/course/CustomYouTubePlayer"
-
-const highlights = [
-  "অভিজ্ঞ ও প্রশিক্ষিত শিক্ষকমণ্ডলী",
-  "হাতে-কলমে প্রশিক্ষণ (Practical Based)",
-  "সার্টিফিকেট সরকার অনুমোদিত",
-  "চাকরির সহায়তা প্রদান করা হয়",
-]
-
-const getFloatingBadges = (t: ReturnType<typeof useLang>["t"]) => [
-  { icon: Users, value: "৫০০০+", label: t("hero_badge_students"), color: "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800 shadow-sm" },
-  { icon: Star, value: "৪.৯/৫", label: t("hero_badge_rating"), color: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800 shadow-sm" },
-  { icon: Award, value: "১০০%", label: t("hero_badge_cert"), color: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 shadow-sm" },
-]
+import { useSiteSettings } from "@/context/SiteSettingsContext"
+import { useHomepage } from "@/lib/hooks/useHomepage"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -34,8 +22,14 @@ const itemVariants = {
 }
 
 export default function Hero() {
-  const { t, isBn } = useLang();
-  const floatingBadges = getFloatingBadges(t);
+  const { h, isBn } = useHomepage();
+  const { heroInstructorImage } = useSiteSettings();
+
+  const floatingBadges = [
+    { icon: Users, value: h('hero_badge_students', 'hero_badge_students'), label: h('hero_badge_students', 'hero_badge_students'), color: "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800 shadow-sm" },
+    { icon: Star, value: h('hero_badge_rating', 'hero_badge_rating'), label: h('hero_badge_rating', 'hero_badge_rating'), color: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800 shadow-sm" },
+    { icon: Award, value: h('hero_badge_cert', 'hero_badge_cert'), label: h('hero_badge_cert', 'hero_badge_cert'), color: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 shadow-sm" },
+  ];
 
   return (
     <section className="relative overflow-x-clip bg-white dark:bg-slate-950">
@@ -83,16 +77,16 @@ export default function Hero() {
               {/* Badge */}
               <motion.div variants={itemVariants} className={`inline-flex items-center gap-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-blue-600 dark:text-blue-400 text-xs font-semibold px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800/50 shadow-sm mb-6 ${isBn ? "font-bn" : ""}`}>
                 <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
-                {t("hero_badge")}
+                {h("hero_badge", "hero_badge")}
               </motion.div>
 
               {/* Headline */}
               <motion.h1 variants={itemVariants} className={`text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.2] mb-6 ${isBn ? "font-bn" : ""}`}>
-                {t("hero_title1")}
+                {h("hero_title1", "hero_title1")}
                 <br />
                 <span className="relative inline-block mt-2 w-max max-w-[100vw]">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_auto] animate-text-gradient text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[44px] whitespace-nowrap">
-                    {t("hero_title2")}
+                    {h("hero_title2", "hero_title2")}
                   </span>
                   <style>{`
                   @keyframes text-gradient {
@@ -127,9 +121,9 @@ export default function Hero() {
               </motion.h1>
 
               <motion.p variants={itemVariants} className={`text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-8 max-w-lg ${isBn ? "font-bn" : ""}`}>
-                {t("hero_desc1")}
+                {h("hero_desc1", "hero_desc1")}
                 <br /><br />
-                <span className="font-semibold text-slate-800 dark:text-white">{t("hero_desc2")}</span>
+                <span className="font-semibold text-slate-800 dark:text-white">{h("hero_desc2", "hero_desc2")}</span>
               </motion.p>
 
 
@@ -141,14 +135,14 @@ export default function Hero() {
                   className="inline-flex items-center justify-center gap-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-200 font-semibold px-8 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-500/50 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300 shadow-sm hover:shadow-md text-sm group"
                 >
                   <PlayCircle className="w-4 h-4 text-blue-500 group-hover:scale-110 transition-transform" />
-                  {t("hero_btn_courses")}
+                  {h("hero_btn_courses", "hero_btn_courses")}
                 </Link>
                 <Link
                   href="/admissions"
                   className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold px-8 py-3.5 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:-translate-y-1 text-sm overflow-hidden"
                 >
                   <span className="absolute inset-0 w-full h-full -ml-10 bg-white/20 translate-x-[-100%] group-hover:animate-[shimmer_1.5s_infinite]" />
-                  <span className="relative">{t("hero_btn_enroll")}</span>
+                  <span className="relative">{h("hero_btn_enroll", "course_enroll")}</span>
                   <ArrowRight className="w-4 h-4 relative group-hover:translate-x-1 transition-transform" />
                 </Link>
               </motion.div>
@@ -164,7 +158,7 @@ export default function Hero() {
               {/* Main visual - Instructor Photo */}
               <TiltWrapper>
                 <img
-                  src="/Hero-Instructor-photo.png"
+                  src={heroInstructorImage || "/Hero-Instructor-photo.png"}
                   alt="Instructor"
                   className="w-full h-auto max-w-md lg:max-w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]"
                 />
@@ -180,8 +174,8 @@ export default function Hero() {
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{t("hero_total_courses")}</p>
-                  <p className="font-bold text-slate-900 dark:text-white text-sm leading-none">{isBn ? "১৫+" : "15+"}</p>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{h("hero_total_courses", "hero_total_courses")}</p>
+                  <p className="font-bold text-slate-900 dark:text-white text-sm leading-none">{h("hero_total_courses", "hero_total_courses")}</p>
                 </div>
               </motion.div>
 
@@ -220,7 +214,7 @@ export default function Hero() {
             className="rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
           >
             <div className="relative aspect-video w-full rounded-[24px] overflow-hidden bg-slate-900">
-              <CustomYouTubePlayer youtubeId="pGrBqoI4HKg" />
+              <CustomYouTubePlayer youtubeId={h('homepage_video_id') || "pGrBqoI4HKg"} />
             </div>
           </motion.div>
         </div>

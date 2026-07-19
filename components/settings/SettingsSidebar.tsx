@@ -17,6 +17,7 @@ const SETTINGS_CATEGORIES = [
     { name: 'General', slug: 'general', icon: Settings },
     { name: 'Organization', slug: 'organization', icon: Building2 },
     { name: 'Website', slug: 'website', icon: Globe },
+    { name: 'Homepage Content', slug: 'homepage', icon: FileText },
   ]},
   { group: 'Academic', items: [
     { name: 'Admissions', slug: 'admissions', icon: UserPlus },

@@ -2,18 +2,18 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Plus, Minus, MessageCircleQuestion } from "lucide-react";
-import { useLang } from "@/context/GlobalLangContext";
+import { useHomepage } from "@/lib/hooks/useHomepage";
 
 export default function FaqSection() {
-  const { t, isBn } = useLang();
+  const { h, isBn } = useHomepage();
   const [open, setOpen] = useState(0);
 
   const faqs = [
-    { q: t("faq_q1"), a: t("faq_a1") },
-    { q: t("faq_q2"), a: t("faq_a2") },
-    { q: t("faq_q3"), a: t("faq_a3") },
-    { q: t("faq_q4"), a: t("faq_a4") }
-  ];
+    { q: h('faq_q1', 'faq_q1'), a: h('faq_a1', 'faq_a1') },
+    { q: h('faq_q2', 'faq_q2'), a: h('faq_a2', 'faq_a2') },
+    { q: h('faq_q3', 'faq_q3'), a: h('faq_a3', 'faq_a3') },
+    { q: h('faq_q4', 'faq_q4'), a: h('faq_a4', 'faq_a4') },
+  ].filter(f => f.q);
 
   return (
     <section className="py-24 bg-white dark:bg-slate-950 relative">
@@ -36,15 +36,15 @@ export default function FaqSection() {
         <div className={`pt-8 ${isBn ? "font-bn" : ""}`}>
           <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold mb-4">
             <MessageCircleQuestion className="w-5 h-5" />
-            {t("faq_tag")}
+            {h('faq_tag', 'faq_tag')}
           </div>
           
           <h2 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-white leading-[1.2] mb-6">
-            {t("faq_title")}
+            {h('faq_title', 'faq_title')}
           </h2>
           
           <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-10">
-            {t("faq_desc1")}<br/>{t("faq_desc2")}
+            {h('faq_desc1', 'faq_desc1')}
           </p>
 
           <div className="space-y-4">

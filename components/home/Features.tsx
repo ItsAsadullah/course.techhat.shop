@@ -3,58 +3,7 @@
 import { ShieldCheck, Cpu, Users2, HeadphonesIcon, Wifi, Medal } from "lucide-react"
 import { motion } from "framer-motion"
 import SpotlightCard from "@/components/ui/SpotlightCard"
-import { useLang } from "@/context/GlobalLangContext"
-
-const getFeatures = (t: ReturnType<typeof useLang>["t"]) => [
-  {
-    icon: Cpu,
-    title: t("feat_card1_t"),
-    desc: t("feat_card1_d"),
-    color: "text-blue-600 dark:text-blue-400",
-    bg: "bg-blue-50 dark:bg-blue-900/30",
-    shadow: "shadow-sm border border-blue-100 dark:border-blue-800",
-  },
-  {
-    icon: Users2,
-    title: t("feat_card2_t"),
-    desc: t("feat_card2_d"),
-    color: "text-emerald-600 dark:text-emerald-400",
-    bg: "bg-emerald-50 dark:bg-emerald-900/30",
-    shadow: "shadow-sm border border-emerald-100 dark:border-emerald-800",
-  },
-  {
-    icon: ShieldCheck,
-    title: t("feat_card3_t"),
-    desc: t("feat_card3_d"),
-    color: "text-amber-600 dark:text-amber-400",
-    bg: "bg-amber-50 dark:bg-amber-900/30",
-    shadow: "shadow-sm border border-amber-100 dark:border-amber-800",
-  },
-  {
-    icon: Medal,
-    title: t("feat_card4_t"),
-    desc: t("feat_card4_d"),
-    color: "text-pink-600 dark:text-pink-400",
-    bg: "bg-pink-50 dark:bg-pink-900/30",
-    shadow: "shadow-sm border border-pink-100 dark:border-pink-800",
-  },
-  {
-    icon: Wifi,
-    title: t("feat_card5_t"),
-    desc: t("feat_card5_d"),
-    color: "text-violet-600 dark:text-violet-400",
-    bg: "bg-violet-50 dark:bg-violet-900/30",
-    shadow: "shadow-sm border border-violet-100 dark:border-violet-800",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: t("feat_card6_t"),
-    desc: t("feat_card6_d"),
-    color: "text-cyan-600 dark:text-cyan-400",
-    bg: "bg-cyan-50 dark:bg-cyan-900/30",
-    shadow: "shadow-sm border border-cyan-100 dark:border-cyan-800",
-  },
-]
+import { useHomepage } from "@/lib/hooks/useHomepage"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -70,8 +19,58 @@ const itemVariants = {
 }
 
 export default function Features() {
-  const { t, isBn } = useLang();
-  const features = getFeatures(t);
+  const { h, isBn } = useHomepage();
+
+  const features = [
+    {
+      icon: Cpu,
+      title: h('feat_card1_t', 'feat_card1_t'),
+      desc: h('feat_card1_d', 'feat_card1_d'),
+      color: "text-blue-600 dark:text-blue-400",
+      bg: "bg-blue-50 dark:bg-blue-900/30",
+      shadow: "shadow-sm border border-blue-100 dark:border-blue-800",
+    },
+    {
+      icon: Users2,
+      title: h('feat_card2_t', 'feat_card2_t'),
+      desc: h('feat_card2_d', 'feat_card2_d'),
+      color: "text-emerald-600 dark:text-emerald-400",
+      bg: "bg-emerald-50 dark:bg-emerald-900/30",
+      shadow: "shadow-sm border border-emerald-100 dark:border-emerald-800",
+    },
+    {
+      icon: ShieldCheck,
+      title: h('feat_card3_t', 'feat_card3_t'),
+      desc: h('feat_card3_d', 'feat_card3_d'),
+      color: "text-amber-600 dark:text-amber-400",
+      bg: "bg-amber-50 dark:bg-amber-900/30",
+      shadow: "shadow-sm border border-amber-100 dark:border-amber-800",
+    },
+    {
+      icon: Medal,
+      title: h('feat_card4_t', 'feat_card4_t'),
+      desc: h('feat_card4_d', 'feat_card4_d'),
+      color: "text-pink-600 dark:text-pink-400",
+      bg: "bg-pink-50 dark:bg-pink-900/30",
+      shadow: "shadow-sm border border-pink-100 dark:border-pink-800",
+    },
+    {
+      icon: Wifi,
+      title: h('feat_card5_t', 'feat_card5_t'),
+      desc: h('feat_card5_d', 'feat_card5_d'),
+      color: "text-violet-600 dark:text-violet-400",
+      bg: "bg-violet-50 dark:bg-violet-900/30",
+      shadow: "shadow-sm border border-violet-100 dark:border-violet-800",
+    },
+    {
+      icon: HeadphonesIcon,
+      title: h('feat_card6_t', 'feat_card6_t'),
+      desc: h('feat_card6_d', 'feat_card6_d'),
+      color: "text-cyan-600 dark:text-cyan-400",
+      bg: "bg-cyan-50 dark:bg-cyan-900/30",
+      shadow: "shadow-sm border border-cyan-100 dark:border-cyan-800",
+    },
+  ];
 
   return (
     <section id="features" className="py-20 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 relative z-10 overflow-hidden">
@@ -89,29 +88,29 @@ export default function Features() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-blue-600 dark:text-blue-400 font-semibold text-sm uppercase tracking-widest mb-3">
-              {t("feat_title1")}
+              {h('feat_title1', 'feat_title1')}
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-5 leading-tight">
-              {t("feat_title2")} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400">{t("feat_title3")}</span>
+              {h('feat_title2', 'feat_title2')} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400">{h('feat_title3', 'feat_title3')}</span>
             </h2>
             <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
-              {t("feat_desc")}
+              {h('feat_desc', 'feat_desc')}
             </p>
 
             {/* Mini stats */}
             <div className="mt-8 flex gap-8">
               <div>
-                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{t("feat_stat1_v")}</p>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">{t("feat_stat1_l")}</p>
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{h('feat_stat1_v', 'feat_stat1_v')}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">{h('feat_stat1_l', 'feat_stat1_l')}</p>
               </div>
               <div className="border-l border-slate-200 dark:border-slate-700 pl-8">
-                <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{t("feat_stat2_v")}</p>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">{t("feat_stat2_l")}</p>
+                <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{h('feat_stat2_v', 'feat_stat2_v')}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">{h('feat_stat2_l', 'feat_stat2_l')}</p>
               </div>
               <div className="border-l border-slate-200 dark:border-slate-700 pl-8">
-                <p className="text-3xl font-bold text-amber-600 dark:text-amber-400">{t("feat_stat3_v")}</p>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">{t("feat_stat3_l")}</p>
+                <p className="text-3xl font-bold text-amber-600 dark:text-amber-400">{h('feat_stat3_v', 'feat_stat3_v')}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">{h('feat_stat3_l', 'feat_stat3_l')}</p>
               </div>
             </div>
           </motion.div>
@@ -126,15 +125,15 @@ export default function Features() {
           >
             <div className={`bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden ${isBn ? "font-bn" : ""}`}>
               <div className="absolute top-0 right-0 w-40 h-40 bg-blue-50 dark:bg-blue-900/30 rounded-full blur-[40px] pointer-events-none" />
-              <p className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">{t("feat_review_tag")}</p>
+              <p className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">{h('feat_review_tag', 'feat_review_tag')}</p>
               <blockquote className="text-lg font-medium leading-relaxed mb-6 text-slate-700 dark:text-slate-300">
-                {t("feat_review_text")}
+                {h('feat_review_text', 'feat_review_text')}
               </blockquote>
               <div className="flex items-center gap-3 relative z-10">
-                <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-800 flex items-center justify-center font-bold text-lg text-blue-600 dark:text-blue-400">{t("feat_review_name").charAt(0)}</div>
+                <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-800 flex items-center justify-center font-bold text-lg text-blue-600 dark:text-blue-400">{h('feat_review_name', 'feat_review_name').charAt(0)}</div>
                 <div>
-                  <p className="font-semibold text-slate-900 dark:text-white">{t("feat_review_name")}</p>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm">{t("feat_review_role")}</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">{h('feat_review_name', 'feat_review_name')}</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm">{h('feat_review_role', 'feat_review_role')}</p>
                 </div>
                 <div className="ml-auto flex gap-0.5">
                   {[1,2,3,4,5].map(i => (
