@@ -75,7 +75,7 @@ export default function Step3Media({ form }: Step3Props) {
           {[
             { value: "youtube", icon: PlayCircle, label: "YouTube", color: "text-red-500" },
             { value: "vimeo", icon: Video, label: "Vimeo", color: "text-blue-500" },
-            { value: "direct", icon: LinkIcon, label: "Direct URL", color: "text-slate-500" },
+            { value: "direct", icon: LinkIcon, label: "Direct URL", color: "text-slate-500 dark:text-slate-400" },
           ].map(({ value, icon: Icon, label, color }) => {
             const isActive = videoType === value;
             return (
@@ -86,7 +86,7 @@ export default function Step3Media({ form }: Step3Props) {
                 className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
                   isActive
                     ? "border-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"
-                    : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300"
+                    : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:border-slate-600"
                 }`}
               >
                 <Icon className={`w-4 h-4 ${color}`} />

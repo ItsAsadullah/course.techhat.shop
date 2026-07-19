@@ -25,12 +25,12 @@ export function MobileNav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
       <Link href="/admin" className="flex items-center gap-2">
         <div className="bg-blue-600 p-1.5 rounded-lg">
           <GraduationCap className="h-5 w-5 text-white" />
         </div>
-        <span className="font-bold text-slate-900">TechHat Center</span>
+        <span className="font-bold text-slate-900 dark:text-slate-50">TechHat Center</span>
       </Link>
 
       <Sheet open={open} onOpenChange={setOpen}>
@@ -40,8 +40,8 @@ export function MobileNav() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
-          <div className="p-6 border-b border-slate-100 flex items-center justify-between">
-            <span className="font-bold text-slate-900">Menu</span>
+          <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span className="font-bold text-slate-900 dark:text-slate-50">Menu</span>
           </div>
           <nav className="p-4 space-y-1">
             {navItems.map((item) => {
@@ -60,8 +60,8 @@ export function MobileNav() {
                   className={cn(
                     "w-full justify-start gap-3 h-11",
                     isActive
-                      ? "bg-blue-50 text-blue-700 hover:bg-blue-100"
-                      : "text-slate-600 hover:bg-slate-100"
+                      ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-500 hover:bg-blue-100 dark:bg-blue-900/40"
+                      : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-800"
                   )}
                 >
                   <Link href={item.href}>

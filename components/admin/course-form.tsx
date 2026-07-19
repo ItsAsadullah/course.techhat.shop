@@ -29,7 +29,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
   return (
     <form action={handleSubmit} className="space-y-4">
       {error && (
-        <div className="p-3 rounded-md bg-red-50 text-red-600 text-sm">
+        <div className="p-3 rounded-md bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-500 text-sm">
           {error}
         </div>
       )}

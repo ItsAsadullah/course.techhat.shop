@@ -51,7 +51,7 @@ export function StudentsFilter() {
     <div className="flex items-center gap-2">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className={`h-9 text-xs rounded-xl border-slate-200 font-semibold shadow-sm ${hasFilters ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-slate-600 hover:bg-slate-50'}`}>
+          <Button variant="outline" className={`h-9 text-xs rounded-xl border-slate-200 dark:border-slate-700 font-semibold shadow-sm ${hasFilters ? 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-900/50 dark:text-indigo-300 dark:border-indigo-800' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 dark:hover:bg-slate-800'}`}>
             <Filter className="w-3.5 h-3.5 mr-2" />
             Filters {hasFilters && <span className="ml-1 flex h-2 w-2 rounded-full bg-indigo-600"></span>}
           </Button>
@@ -78,7 +78,7 @@ export function StudentsFilter() {
       </DropdownMenu>
 
       {hasFilters && (
-        <Button onClick={clearFilters} variant="ghost" className="h-9 px-2 text-xs text-slate-500 hover:text-slate-800">
+        <Button onClick={clearFilters} variant="ghost" className="h-9 px-2 text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-100">
           <X className="w-3.5 h-3.5 mr-1" />
           Clear
         </Button>

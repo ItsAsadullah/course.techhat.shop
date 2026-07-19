@@ -224,7 +224,7 @@ export function Step5Schedule() {
                     <Field name={`schedule.batches.${i}.room`} label={t("room")} />
                     <Field name={`schedule.batches.${i}.seat_limit`} label={t("seatLimit")} type="number" />
                   </div>
-                  <p className="text-xs text-slate-500">Available seats are calculated automatically from current enrollments.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Available seats are calculated automatically from current enrollments.</p>
                   <ArrayEditor name={`schedule.batches.${i}.class_days`} label={t("classDays")} placeholder="Saturday" />
                   <div className="grid gap-2 sm:grid-cols-2">
                     <SwitchField name={`schedule.batches.${i}.waitlist_enabled`} label={t("waitlistEnabled")} />
@@ -383,7 +383,7 @@ function Lessons({ moduleIndex }: { moduleIndex: number }) {
       <SectionHeader
         title={t("lessons")}
         action={
-          <button type="button" onClick={addLesson} className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700">
+          <button type="button" onClick={addLesson} className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:text-blue-500">
             <Plus className="h-4 w-4" /> {t("addLesson")}
           </button>
         }

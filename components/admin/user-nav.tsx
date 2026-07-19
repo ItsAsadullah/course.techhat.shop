@@ -29,10 +29,10 @@ export function UserNav({ email }: UserNavProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-2">
-          <div className="bg-blue-100 p-1.5 rounded-full">
-            <User className="h-4 w-4 text-blue-600" />
+          <div className="bg-blue-100 dark:bg-blue-900/40 p-1.5 rounded-full">
+            <User className="h-4 w-4 text-blue-600 dark:text-blue-400" />
           </div>
-          <span className="hidden sm:inline text-slate-700 max-w-[150px] truncate">
+          <span className="hidden sm:inline text-slate-700 dark:text-slate-200 max-w-[150px] truncate">
             {email || "Admin"}
           </span>
         </Button>

@@ -49,9 +49,9 @@ interface CourseWizardProps {
 }
 
 const STATUS_STYLE: Record<string, string> = {
-  draft: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
-  published: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400",
-  archived: "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400",
+  draft: "bg-slate-100 text-slate-600 dark:text-slate-300 dark:bg-slate-800 dark:text-slate-300",
+  published: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-500 dark:bg-emerald-50 dark:bg-emerald-900/100/15 dark:text-emerald-400",
+  archived: "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-500 dark:bg-amber-50 dark:bg-amber-900/100/15 dark:text-amber-400",
 };
 
 export function CourseWizard({
@@ -498,7 +498,7 @@ function ReviewStep({
       <ul className="space-y-2">
         {items.map((it) => (
           <li key={it.key} className="flex items-center gap-2 text-sm">
-            <span className={`h-2.5 w-2.5 rounded-full ${completed[it.key] ? "bg-emerald-500" : "bg-slate-300"}`} />
+            <span className={`h-2.5 w-2.5 rounded-full ${completed[it.key] ? "bg-emerald-50 dark:bg-emerald-900/100" : "bg-slate-300"}`} />
             <span className="text-slate-700 dark:text-slate-200">{it.label}</span>
             <span className={`text-xs ${completed[it.key] ? "text-emerald-500" : "text-slate-400"}`}>
               {completed[it.key] ? "Complete" : "Incomplete"}
@@ -506,7 +506,7 @@ function ReviewStep({
           </li>
         ))}
       </ul>
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-slate-500 dark:text-slate-400">
         Publishing makes the course live on the homepage, course listing, sitemap, RSS feed and search engines.
       </p>
       <button

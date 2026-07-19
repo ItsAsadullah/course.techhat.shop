@@ -26,7 +26,7 @@ export default async function EditStudentPage({ params }: EditStudentPageProps) 
             variant="ghost"
             size="sm"
             asChild
-            className="-ml-3 h-8 gap-1.5 text-slate-500 hover:text-slate-950"
+            className="-ml-3 h-8 gap-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-950"
           >
             <Link href={`/admin/students/${id}`}>
               <ArrowLeft className="h-4 w-4" />
@@ -35,7 +35,7 @@ export default async function EditStudentPage({ params }: EditStudentPageProps) 
           </Button>
         </div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Edit Student Profile</h1>
-        <p className="text-slate-500">Update the student's information using the admission form.</p>
+        <p className="text-slate-500 dark:text-slate-400">Update the student's information using the admission form.</p>
       </div>
 
       <div className="-mx-4 sm:-mx-6 lg:-mx-8">

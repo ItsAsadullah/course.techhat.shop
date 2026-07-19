@@ -29,7 +29,7 @@ export function SwitchField({ name, label, description }: SwitchFieldProps) {
         }`}
       >
         <span
-          className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition ${
+          className={`inline-block h-5 w-5 transform rounded-full bg-white dark:bg-slate-900 shadow transition ${
             value ? "translate-x-5" : "translate-x-0.5"
           }`}
         />

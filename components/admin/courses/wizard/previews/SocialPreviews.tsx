@@ -36,11 +36,11 @@ export function GoogleSearchPreview({ title, description, url }: PreviewData) {
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
       <div className="flex items-center gap-2 mb-1">
         <div className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
-          <Globe className="h-3.5 w-3.5 text-slate-500" />
+          <Globe className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
         </div>
         <div className="leading-tight">
           <div className="text-xs text-slate-800 dark:text-slate-200">{domainOf(url)}</div>
-          <div className="text-[11px] text-slate-500">{breadcrumb(url)}</div>
+          <div className="text-[11px] text-slate-500 dark:text-slate-400">{breadcrumb(url)}</div>
         </div>
       </div>
       <div className="text-lg text-[#1a0dab] dark:text-blue-400 hover:underline cursor-pointer leading-snug">
@@ -70,7 +70,7 @@ function SocialCard({ title, description, url, image, siteName, tag }: PreviewDa
         <div className="text-sm font-semibold text-slate-900 dark:text-slate-100 mt-0.5">
           {clamp(title || siteName || "Course title", 70)}
         </div>
-        <p className="text-xs text-slate-500 mt-0.5">{clamp(description || "", 100)}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{clamp(description || "", 100)}</p>
       </div>
     </div>
   );

@@ -138,9 +138,9 @@ function SectionHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-slate-100 px-5 py-4 sm:px-6">
+    <div className="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 px-5 py-4 sm:px-6">
       <div className="flex min-w-0 items-start gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
           {icon}
         </div>
 
@@ -150,7 +150,7 @@ function SectionHeader({
           </h2>
 
           {description ? (
-            <p className="mt-1 text-xs leading-5 text-slate-500">
+            <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
               {description}
             </p>
           ) : null}
@@ -190,7 +190,7 @@ function DataField({
         className={[
           "mt-1.5 min-w-0 break-words text-sm font-medium",
           hasValue
-            ? "text-slate-800"
+            ? "text-slate-800 dark:text-slate-100"
             : "text-slate-400",
           mono ? "font-mono" : "",
           valueClassName,
@@ -223,27 +223,27 @@ function MetricCard({
     }
   > = {
     blue: {
-      icon: "bg-blue-50 text-blue-600",
-      value: "text-blue-700",
+      icon: "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
+      value: "text-blue-700 dark:text-blue-500",
     },
     green: {
-      icon: "bg-emerald-50 text-emerald-600",
-      value: "text-emerald-700",
+      icon: "bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-500",
+      value: "text-emerald-700 dark:text-emerald-500",
     },
     red: {
       icon: "bg-rose-50 text-rose-600",
       value: "text-rose-700",
     },
     amber: {
-      icon: "bg-amber-50 text-amber-600",
-      value: "text-amber-700",
+      icon: "bg-amber-50 dark:bg-amber-900/10 text-amber-600 dark:text-amber-500",
+      value: "text-amber-700 dark:text-amber-500",
     },
     purple: {
       icon: "bg-purple-50 text-purple-600",
       value: "text-purple-700",
     },
     slate: {
-      icon: "bg-slate-100 text-slate-600",
+      icon: "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300",
       value: "text-slate-950",
     },
   };
@@ -274,7 +274,7 @@ function MetricCard({
         </p>
 
         {description ? (
-          <p className="mt-1 truncate text-[11px] text-slate-500">
+          <p className="mt-1 truncate text-[11px] text-slate-500 dark:text-slate-400">
             {description}
           </p>
         ) : null}
@@ -296,15 +296,15 @@ function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-400">
         {icon}
       </div>
 
-      <h3 className="mt-4 text-sm font-semibold text-slate-800">
+      <h3 className="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-100">
         {title}
       </h3>
 
-      <p className="mt-1 max-w-sm text-xs leading-5 text-slate-500">
+      <p className="mt-1 max-w-sm text-xs leading-5 text-slate-500 dark:text-slate-400">
         {description}
       </p>
     </div>
@@ -422,17 +422,17 @@ export default async function StudentDetailPage({
   return (
     <div className="mx-auto w-full max-w-[1600px] space-y-6 pb-12">
       {/* Profile Header */}
-      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
         <div className="relative h-32 overflow-hidden" style={{ background: "var(--admin-sidebar-bg, linear-gradient(to right, #2563eb, #4f46e5, #9333ea))" }}>
-          <div className="absolute -right-16 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -right-16 -top-24 h-72 w-72 rounded-full bg-white/10 dark:bg-slate-900/10 blur-3xl" />
 
-          <div className="absolute left-1/3 top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute left-1/3 top-10 h-40 w-40 rounded-full bg-white/10 dark:bg-slate-900/10 blur-3xl" />
 
           <Button
             variant="ghost"
             size="sm"
             asChild
-            className="absolute left-4 top-4 h-9 gap-2 text-slate-300 hover:bg-white/10 hover:text-white sm:left-6"
+            className="absolute left-4 top-4 h-9 gap-2 text-slate-300 hover:bg-white/10 dark:bg-slate-900/10 hover:text-white sm:left-6"
           >
             <Link href="/admin/students">
               <ArrowLeft className="h-4 w-4" />
@@ -443,7 +443,7 @@ export default async function StudentDetailPage({
           <div className="absolute right-5 top-5 hidden items-center gap-2 sm:flex">
             <Badge
               variant="outline"
-              className="border-white/10 bg-white/10 text-white"
+              className="border-white/10 bg-white/10 dark:bg-slate-900/10 text-white"
             >
               Student 360° Profile
             </Badge>
@@ -453,7 +453,7 @@ export default async function StudentDetailPage({
         <div className="relative px-5 pb-6 sm:px-8">
           <div className="-mt-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between sm:-mt-20">
             <div className="flex min-w-0 flex-col items-center gap-5 sm:flex-row sm:items-stretch">
-              <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-slate-100 shadow-lg sm:h-32 sm:w-32">
+              <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-slate-100 dark:bg-slate-800 shadow-lg sm:h-32 sm:w-32">
                 {photoUrl ? (
                   <Image
                     src={photoUrl as string}
@@ -467,7 +467,7 @@ export default async function StudentDetailPage({
                   </span>
                 )}
 
-                <div className="absolute bottom-2 right-2 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500" />
+                <div className="absolute bottom-2 right-2 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-50 dark:bg-emerald-900/100" />
               </div>
 
               <div className="min-w-0 flex w-full flex-col justify-between pb-1 text-center sm:text-left sm:pt-2">
@@ -477,21 +477,21 @@ export default async function StudentDetailPage({
                       {student.name}
                     </h1>
 
-                    <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-50 sm:border-0 sm:bg-white/20 sm:text-white sm:shadow-sm sm:backdrop-blur-md sm:hover:bg-white/30">
+                    <Badge className="border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500 hover:bg-emerald-50 dark:bg-emerald-900/10 sm:border-0 sm:bg-white/20 dark:bg-slate-900/20 sm:text-white sm:shadow-sm sm:backdrop-blur-md sm:hover:bg-white/30 dark:bg-slate-900/30">
                       <CheckCircle2 className="mr-1 h-3 w-3" />
                       Active
                     </Badge>
                   </div>
 
                   {rawStudent?.full_name_bn ? (
-                    <p className="mt-1 text-base font-medium text-slate-500 sm:text-white/90 sm:drop-shadow-sm">
+                    <p className="mt-1 text-base font-medium text-slate-500 dark:text-slate-400 sm:text-white/90 sm:drop-shadow-sm">
                       {rawStudent.full_name_bn}
                     </p>
                   ) : null}
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-slate-500 sm:mt-auto sm:justify-start">
-                  <span className="inline-flex items-center gap-1.5 font-mono font-medium text-slate-700">
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-slate-500 dark:text-slate-400 sm:mt-auto sm:justify-start">
+                  <span className="inline-flex items-center gap-1.5 font-mono font-medium text-slate-700 dark:text-slate-200">
                     <IdCard className="h-3.5 w-3.5" />
                     {studentCode}
                   </span>
@@ -546,8 +546,8 @@ export default async function StudentDetailPage({
         </div>
 
         {/* Financial Summary */}
-        <div className="grid border-t border-slate-100 bg-slate-50/50 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="border-b border-slate-100 sm:border-r xl:border-b-0">
+        <div className="grid border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="border-b border-slate-100 dark:border-slate-800 sm:border-r xl:border-b-0">
             <MetricCard
               label="Total Enrollment Fees"
               value={`৳${formatMoney(totalCourseFee)}`}
@@ -557,7 +557,7 @@ export default async function StudentDetailPage({
             />
           </div>
 
-          <div className="border-b border-slate-100 xl:border-b-0 xl:border-r">
+          <div className="border-b border-slate-100 dark:border-slate-800 xl:border-b-0 xl:border-r">
             <MetricCard
               label="Total Paid"
               value={`৳${formatMoney(totalPaid)}`}
@@ -569,7 +569,7 @@ export default async function StudentDetailPage({
             />
           </div>
 
-          <div className="border-b border-slate-100 sm:border-b-0 sm:border-r">
+          <div className="border-b border-slate-100 dark:border-slate-800 sm:border-b-0 sm:border-r">
             <MetricCard
               label="Current Due"
               value={`৳${formatMoney(currentDue)}`}
@@ -598,7 +598,7 @@ export default async function StudentDetailPage({
         {/* Main Student Record */}
         <main className="space-y-6">
           {/* Admission Overview */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<FileCheck2 className="h-4 w-4" />}
               title="Admission overview"
@@ -606,7 +606,7 @@ export default async function StudentDetailPage({
               action={
                 <Badge
                   variant="outline"
-                  className="border-blue-200 bg-blue-50 text-blue-700"
+                  className="border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-500"
                 >
                   Admission Record
                 </Badge>
@@ -630,7 +630,7 @@ export default async function StudentDetailPage({
               <DataField
                 label="Enrolled Course"
                 value={courseName}
-                valueClassName="text-blue-700"
+                valueClassName="text-blue-700 dark:text-blue-500"
               />
 
               <DataField
@@ -638,7 +638,7 @@ export default async function StudentDetailPage({
                 value={
                   <Badge
                     variant="outline"
-                    className="border-emerald-200 bg-emerald-50 text-emerald-700"
+                    className="border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500"
                   >
                     Active
                   </Badge>
@@ -693,7 +693,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Personal Information */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<UserRound className="h-4 w-4" />}
               title="Personal information"
@@ -754,7 +754,7 @@ export default async function StudentDetailPage({
                   rawStudent?.blood_group ? (
                     <Badge
                       variant="outline"
-                      className="border-red-200 bg-red-50 text-red-700"
+                      className="border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 text-red-700 dark:text-red-500"
                     >
                       <HeartPulse className="mr-1 h-3 w-3" />
                       {rawStudent.blood_group}
@@ -780,7 +780,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Contact */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<Phone className="h-4 w-4" />}
               title="Contact information"
@@ -794,10 +794,10 @@ export default async function StudentDetailPage({
                     ? `tel:${primaryMobile}`
                     : undefined
                 }
-                className="group rounded-xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/50"
+                className="group rounded-xl border border-slate-200 dark:border-slate-700 p-4 transition hover:border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:bg-blue-900/20/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
                     <Phone className="h-4 w-4" />
                   </div>
 
@@ -806,7 +806,7 @@ export default async function StudentDetailPage({
                       Student Mobile
                     </p>
 
-                    <p className="mt-1 truncate font-mono text-sm font-semibold text-slate-800">
+                    <p className="mt-1 truncate font-mono text-sm font-semibold text-slate-800 dark:text-slate-100">
                       {displayValue(primaryMobile)}
                     </p>
                   </div>
@@ -819,7 +819,7 @@ export default async function StudentDetailPage({
                     ? `mailto:${primaryEmail}`
                     : undefined
                 }
-                className="group rounded-xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/50"
+                className="group rounded-xl border border-slate-200 dark:border-slate-700 p-4 transition hover:border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:bg-blue-900/20/50"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
@@ -831,7 +831,7 @@ export default async function StudentDetailPage({
                       Email Address
                     </p>
 
-                    <p className="mt-1 truncate text-sm font-semibold text-slate-800">
+                    <p className="mt-1 truncate text-sm font-semibold text-slate-800 dark:text-slate-100">
                       {displayValue(primaryEmail)}
                     </p>
                   </div>
@@ -844,10 +844,10 @@ export default async function StudentDetailPage({
                     ? `tel:${rawStudent.guardian_mobile}`
                     : undefined
                 }
-                className="group rounded-xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/50"
+                className="group rounded-xl border border-slate-200 dark:border-slate-700 p-4 transition hover:border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:bg-blue-900/20/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 dark:bg-amber-900/10 text-amber-600 dark:text-amber-500">
                     <UsersRound className="h-4 w-4" />
                   </div>
 
@@ -856,7 +856,7 @@ export default async function StudentDetailPage({
                       Guardian Mobile
                     </p>
 
-                    <p className="mt-1 truncate font-mono text-sm font-semibold text-slate-800">
+                    <p className="mt-1 truncate font-mono text-sm font-semibold text-slate-800 dark:text-slate-100">
                       {displayValue(
                         rawStudent?.guardian_mobile,
                       )}
@@ -868,7 +868,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Address Information */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<MapPin className="h-4 w-4" />}
               title="Address information"
@@ -887,14 +887,14 @@ export default async function StudentDetailPage({
                 ].map((item) => (
                   <div
                     key={item.title}
-                    className="overflow-hidden rounded-2xl border border-slate-200"
+                    className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700"
                   >
-                    <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-3.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-slate-600 shadow-sm">
+                    <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 px-4 py-3.5">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 shadow-sm">
                         {item.icon}
                       </div>
 
-                      <h3 className="text-sm font-semibold text-slate-800">
+                      <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                         {item.title}
                       </h3>
                     </div>
@@ -958,7 +958,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Guardian Information */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<UsersRound className="h-4 w-4" />}
               title="Guardian information"
@@ -976,7 +976,7 @@ export default async function StudentDetailPage({
             />
 
             {guardiansList.length > 0 ? (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {guardiansList.map(
                   (guardian: { id?: string; name?: string; guardian_type?: string; relationship?: string; mobile?: string; }, index: number) => (
                     <div
@@ -1025,7 +1025,7 @@ export default async function StudentDetailPage({
                                 guardian.mobile ? (
                                   <a
                                     href={`tel:${guardian.mobile}`}
-                                    className="inline-flex items-center gap-1.5 hover:text-blue-600"
+                                    className="inline-flex items-center gap-1.5 hover:text-blue-600 dark:text-blue-400"
                                   >
                                     <Phone className="h-3.5 w-3.5 text-slate-400" />
 
@@ -1057,7 +1057,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Educational Qualification */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<GraduationCap className="h-4 w-4" />}
               title="Educational qualifications"
@@ -1075,7 +1075,7 @@ export default async function StudentDetailPage({
             />
 
             {educationList.length > 0 ? (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {educationList.map(
                   (education: { id?: string; exam_name?: string; board?: string; passing_year?: string; group_subject?: string; result_value?: string; result_type?: string; roll_no?: string; registration_no?: string; }, index: number) => (
                     <div
@@ -1099,7 +1099,7 @@ export default async function StudentDetailPage({
                                 )}
                               </h3>
 
-                              <p className="mt-1 text-xs text-slate-500">
+                              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                                 {displayValue(
                                   education.board,
                                 )}
@@ -1169,7 +1169,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Documents */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<FileText className="h-4 w-4" />}
               title="Student documents"
@@ -1196,20 +1196,20 @@ export default async function StudentDetailPage({
                       href={document.file_url as string}
                       target="_blank"
                       rel="noreferrer"
-                      className="group flex items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/50"
+                      className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 p-4 transition hover:border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:bg-blue-900/20/50"
                     >
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-600 group-hover:bg-blue-100 group-hover:text-blue-600">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-hover:bg-blue-100 dark:bg-blue-900/40 group-hover:text-blue-600 dark:text-blue-400">
                         <FileText className="h-4 w-4" />
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-semibold text-slate-800">
+                        <p className="truncate text-sm font-semibold text-slate-800 dark:text-slate-100">
                           {titleCase(
                             document.document_type as string,
                           )}
                         </p>
 
-                        <p className="mt-1 text-[11px] text-slate-500">
+                        <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
                           View document
                         </p>
                       </div>
@@ -1232,7 +1232,7 @@ export default async function StudentDetailPage({
         {/* ERP Right Sidebar */}
         <aside className="space-y-6">
           {/* Financial Account */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm xl:sticky xl:top-6">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm xl:sticky xl:top-6">
             <SectionHeader
               icon={<WalletCards className="h-4 w-4" />}
               title="Financial account"
@@ -1248,7 +1248,7 @@ export default async function StudentDetailPage({
                 ) : (
                   <Badge
                     variant="outline"
-                    className="border-emerald-200 bg-emerald-50 text-emerald-700"
+                    className="border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500"
                   >
                     Paid
                   </Badge>
@@ -1276,7 +1276,7 @@ export default async function StudentDetailPage({
                     </p>
                   </div>
 
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 dark:bg-slate-900/10 text-white">
                     <Banknote className="h-5 w-5" />
                   </div>
                 </div>
@@ -1292,7 +1292,7 @@ export default async function StudentDetailPage({
                     </span>
                   </div>
 
-                  <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-2 overflow-hidden rounded-full bg-white/10 dark:bg-slate-900/10">
                     <div
                       className="h-full rounded-full bg-emerald-400"
                       style={{
@@ -1305,28 +1305,28 @@ export default async function StudentDetailPage({
 
               <div className="mt-5 space-y-4">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-sm text-slate-500">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
                     Course Fee
                   </span>
 
-                  <span className="font-mono text-sm font-semibold text-slate-900">
+                  <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-50">
                     ৳{formatMoney(totalCourseFee)}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-sm text-slate-500">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
                     Total Paid
                   </span>
 
-                  <span className="font-mono text-sm font-semibold text-emerald-600">
+                  <span className="font-mono text-sm font-semibold text-emerald-600 dark:text-emerald-500">
                     ৳{formatMoney(totalPaid)}
                   </span>
                 </div>
 
-                <div className="border-t border-slate-100 pt-4">
+                <div className="border-t border-slate-100 dark:border-slate-800 pt-4">
                   <div className="flex items-center justify-between gap-4">
-                    <span className="text-sm font-semibold text-slate-800">
+                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                       Current Due
                     </span>
 
@@ -1335,7 +1335,7 @@ export default async function StudentDetailPage({
                         "font-mono text-base font-bold",
                         isDue
                           ? "text-rose-600"
-                          : "text-emerald-600",
+                          : "text-emerald-600 dark:text-emerald-500",
                       ].join(" ")}
                     >
                       ৳{formatMoney(currentDue)}
@@ -1359,7 +1359,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Enrollment */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<GraduationCap className="h-4 w-4" />}
               title="Course enrollments"
@@ -1368,12 +1368,12 @@ export default async function StudentDetailPage({
             />
 
             <div className="p-5 sm:p-6">
-              {enrollments.length > 0 ? <div className="space-y-3">{enrollments.map((enrollment: Record<string, unknown>) => <div key={enrollment.id as string} className="rounded-2xl border border-slate-200 p-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="font-bold text-slate-950">{enrollment.course_name as string}</p><p className="mt-1 text-xs text-slate-500">{enrollment.batch_name as string || "No batch"} · {titleCase(enrollment.status as string)}</p></div><Badge variant="outline" className="capitalize">{enrollment.status as string}</Badge></div><div className="mt-3 grid grid-cols-3 gap-3 border-t border-slate-100 pt-3 text-xs"><span className="text-slate-500">Final fee <strong className="block font-mono text-slate-900">৳{formatMoney(enrollment.final_fee as number)}</strong></span><span className="text-slate-500">Paid <strong className="block font-mono text-emerald-700">৳{formatMoney(enrollment.total_paid as number)}</strong></span><span className="text-slate-500">Due <strong className="block font-mono text-rose-700">৳{formatMoney(enrollment.current_due as number)}</strong></span></div><div className="mt-3 flex justify-end"><Button size="sm" variant="outline" asChild><Link href={`/admin/payments/new?student_id=${id}&enrollment_id=${enrollment.id}`}>Receive Payment</Link></Button></div></div>)}</div> : <div className="rounded-xl border border-dashed border-slate-200 p-5 text-sm text-slate-500">No course has been assigned yet.</div>}
+              {enrollments.length > 0 ? <div className="space-y-3">{enrollments.map((enrollment: Record<string, unknown>) => <div key={enrollment.id as string} className="rounded-2xl border border-slate-200 dark:border-slate-700 p-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="font-bold text-slate-950">{enrollment.course_name as string}</p><p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{enrollment.batch_name as string || "No batch"} · {titleCase(enrollment.status as string)}</p></div><Badge variant="outline" className="capitalize">{enrollment.status as string}</Badge></div><div className="mt-3 grid grid-cols-3 gap-3 border-t border-slate-100 dark:border-slate-800 pt-3 text-xs"><span className="text-slate-500 dark:text-slate-400">Final fee <strong className="block font-mono text-slate-900 dark:text-slate-50">৳{formatMoney(enrollment.final_fee as number)}</strong></span><span className="text-slate-500 dark:text-slate-400">Paid <strong className="block font-mono text-emerald-700 dark:text-emerald-500">৳{formatMoney(enrollment.total_paid as number)}</strong></span><span className="text-slate-500 dark:text-slate-400">Due <strong className="block font-mono text-rose-700">৳{formatMoney(enrollment.current_due as number)}</strong></span></div><div className="mt-3 flex justify-end"><Button size="sm" variant="outline" asChild><Link href={`/admin/payments/new?student_id=${id}&enrollment_id=${enrollment.id}`}>Receive Payment</Link></Button></div></div>)}</div> : <div className="rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-5 text-sm text-slate-500 dark:text-slate-400">No course has been assigned yet.</div>}
             </div>
           </section>
 
           {/* Payment History */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<ReceiptText className="h-4 w-4" />}
               title="Payment history"
@@ -1389,22 +1389,22 @@ export default async function StudentDetailPage({
             />
 
             {payments.length > 0 ? (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {payments.map((payment: Record<string, unknown>) => (
                   <div
                     key={payment.id as string}
                     className="group flex items-center gap-3 px-5 py-4 transition hover:bg-slate-50/70"
                   >
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-500">
                       <CreditCard className="h-4 w-4" />
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <p className="font-mono text-sm font-bold text-emerald-700">
+                      <p className="font-mono text-sm font-bold text-emerald-700 dark:text-emerald-500">
                         ৳{formatMoney(payment.amount as number)}
                       </p>
 
-                      <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-slate-500">
+                      <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-slate-500 dark:text-slate-400">
                         <span>
                           {formatDate(
                             payment.payment_date as string,
@@ -1425,7 +1425,7 @@ export default async function StudentDetailPage({
                       variant="ghost"
                       size="icon"
                       asChild
-                      className="h-9 w-9 shrink-0 text-slate-400 hover:text-blue-600"
+                      className="h-9 w-9 shrink-0 text-slate-400 hover:text-blue-600 dark:text-blue-400"
                     >
                       <Link
                         href={`/admin/payments/receipt/${payment.id}`}
@@ -1452,7 +1452,7 @@ export default async function StudentDetailPage({
           </section>
 
           {/* Account Status */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<ShieldCheck className="h-4 w-4" />}
               title="Student account"
@@ -1462,20 +1462,20 @@ export default async function StudentDetailPage({
             <div className="p-5 sm:p-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm text-slate-500">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
                     Student Status
                   </span>
 
                   <Badge
                     variant="outline"
-                    className="border-emerald-200 bg-emerald-50 text-emerald-700"
+                    className="border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500"
                   >
                     Active
                   </Badge>
                 </div>
 
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm text-slate-500">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
                     Fee Status
                   </span>
 
@@ -1489,7 +1489,7 @@ export default async function StudentDetailPage({
                   ) : (
                     <Badge
                       variant="outline"
-                      className="border-emerald-200 bg-emerald-50 text-emerald-700"
+                      className="border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500"
                     >
                       Clear
                     </Badge>
@@ -1497,13 +1497,13 @@ export default async function StudentDetailPage({
                 </div>
 
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm text-slate-500">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
                     Admission Record
                   </span>
 
                   <Badge
                     variant="outline"
-                    className="border-blue-200 bg-blue-50 text-blue-700"
+                    className="border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-500"
                   >
                     Available
                   </Badge>

@@ -79,7 +79,7 @@ export function Step1General({ categories }: { categories: CourseCategory[] }) {
               type="button"
               onClick={() => setValue("general.course_code", genCode(nameEn || nameBn), { shouldDirty: true })}
               title={t("autoCode")}
-              className="shrink-0 rounded-xl border border-slate-200 dark:border-slate-700 px-2.5 text-slate-500 hover:text-blue-600 hover:border-blue-300"
+              className="shrink-0 rounded-xl border border-slate-200 dark:border-slate-700 px-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:text-blue-400 hover:border-blue-300"
             >
               <RefreshCw className="h-4 w-4" />
             </button>

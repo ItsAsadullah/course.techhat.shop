@@ -188,7 +188,7 @@ export default function SingleCourseForm({ categories, courseId, defaultValues, 
       {/* AI Generate Bar */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-2xl p-6 shadow-lg border border-blue-800">
         <div className="flex flex-col md:flex-row items-center gap-4">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-300">
+          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/200/20 text-blue-300">
             <Sparkles className="w-6 h-6" />
           </div>
           <div className="flex-1">
@@ -205,7 +205,7 @@ export default function SingleCourseForm({ categories, courseId, defaultValues, 
                 <option value="">No Models</option>
               ) : (
                 aiModels.map(m => (
-                  <option key={m.id} value={m.id} className="text-black bg-white">
+                  <option key={m.id} value={m.id} className="text-black bg-white dark:bg-slate-900">
                     {m.provider.toUpperCase()} - {m.modelName}
                   </option>
                 ))
@@ -222,7 +222,7 @@ export default function SingleCourseForm({ categories, courseId, defaultValues, 
               type="button"
               onClick={handleAIGenerate}
               disabled={isGenerating}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white font-bold transition-all whitespace-nowrap"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-50 dark:bg-blue-900/200 hover:bg-blue-600 disabled:opacity-50 text-white font-bold transition-all whitespace-nowrap"
             >
               {isGenerating ? <Loader2 className="w-4 h-4 animate-spin" /> : "জেনোরেট করুন"}
             </button>
@@ -457,8 +457,8 @@ export default function SingleCourseForm({ categories, courseId, defaultValues, 
       </div>
 
       {/* Sticky Action Bar */}
-      <div className="sticky bottom-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 p-4 -mx-6 flex items-center justify-between shadow-[0_-10px_30px_rgba(0,0,0,0.05)] px-6">
-        <Link href="/admin/courses" className="text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">বাতিল করুন</Link>
+      <div className="sticky bottom-0 z-50 bg-white/80 dark:bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 p-4 -mx-6 flex items-center justify-between shadow-[0_-10px_30px_rgba(0,0,0,0.05)] px-6">
+        <Link href="/admin/courses" className="text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-100 transition-colors">বাতিল করুন</Link>
         <button
           type="submit"
           disabled={isSubmitting}

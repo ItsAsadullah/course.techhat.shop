@@ -39,19 +39,19 @@ export default async function ReceiptPage({ params }: ReceiptPageProps) {
       <Card className="max-w-2xl mx-auto print:shadow-none print:border-0">
         <CardContent className="p-8">
           <div className="text-center border-b-2 border-slate-900 pb-6 mb-6">
-            <h1 className="text-2xl font-bold text-slate-900">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
               TechHat Computer Training Center
             </h1>
-            <p className="text-slate-600">Money Receipt</p>
+            <p className="text-slate-600 dark:text-slate-300">Money Receipt</p>
           </div>
 
           <div className="flex justify-between mb-6">
             <div>
-              <p className="text-sm text-slate-500">Receipt No</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Receipt No</p>
               <p className="font-mono font-medium">{receiptNo}</p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-slate-500">Date</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Date</p>
               <p className="font-medium">
                 {format(new Date(payment.payment_date), "MMMM d, yyyy")}
               </p>
@@ -78,12 +78,12 @@ export default async function ReceiptPage({ params }: ReceiptPageProps) {
             />
           </div>
 
-          <div className="border-t-2 border-dashed border-slate-300 pt-6 mb-8">
+          <div className="border-t-2 border-dashed border-slate-300 dark:border-slate-600 pt-6 mb-8">
             <div className="flex justify-between items-center">
-              <span className="text-lg font-medium text-slate-700">
+              <span className="text-lg font-medium text-slate-700 dark:text-slate-200">
                 Amount Received
               </span>
-              <span className="text-3xl font-bold text-slate-900">
+              <span className="text-3xl font-bold text-slate-900 dark:text-slate-50">
                 ৳{Number(payment.amount).toLocaleString()}
               </span>
             </div>
@@ -91,10 +91,10 @@ export default async function ReceiptPage({ params }: ReceiptPageProps) {
 
           <div className="grid grid-cols-2 gap-8 pt-8">
             <div className="border-t border-slate-400 pt-2">
-              <p className="text-sm text-slate-600">Student Signature</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300">Student Signature</p>
             </div>
             <div className="border-t border-slate-400 pt-2 text-right">
-              <p className="text-sm text-slate-600">Authorized Signature</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300">Authorized Signature</p>
             </div>
           </div>
 
@@ -111,9 +111,9 @@ export default async function ReceiptPage({ params }: ReceiptPageProps) {
 
 function ReceiptRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex justify-between border-b border-slate-100 pb-2">
-      <span className="text-slate-500">{label}</span>
-      <span className="font-medium text-slate-900 text-right">{value}</span>
+    <div className="flex justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
+      <span className="text-slate-500 dark:text-slate-400">{label}</span>
+      <span className="font-medium text-slate-900 dark:text-slate-50 text-right">{value}</span>
     </div>
   );
 }

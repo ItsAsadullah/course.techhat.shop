@@ -14,6 +14,7 @@ import { submitManualReview } from "@/app/actions/payment";
 import { applyCouponToOrder } from "@/lib/actions/coupons";
 import { toast } from "sonner";
 import { Headphones, HelpCircle, Info, ArrowLeft, Mail, Phone as PhoneIconLucide, MessageCircle, Globe, Send, MessageSquare, Tag } from "lucide-react";
+import { useSiteSettings } from "@/context/SiteSettingsContext";
 
 type PaymentMethod = "bkash" | "nagad" | "rocket" | "qr";
 type CheckoutStep = "METHOD" | "PAYMENT" | "SUPPORT" | "FAQ" | "INFORMATION";
@@ -383,6 +384,7 @@ export default function CheckoutClient({
   user,
 }: CheckoutClientProps) {
   const router = useRouter();
+  const { siteLogo, orgName } = useSiteSettings();
 
   const [step, setStep] = useState<CheckoutStep>("METHOD");
 
@@ -1108,7 +1110,7 @@ export default function CheckoutClient({
                 </button>
 
                 <p className="text-sm font-bold text-slate-500">
-                  Powered by TechHat
+                  Powered by {orgName || "TechHat"}
                 </p>
 
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-50 text-xs font-bold text-slate-500 dark:bg-slate-900">
@@ -1129,8 +1131,8 @@ export default function CheckoutClient({
                   <div className="flex min-h-10 items-center gap-3 rounded-2xl border border-slate-200 px-3 dark:border-slate-800">
                     <div className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white">
                       <Image
-                        src="/logo.png"
-                        alt="TechHat Logo"
+                        src={siteLogo || "/logo.png"}
+                        alt={`${orgName || "TechHat"} Logo`}
                         fill
                         sizes="28px"
                         className="object-contain p-1"
@@ -1138,7 +1140,7 @@ export default function CheckoutClient({
                     </div>
 
                     <span className="text-sm font-bold text-slate-600 dark:text-slate-300">
-                      TechHat
+                      {orgName || "TechHat"}
                     </span>
                   </div>
 

@@ -62,13 +62,13 @@ export function OrderCancelAction({
             <span className="block">
               আপনি কি নিশ্চিত যে <strong>{studentName}</strong> এর এই অর্ডারটি বাতিল করতে চান?
             </span>
-            <span className="block text-red-600 font-medium">
+            <span className="block text-red-600 dark:text-red-500 font-medium">
               এই প্রক্রিয়াটি আর পূর্বাবস্থায় ফিরিয়ে আনা যাবে না।
             </span>
           </AlertDialogDescription>
         </AlertDialogHeader>
         {error && (
-          <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+          <div className="bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-500 p-3 rounded-lg text-sm">
             {error}
           </div>
         )}

@@ -55,7 +55,7 @@ export function ArrayEditor({ name, label, placeholder, addLabel = "Add", bn, is
           return (
             <div key={i} className={`flex ${isImage ? "items-start" : "items-center"} gap-2`}>
               {IconComponent && (
-                <div className="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded text-slate-500 shrink-0 border border-slate-200 dark:border-slate-700">
+                <div className="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded text-slate-500 dark:text-slate-400 shrink-0 border border-slate-200 dark:border-slate-700">
                   <IconComponent className="w-4 h-4" />
                 </div>
               )}
@@ -79,17 +79,17 @@ export function ArrayEditor({ name, label, placeholder, addLabel = "Add", bn, is
               )}
             </div>
             <div className={`flex flex-col ${isImage ? "mt-2" : ""}`}>
-              <button type="button" onClick={() => move(i, -1)} className="text-slate-400 hover:text-slate-600" tabIndex={-1}>
+              <button type="button" onClick={() => move(i, -1)} className="text-slate-400 hover:text-slate-600 dark:text-slate-300" tabIndex={-1}>
                 <ChevronUp className="h-3.5 w-3.5" />
               </button>
-              <button type="button" onClick={() => move(i, 1)} className="text-slate-400 hover:text-slate-600" tabIndex={-1}>
+              <button type="button" onClick={() => move(i, 1)} className="text-slate-400 hover:text-slate-600 dark:text-slate-300" tabIndex={-1}>
                 <ChevronDown className="h-3.5 w-3.5" />
               </button>
             </div>
             <button
               type="button"
               onClick={() => removeAt(i)}
-              className={`rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500 ${isImage ? "mt-2" : ""}`}
+              className={`rounded-lg p-1.5 text-slate-400 hover:bg-red-50 dark:bg-red-900/10 hover:text-red-500 ${isImage ? "mt-2" : ""}`}
               tabIndex={-1}
             >
               <X className="h-4 w-4" />
@@ -101,7 +101,7 @@ export function ArrayEditor({ name, label, placeholder, addLabel = "Add", bn, is
       <button
         type="button"
         onClick={add}
-        className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700"
+        className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:text-blue-500"
       >
         <Plus className="h-4 w-4" /> {addLabel}
       </button>
@@ -196,14 +196,14 @@ export function SkillArrayEditor({ name, placeholder, bn }: { name: string; plac
               />
             </div>
             <div className="flex flex-col mt-1">
-              <button type="button" onClick={() => move(i, -1)} className="text-slate-400 hover:text-slate-600"><ChevronUp className="h-3.5 w-3.5" /></button>
-              <button type="button" onClick={() => move(i, 1)} className="text-slate-400 hover:text-slate-600"><ChevronDown className="h-3.5 w-3.5" /></button>
+              <button type="button" onClick={() => move(i, -1)} className="text-slate-400 hover:text-slate-600 dark:text-slate-300"><ChevronUp className="h-3.5 w-3.5" /></button>
+              <button type="button" onClick={() => move(i, 1)} className="text-slate-400 hover:text-slate-600 dark:text-slate-300"><ChevronDown className="h-3.5 w-3.5" /></button>
             </div>
             <button type="button" onClick={() => removeAt(i)} className="p-1 mt-1 text-slate-400 hover:text-red-500"><X className="h-4 w-4" /></button>
           </div>
         ))}
       </div>
-      <button type="button" onClick={add} className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700">
+      <button type="button" onClick={add} className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:text-blue-500">
         <Plus className="h-4 w-4" /> Add Skill
       </button>
     </div>

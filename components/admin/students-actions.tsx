@@ -58,15 +58,15 @@ export function StudentsActions({ studentsData }: { studentsData: any }) {
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <Button onClick={handlePrint} variant="outline" className="h-9 text-xs rounded-xl bg-white border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold shadow-sm">
+      <Button onClick={handlePrint} variant="outline" className="h-9 text-xs rounded-xl bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 dark:hover:bg-slate-800 font-semibold shadow-sm">
         <Printer className="w-3.5 h-3.5 mr-2" />
         Print
       </Button>
-      <Button onClick={handleExport} variant="outline" className="h-9 text-xs rounded-xl bg-white border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold shadow-sm">
+      <Button onClick={handleExport} variant="outline" className="h-9 text-xs rounded-xl bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 dark:hover:bg-slate-800 font-semibold shadow-sm">
         <Download className="w-3.5 h-3.5 mr-2" />
         Export
       </Button>
-      <Button asChild className="h-9 text-xs rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-sm shadow-indigo-200 px-4">
+      <Button asChild className="h-9 text-xs rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-sm shadow-indigo-200 dark:shadow-none px-4">
         <Link href="/admin/students/new">
           <Plus className="w-3.5 h-3.5 mr-2" />
           Add Student

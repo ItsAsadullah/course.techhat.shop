@@ -195,11 +195,11 @@ export function Step2Content() {
             { key: "has_cv_review", label: "সিভি রিভিউ" },
             { key: "has_portfolio_review", label: "পোর্টফোলিও রিভিউ" },
           ].map((feature) => (
-            <label key={feature.key} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 font-bn select-none cursor-pointer p-2 rounded-lg border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+            <label key={feature.key} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 font-bn select-none cursor-pointer p-2 rounded-lg border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 dark:hover:bg-slate-900 transition-colors">
               <input
                 type="checkbox"
                 {...register(`content.features.${feature.key}` as Path<CourseFormValues>)}
-                className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
+                className="w-4 h-4 text-blue-600 dark:text-blue-400 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-500"
               />
               {feature.label}
             </label>

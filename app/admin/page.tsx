@@ -32,7 +32,7 @@ export default async function DashboardPage() {
           <ProfileCard />
           
           {/* Quick Help Card to fill remaining space beautifully */}
-          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[24px] p-8 text-white relative overflow-hidden shadow-xl shadow-slate-200/50">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[24px] p-8 text-white relative overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-none">
             <div className="absolute top-0 right-0 p-8 opacity-10">
               <Sparkles className="w-32 h-32" />
             </div>
@@ -41,7 +41,7 @@ export default async function DashboardPage() {
               <p className="text-sm text-slate-300 mb-8 leading-relaxed font-medium">
                 Our support team is available 24/7 to help you with any issues regarding the LMS management.
               </p>
-              <Button variant="secondary" className="rounded-xl font-bold bg-white text-slate-900 hover:bg-indigo-50 shadow-sm transition-all hover:scale-105 w-full h-12">
+              <Button variant="secondary" className="rounded-xl font-bold bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 hover:bg-indigo-50 shadow-sm transition-all hover:scale-105 w-full h-12">
                 Contact Support
               </Button>
             </div>

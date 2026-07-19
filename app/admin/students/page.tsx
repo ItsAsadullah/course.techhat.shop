@@ -33,7 +33,7 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
         <div className="p-3 rounded-2xl shadow-sm border border-transparent flex flex-col justify-between hover:shadow-md transition-shadow bg-gradient-to-br from-blue-500 to-blue-700 text-white">
           <div className="flex justify-between items-start">
             <p className="text-[10px] font-bold text-white/80 uppercase tracking-wider">Total</p>
-            <div className="bg-white/20 p-1.5 rounded-lg text-white"><Users className="w-3.5 h-3.5" /></div>
+            <div className="bg-white/20 dark:bg-slate-900/20 p-1.5 rounded-lg text-white"><Users className="w-3.5 h-3.5" /></div>
           </div>
           <h2 className="text-xl font-black mt-2">{totalStudents}</h2>
         </div>
@@ -41,7 +41,7 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
         <div className="p-3 rounded-2xl shadow-sm border border-transparent flex flex-col justify-between hover:shadow-md transition-shadow bg-gradient-to-br from-emerald-500 to-emerald-700 text-white">
           <div className="flex justify-between items-start">
             <p className="text-[10px] font-bold text-white/80 uppercase tracking-wider">Active</p>
-            <div className="bg-white/20 p-1.5 rounded-lg text-white"><UserCheck className="w-3.5 h-3.5" /></div>
+            <div className="bg-white/20 dark:bg-slate-900/20 p-1.5 rounded-lg text-white"><UserCheck className="w-3.5 h-3.5" /></div>
           </div>
           <h2 className="text-xl font-black mt-2">{activeStudents}</h2>
         </div>
@@ -49,7 +49,7 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
         <div className="p-3 rounded-2xl shadow-sm border border-transparent flex flex-col justify-between hover:shadow-md transition-shadow bg-gradient-to-br from-purple-500 to-purple-700 text-white">
           <div className="flex justify-between items-start">
             <p className="text-[10px] font-bold text-white/80 uppercase tracking-wider">Male/Female</p>
-            <div className="bg-white/20 p-1.5 rounded-lg text-white"><UserCircle2 className="w-3.5 h-3.5" /></div>
+            <div className="bg-white/20 dark:bg-slate-900/20 p-1.5 rounded-lg text-white"><UserCircle2 className="w-3.5 h-3.5" /></div>
           </div>
           <div className="mt-2 flex items-end gap-1.5">
             <h2 className="text-xl font-black">{maleCount}</h2>
@@ -60,7 +60,7 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
         <div className="p-3 rounded-2xl shadow-sm border border-transparent flex flex-col justify-between hover:shadow-md transition-shadow bg-gradient-to-br from-rose-500 to-rose-700 text-white">
           <div className="flex justify-between items-start">
             <p className="text-[10px] font-bold text-white/80 uppercase tracking-wider">Due</p>
-            <div className="bg-white/20 p-1.5 rounded-lg text-white"><ShieldAlert className="w-3.5 h-3.5" /></div>
+            <div className="bg-white/20 dark:bg-slate-900/20 p-1.5 rounded-lg text-white"><ShieldAlert className="w-3.5 h-3.5" /></div>
           </div>
           <h2 className="text-xl font-black mt-2">{dueStudents}</h2>
         </div>
@@ -68,17 +68,17 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
         <div className="p-3 rounded-2xl shadow-sm border border-transparent flex flex-col justify-between hover:shadow-md transition-shadow bg-gradient-to-br from-indigo-500 to-indigo-700 text-white">
           <div className="flex justify-between items-start">
             <p className="text-[10px] font-bold text-white/80 uppercase tracking-wider">Fully Paid</p>
-            <div className="bg-white/20 p-1.5 rounded-lg text-white"><BadgeCheck className="w-3.5 h-3.5" /></div>
+            <div className="bg-white/20 dark:bg-slate-900/20 p-1.5 rounded-lg text-white"><BadgeCheck className="w-3.5 h-3.5" /></div>
           </div>
           <h2 className="text-xl font-black mt-2">{fullyPaid}</h2>
         </div>
       </div>
 
       {/* Main Table Card */}
-      <div className="bg-white border border-slate-100 shadow-xl shadow-slate-200/40 rounded-[28px] overflow-hidden flex flex-col">
+      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none rounded-[28px] overflow-hidden flex flex-col">
         
         {/* Toolbar */}
-        <div className="p-4 border-b border-slate-100 flex flex-col xl:flex-row xl:items-center justify-between gap-3 bg-slate-50/50">
+        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex flex-col xl:flex-row xl:items-center justify-between gap-3 bg-slate-50/50 dark:bg-slate-800/50">
           
           <div className="flex-1 flex flex-col sm:flex-row gap-2">
             <StudentsSearch defaultValue={search} />
@@ -94,7 +94,7 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
         {/* Table Wrapper */}
         <div className="overflow-x-auto w-full">
           <table className="w-full text-left text-sm whitespace-nowrap min-w-[1200px]">
-            <thead className="bg-slate-50 border-b border-slate-100 text-slate-500 sticky top-0 z-10">
+            <thead className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-300 sticky top-0 z-10">
               <tr>
                 <th className="px-5 py-4 font-semibold text-[11px] uppercase tracking-widest w-16 text-center">SL</th>
                 <th className="px-5 py-4 font-semibold text-[11px] uppercase tracking-widest">Student</th>
@@ -105,15 +105,15 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                 <th className="px-5 py-4 font-semibold text-[11px] uppercase tracking-widest text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
               {students.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-20 text-slate-500">
+                  <td colSpan={7} className="text-center py-20 text-slate-500 dark:text-slate-400">
                     <div className="flex flex-col items-center justify-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                         <Search className="w-5 h-5 text-slate-400" />
                       </div>
-                      <p className="font-medium text-slate-600">No students found.</p>
+                      <p className="font-medium text-slate-600 dark:text-slate-300">No students found.</p>
                       <p className="text-xs text-slate-400">Try adjusting your filters or search query.</p>
                     </div>
                   </td>
@@ -123,14 +123,14 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                   const feeProgress = student.total_course_fee > 0 ? ((student.total_paid || 0) / student.total_course_fee) * 100 : 0;
                   
                   return (
-                    <tr key={student.id} className="hover:bg-slate-50/50 transition-colors group">
+                    <tr key={student.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:hover:bg-slate-800/50 transition-colors group">
                       {/* SL No */}
                       <td className="px-5 py-4 text-center text-slate-400 font-mono text-xs">{idx + 1}</td>
                       
                       {/* Student Info */}
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-4">
-                          <Avatar className="h-10 w-10 border border-slate-200 shadow-sm">
+                          <Avatar className="h-10 w-10 border border-slate-200 dark:border-slate-700 shadow-sm">
                             {student.photo_url && (
                               <AvatarImage src={student.photo_url} alt={student.name} className="object-cover" />
                             )}
@@ -139,10 +139,10 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex flex-col">
-                            <span className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                            <span className="font-bold text-slate-900 dark:text-slate-50 group-hover:text-indigo-600 transition-colors">
                               {student.name}
                             </span>
-                            <span className="text-xs text-slate-500 font-mono mt-0.5">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
                               ID: {student.student_id}
                             </span>
                           </div>
@@ -152,9 +152,9 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                       {/* Contact Info */}
                       <td className="px-5 py-4">
                         <div className="flex flex-col gap-1">
-                          <span className="text-slate-700 font-medium">{student.phone}</span>
+                          <span className="text-slate-700 dark:text-slate-200 font-medium">{student.phone}</span>
                           {student.guardian_name && (
-                            <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                            <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
                               <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
                               {student.guardian_name}
                             </span>
@@ -179,7 +179,7 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                                   {student.course.name}
                                 </Badge>
                                 {student.batch_name && (
-                                  <span className="text-[11px] text-slate-500 font-medium ml-1 flex items-center gap-1">
+                                  <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium ml-1 flex items-center gap-1">
                                     {student.batch_name}
                                   </span>
                                 )}
@@ -195,17 +195,17 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                       <td className="px-5 py-4">
                         <div className="flex flex-col items-end w-32 ml-auto">
                           <div className="flex justify-between w-full text-xs font-bold mb-1.5">
-                            <span className="text-slate-500">৳{Number(student.total_paid).toLocaleString()}</span>
-                            <span className="text-slate-900">৳{Number(student.total_course_fee).toLocaleString()}</span>
+                            <span className="text-slate-500 dark:text-slate-400">৳{Number(student.total_paid).toLocaleString()}</span>
+                            <span className="text-slate-900 dark:text-slate-50">৳{Number(student.total_course_fee).toLocaleString()}</span>
                           </div>
-                          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                             <div 
-                              className={`h-full rounded-full ${feeProgress >= 100 ? 'bg-emerald-500' : feeProgress > 0 ? 'bg-indigo-500' : 'bg-slate-300'}`} 
+                              className={`h-full rounded-full ${feeProgress >= 100 ? 'bg-emerald-50 dark:bg-emerald-900/100' : feeProgress > 0 ? 'bg-indigo-500' : 'bg-slate-300'}`} 
                               style={{ width: `${Math.min(feeProgress, 100)}%` }}
                             />
                           </div>
                           {(student.current_due || 0) > 0 && (
-                            <span className="text-[10px] text-rose-500 font-bold mt-1.5 uppercase tracking-wide">
+                            <span className="text-[10px] text-rose-500 dark:text-rose-400 font-bold mt-1.5 uppercase tracking-wide">
                               Due: ৳{Number(student.current_due).toLocaleString()}
                             </span>
                           )}
@@ -215,15 +215,15 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                       {/* Status */}
                       <td className="px-5 py-4 text-center">
                         {student.status === 'active' ? (
-                          <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 capitalize font-bold tracking-wide rounded-lg">
+                          <Badge variant="outline" className="border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500 capitalize font-bold tracking-wide rounded-lg">
                             Active
                           </Badge>
                         ) : student.status === 'completed' ? (
-                          <Badge variant="outline" className="border-blue-200 bg-blue-50 text-blue-700 capitalize font-bold tracking-wide rounded-lg">
+                          <Badge variant="outline" className="border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-500 capitalize font-bold tracking-wide rounded-lg">
                             Completed
                           </Badge>
                         ) : (
-                          <Badge variant="outline" className="border-slate-200 bg-slate-50 text-slate-600 capitalize font-bold tracking-wide rounded-lg">
+                          <Badge variant="outline" className="border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 capitalize font-bold tracking-wide rounded-lg">
                             {student.status || 'Inactive'}
                           </Badge>
                         )}

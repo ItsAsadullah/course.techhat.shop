@@ -10,7 +10,7 @@ export default async function CategoriesSettingsPage() {
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-medium">Course Categories</h3>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Manage dynamic course categories and subcategories.
         </p>
       </div>

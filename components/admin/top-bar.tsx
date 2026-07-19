@@ -29,6 +29,8 @@ const RECENT_SEARCHES = [
   { label: 'Add New Student', href: '/admin/students/new' }
 ];
 
+import { ThemeToggle } from "./theme-toggle";
+
 export function TopBar({ email }: TopBarProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -112,16 +114,16 @@ export function TopBar({ email }: TopBarProps) {
   ];
 
   return (
-    <div className="sticky top-0 z-40 bg-admin-background/95 backdrop-blur-md md:rounded-tl-[40px] border-b border-slate-100/50 transition-all flex flex-col">
+    <div className="sticky top-0 z-40 bg-admin-background/90 dark:bg-slate-950/90 backdrop-blur-md md:rounded-tl-[40px] border-b border-slate-200 dark:border-slate-800/50 dark:border-slate-800/50 transition-all flex flex-col">
       <div className="px-4 md:px-8 py-3 md:py-5 flex items-center justify-between w-full">
       
       {/* Left: Page Title & Subtitle */}
       <div className="flex flex-col gap-0.5 min-w-[250px] w-auto whitespace-nowrap">
-        <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight">
+        <h1 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-[11px] text-slate-500 font-medium tracking-wide">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium tracking-wide">
             {subtitle}
           </p>
         )}
@@ -132,8 +134,8 @@ export function TopBar({ email }: TopBarProps) {
         <div className="relative w-full max-w-lg">
           <div 
             className={cn(
-              "relative flex items-center w-full bg-white rounded-full transition-all duration-300 border z-50",
-              isFocused ? "border-indigo-500 shadow-md shadow-indigo-100" : "border-slate-200 shadow-sm hover:border-slate-300"
+              "relative flex items-center w-full bg-white dark:bg-slate-900 rounded-full transition-all duration-300 border z-50",
+              isFocused ? "border-indigo-500 shadow-md shadow-indigo-100" : "border-slate-200 dark:border-slate-700 shadow-sm hover:border-slate-300 dark:border-slate-600"
             )}
           >
             <div className="pl-5 text-slate-400">
@@ -144,12 +146,12 @@ export function TopBar({ email }: TopBarProps) {
               placeholder="Search here..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 placeholder:text-slate-400 h-12 px-3 text-sm font-medium w-full text-slate-800"
+              className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 placeholder:text-slate-400 h-12 px-3 text-sm font-medium w-full text-slate-800 dark:text-slate-100"
               style={{ outline: 'none', boxShadow: 'none' }}
               onFocus={() => setIsFocused(true)}
             />
             <div className="pr-3 flex items-center">
-              <kbd className="hidden sm:inline-flex items-center gap-1 rounded-md border bg-slate-50 px-2 py-1 font-mono text-[10px] font-bold text-slate-500">
+              <kbd className="hidden sm:inline-flex items-center gap-1 rounded-md border bg-slate-50 dark:bg-slate-900/50 px-2 py-1 font-mono text-[10px] font-bold text-slate-500 dark:text-slate-400">
                 <span className="text-xs">⌘</span>K
               </kbd>
             </div>
@@ -157,7 +159,7 @@ export function TopBar({ email }: TopBarProps) {
 
           {/* Search Dropdown Popup */}
           {isFocused && (
-            <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden z-40 flex flex-col max-h-[400px]">
+            <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white dark:bg-slate-900 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 dark:border-slate-800 overflow-hidden z-40 flex flex-col max-h-[400px]">
               <div className="overflow-y-auto custom-scrollbar p-3">
                 {searchQuery.length === 0 ? (
                   // Recent Searches View
@@ -168,13 +170,13 @@ export function TopBar({ email }: TopBarProps) {
                         <button
                           key={idx}
                           onClick={() => handleSelect(item.href)}
-                          className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-slate-50 transition-colors text-left group"
+                          className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 transition-colors text-left group"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
                               <History className="h-4 w-4" />
                             </div>
-                            <span className="text-sm font-semibold text-slate-700 group-hover:text-indigo-950">{item.label}</span>
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-indigo-950">{item.label}</span>
                           </div>
                           <ChevronRight className="h-4 w-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </button>
@@ -193,14 +195,14 @@ export function TopBar({ email }: TopBarProps) {
                             <button
                               key={idx}
                               onClick={() => handleSelect(item.href)}
-                              className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-slate-50 transition-colors text-left group"
+                              className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 transition-colors text-left group"
                             >
                               <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
                                   <Icon className="h-4 w-4" />
                                 </div>
                                 <div className="flex flex-col">
-                                  <span className="text-sm font-semibold text-slate-700 group-hover:text-indigo-950">{item.label}</span>
+                                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-indigo-950">{item.label}</span>
                                   <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">{item.category}</span>
                                 </div>
                               </div>
@@ -210,7 +212,7 @@ export function TopBar({ email }: TopBarProps) {
                         })}
                       </div>
                     ) : (
-                      <div className="p-8 text-center text-sm font-medium text-slate-500 flex flex-col items-center gap-2">
+                      <div className="p-8 text-center text-sm font-medium text-slate-500 dark:text-slate-400 flex flex-col items-center gap-2">
                         <Search className="h-6 w-6 text-slate-300 mb-2" />
                         No results found for "{searchQuery}"
                       </div>
@@ -226,13 +228,13 @@ export function TopBar({ email }: TopBarProps) {
       {/* Right: Actions, Notifications & Profile */}
       <div className="flex items-center justify-end gap-2 md:gap-5 w-auto">
         <div className="hidden xl:flex items-center gap-2 mr-2">
-          <Button asChild variant="outline" className="rounded-full border-slate-200 text-slate-600 font-bold h-10 px-4 shadow-sm hover:bg-slate-50 transition-all text-xs">
+          <Button asChild variant="outline" className="rounded-full border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold h-10 px-4 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 dark:hover:bg-slate-800 transition-all text-xs">
             <Link href="/admin/payments/new">
               <CreditCard className="h-3.5 w-3.5 mr-1.5" />
               Receive
             </Link>
           </Button>
-          <Button asChild className="rounded-full bg-indigo-600 hover:bg-indigo-700 font-bold h-10 px-4 shadow-md shadow-indigo-200 transition-all text-white text-xs">
+          <Button asChild className="rounded-full bg-indigo-600 hover:bg-indigo-700 font-bold h-10 px-4 shadow-md shadow-indigo-200 dark:shadow-none transition-all text-white text-xs">
             <Link href="/admin/students/new">
               <Plus className="h-4 w-4 mr-1" />
               Add Student
@@ -241,11 +243,12 @@ export function TopBar({ email }: TopBarProps) {
         </div>
 
         <div className="hidden md:flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="relative rounded-full h-11 w-11 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+          <ThemeToggle />
+          <Button variant="ghost" size="icon" className="relative rounded-full h-11 w-11 text-slate-500 dark:text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
             <MessageSquare className="h-[22px] w-[22px]" />
             <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white" />
           </Button>
-          <Button variant="ghost" size="icon" className="relative rounded-full h-11 w-11 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+          <Button variant="ghost" size="icon" className="relative rounded-full h-11 w-11 text-slate-500 dark:text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
             <Bell className="h-[22px] w-[22px]" />
             <span className="absolute top-2 right-2 w-4 h-4 bg-indigo-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
               3
@@ -272,14 +275,14 @@ export function TopBar({ email }: TopBarProps) {
                   href={item.href}
                   className={cn(
                     isActive
-                      ? "border-blue-500 text-blue-600"
-                      : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700",
+                      ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                      : "border-transparent text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:border-slate-600 hover:text-slate-700 dark:text-slate-200",
                     "whitespace-nowrap border-b-2 py-3 px-1 text-sm font-medium flex items-center gap-2"
                   )}
                   aria-current={isActive ? "page" : undefined}
                 >
                   <item.icon className={cn(
-                    isActive ? "text-blue-500" : "text-slate-400 group-hover:text-slate-500",
+                    isActive ? "text-blue-500" : "text-slate-400 group-hover:text-slate-500 dark:text-slate-400",
                     "h-4 w-4"
                   )} />
                   {item.name}

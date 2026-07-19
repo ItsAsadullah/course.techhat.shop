@@ -75,6 +75,7 @@
   --admin-sidebar-active-text: #ffffff;
   --admin-surface: #ffffff;
   --admin-background: #f0f4f8;
+  --sidebar-cutout-active: #f0f4f8;
   --admin-primary: #4c3c92;
   --admin-success: #22c55e;
   --admin-warning: #eab308;
@@ -115,6 +116,11 @@
 }
 
 .dark {
+  /* Admin Theme Dark Defaults */
+  --admin-surface: #0f172a; /* slate-900 */
+  --admin-background: #020617; /* slate-950 */
+  --sidebar-cutout-active: #020617; /* Explicitly set for cutout */
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);

@@ -18,7 +18,7 @@ export default async function EditTrainingShiftPage({ params }: { params: Promis
     <div className="space-y-6 max-w-5xl">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-950">Edit Training Shift</h1>
-        <p className="mt-1 text-sm text-slate-500">Update shift time schedule and details.</p>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Update shift time schedule and details.</p>
       </div>
 
       <TrainingShiftForm mode="edit" initialData={shift} />

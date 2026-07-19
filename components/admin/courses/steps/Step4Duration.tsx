@@ -100,7 +100,7 @@ export default function Step4Duration({ form }: Step4Props) {
                   onClick={() => toggleDay(day.value)}
                   className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 transition-all ${
                     classDays.includes(day.value)
-                      ? "border-blue-500 bg-blue-500 text-white"
+                      ? "border-blue-500 bg-blue-50 dark:bg-blue-900/200 text-white"
                       : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-blue-300"
                   }`}
                 >
@@ -151,12 +151,12 @@ export default function Step4Duration({ form }: Step4Props) {
           {/* Lifetime Toggle */}
           <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer mb-4 transition-all ${isLifetime ? "border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-slate-200 dark:border-slate-700"}`}>
             <input type="checkbox" {...register("step4.is_lifetime_access")} className="sr-only" />
-            <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center ${isLifetime ? "border-blue-500 bg-blue-500" : "border-slate-300"}`}>
+            <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center ${isLifetime ? "border-blue-500 bg-blue-50 dark:bg-blue-900/200" : "border-slate-300 dark:border-slate-600"}`}>
               {isLifetime && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
             </div>
             <div>
               <p className="text-sm font-semibold text-slate-800 dark:text-white">♾️ লাইফটাইম অ্যাক্সেস</p>
-              <p className="text-xs text-slate-500">একবার ভর্তি হলে চিরজীবন অ্যাক্সেস পাবে</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">একবার ভর্তি হলে চিরজীবন অ্যাক্সেস পাবে</p>
             </div>
           </label>
 
@@ -173,7 +173,7 @@ export default function Step4Duration({ form }: Step4Props) {
                       onClick={() => setValue("step4.access_duration_days", d)}
                       className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 transition-all ${
                         current === d
-                          ? "border-blue-500 bg-blue-500 text-white"
+                          ? "border-blue-500 bg-blue-50 dark:bg-blue-900/200 text-white"
                           : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-blue-300"
                       }`}
                     >

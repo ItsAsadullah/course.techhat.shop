@@ -147,22 +147,22 @@ function StatusBadge({
 
   const toneClasses: Record<StatusTone, string> = {
     success:
-      "border-emerald-200 bg-emerald-50 text-emerald-700",
+      "border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500",
     warning:
-      "border-amber-200 bg-amber-50 text-amber-700",
+      "border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 text-amber-700 dark:text-amber-500",
     danger:
-      "border-red-200 bg-red-50 text-red-700",
+      "border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 text-red-700 dark:text-red-500",
     info:
-      "border-blue-200 bg-blue-50 text-blue-700",
+      "border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-500",
     neutral:
-      "border-slate-200 bg-slate-50 text-slate-600",
+      "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300",
   };
 
   const dotClasses: Record<StatusTone, string> = {
-    success: "bg-emerald-500",
-    warning: "bg-amber-500",
-    danger: "bg-red-500",
-    info: "bg-blue-500",
+    success: "bg-emerald-50 dark:bg-emerald-900/100",
+    warning: "bg-amber-50 dark:bg-amber-900/100",
+    danger: "bg-red-50 dark:bg-red-900/100",
+    info: "bg-blue-50 dark:bg-blue-900/200",
     neutral: "bg-slate-400",
   };
 
@@ -199,9 +199,9 @@ function SectionHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-slate-100 px-5 py-4 sm:px-6">
+    <div className="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 px-5 py-4 sm:px-6">
       <div className="flex items-start gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
           {icon}
         </div>
 
@@ -211,7 +211,7 @@ function SectionHeader({
           </h2>
 
           {description ? (
-            <p className="mt-1 text-xs leading-5 text-slate-500">
+            <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
               {description}
             </p>
           ) : null}
@@ -242,7 +242,7 @@ function DataField({
 
       <div
         className={[
-          "mt-1.5 text-sm font-medium text-slate-800",
+          "mt-1.5 text-sm font-medium text-slate-800 dark:text-slate-100",
           mono ? "font-mono" : "",
           valueClassName,
         ].join(" ")}
@@ -268,15 +268,15 @@ function TimelineItem({
 }) {
   const toneClasses: Record<StatusTone, string> = {
     success:
-      "border-emerald-500 bg-emerald-50 text-emerald-600",
+      "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-500",
     warning:
-      "border-amber-500 bg-amber-50 text-amber-600",
+      "border-amber-500 bg-amber-50 dark:bg-amber-900/10 text-amber-600 dark:text-amber-500",
     danger:
-      "border-red-500 bg-red-50 text-red-600",
+      "border-red-500 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-500",
     info:
-      "border-blue-500 bg-blue-50 text-blue-600",
+      "border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
     neutral:
-      "border-slate-300 bg-white text-slate-500",
+      "border-slate-300 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400",
   };
 
   return (
@@ -298,7 +298,7 @@ function TimelineItem({
 
       <div className="min-w-0 flex-1 pb-6">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm font-semibold text-slate-800">
+          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
             {title}
           </p>
 
@@ -308,7 +308,7 @@ function TimelineItem({
         </div>
 
         {description ? (
-          <p className="mt-1 text-xs leading-5 text-slate-500">
+          <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
             {description}
           </p>
         ) : null}
@@ -426,7 +426,7 @@ export default async function AdminOrderDetailPage({
   return (
     <div className="mx-auto w-full max-w-[1500px] space-y-6 pb-10">
       {/* Page Header */}
-      <header className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <header className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
         <div className="flex flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
@@ -434,7 +434,7 @@ export default async function AdminOrderDetailPage({
                 variant="ghost"
                 size="sm"
                 asChild
-                className="-ml-3 h-8 gap-1.5 text-slate-500 hover:text-slate-950"
+                className="-ml-3 h-8 gap-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-950"
               >
                 <Link href="/admin/orders">
                   <ArrowLeft className="h-4 w-4" />
@@ -444,7 +444,7 @@ export default async function AdminOrderDetailPage({
 
               <span className="text-slate-300">/</span>
 
-              <span className="text-xs font-medium text-slate-500">
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
                 Order details
               </span>
             </div>
@@ -465,7 +465,7 @@ export default async function AdminOrderDetailPage({
                   />
                 </div>
 
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
                   <span className="flex items-center gap-1.5">
                     <CalendarDays className="h-3.5 w-3.5" />
 
@@ -511,8 +511,8 @@ export default async function AdminOrderDetailPage({
         </div>
 
         {/* Summary Strip */}
-        <div className="grid border-t border-slate-100 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="border-b border-slate-100 px-5 py-4 sm:border-r lg:border-b-0">
+        <div className="grid border-t border-slate-100 dark:border-slate-800 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="border-b border-slate-100 dark:border-slate-800 px-5 py-4 sm:border-r lg:border-b-0">
             <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-slate-400">
               Order Total
             </p>
@@ -522,17 +522,17 @@ export default async function AdminOrderDetailPage({
             </p>
           </div>
 
-          <div className="border-b border-slate-100 px-5 py-4 lg:border-b-0 lg:border-r">
+          <div className="border-b border-slate-100 dark:border-slate-800 px-5 py-4 lg:border-b-0 lg:border-r">
             <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-slate-400">
               Payable Amount
             </p>
 
-            <p className="mt-1 font-mono text-lg font-bold text-blue-700">
+            <p className="mt-1 font-mono text-lg font-bold text-blue-700 dark:text-blue-500">
               ৳{formatMoney(payableAmount)}
             </p>
           </div>
 
-          <div className="border-b border-slate-100 px-5 py-4 sm:border-b-0 sm:border-r">
+          <div className="border-b border-slate-100 dark:border-slate-800 px-5 py-4 sm:border-b-0 sm:border-r">
             <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-slate-400">
               Payment
             </p>
@@ -566,10 +566,10 @@ export default async function AdminOrderDetailPage({
 
       {/* Pending Review Alert */}
       {hasPendingReview ? (
-        <section className="overflow-hidden rounded-2xl border border-amber-200 bg-amber-50 shadow-sm">
+        <section className="overflow-hidden rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 shadow-sm">
           <div className="flex flex-col gap-5 p-5 sm:p-6 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-700">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-500">
                 <AlertCircle className="h-6 w-6" />
               </div>
 
@@ -581,13 +581,13 @@ export default async function AdminOrderDetailPage({
 
                   <Badge
                     variant="outline"
-                    className="border-amber-300 bg-white/70 text-amber-700"
+                    className="border-amber-300 bg-white/70 dark:bg-slate-900/70 text-amber-700 dark:text-amber-500"
                   >
                     Action Required
                   </Badge>
                 </div>
 
-                <p className="mt-1.5 max-w-2xl text-sm leading-6 text-amber-800">
+                <p className="mt-1.5 max-w-2xl text-sm leading-6 text-amber-800 dark:text-amber-400">
                   স্টুডেন্ট ম্যানুয়াল পেমেন্ট তথ্য
                   সাবমিট করেছে। Transaction ID এবং sender
                   number যাচাই করে পেমেন্ট approve অথবা
@@ -595,8 +595,8 @@ export default async function AdminOrderDetailPage({
                 </p>
 
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <div className="rounded-lg border border-amber-200 bg-white/70 px-3 py-2">
-                    <p className="text-[10px] font-medium uppercase tracking-wider text-amber-600">
+                  <div className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-white/70 dark:bg-slate-900/70 px-3 py-2">
+                    <p className="text-[10px] font-medium uppercase tracking-wider text-amber-600 dark:text-amber-500">
                       Transaction ID
                     </p>
 
@@ -605,8 +605,8 @@ export default async function AdminOrderDetailPage({
                     </p>
                   </div>
 
-                  <div className="rounded-lg border border-amber-200 bg-white/70 px-3 py-2">
-                    <p className="text-[10px] font-medium uppercase tracking-wider text-amber-600">
+                  <div className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-white/70 dark:bg-slate-900/70 px-3 py-2">
+                    <p className="text-[10px] font-medium uppercase tracking-wider text-amber-600 dark:text-amber-500">
                       Sender
                     </p>
 
@@ -615,8 +615,8 @@ export default async function AdminOrderDetailPage({
                     </p>
                   </div>
 
-                  <div className="rounded-lg border border-amber-200 bg-white/70 px-3 py-2">
-                    <p className="text-[10px] font-medium uppercase tracking-wider text-amber-600">
+                  <div className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-white/70 dark:bg-slate-900/70 px-3 py-2">
+                    <p className="text-[10px] font-medium uppercase tracking-wider text-amber-600 dark:text-amber-500">
                       Amount
                     </p>
 
@@ -628,7 +628,7 @@ export default async function AdminOrderDetailPage({
               </div>
             </div>
 
-            <div className="shrink-0 rounded-xl border border-amber-200 bg-white p-3 shadow-sm">
+            <div className="shrink-0 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-white dark:bg-slate-900 p-3 shadow-sm">
               <OrderApproveActions
                 reviewId={review.id}
                 studentName={
@@ -646,7 +646,7 @@ export default async function AdminOrderDetailPage({
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
         <div className="space-y-6">
           {/* Order Details */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<ReceiptText className="h-4 w-4" />}
               title="Order overview"
@@ -661,7 +661,7 @@ export default async function AdminOrderDetailPage({
             <div className="p-5 sm:p-6">
               <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_260px]">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
                     <GraduationCap className="h-7 w-7" />
                   </div>
 
@@ -674,9 +674,9 @@ export default async function AdminOrderDetailPage({
                       {(course?.title as string) || "Course unavailable"}
                     </h3>
 
-                    <p className="mt-2 text-xs text-slate-500">
+                    <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
                       Enrollment order for{" "}
-                      <span className="font-medium text-slate-700">
+                      <span className="font-medium text-slate-700 dark:text-slate-200">
                         {student?.full_name_en || "Student"}
                       </span>
                     </p>
@@ -705,7 +705,7 @@ export default async function AdminOrderDetailPage({
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-4 border-t border-slate-100 pt-6 sm:grid-cols-3">
+              <div className="mt-6 grid gap-4 border-t border-slate-100 dark:border-slate-800 pt-6 sm:grid-cols-3">
                 <DataField
                   label="Subtotal"
                   value={`৳${formatMoney(
@@ -726,7 +726,7 @@ export default async function AdminOrderDetailPage({
                   mono
                   valueClassName={
                     order.discount_minor > 0
-                      ? "text-red-600"
+                      ? "text-red-600 dark:text-red-500"
                       : ""
                   }
                 />
@@ -737,14 +737,14 @@ export default async function AdminOrderDetailPage({
                     order.total_minor,
                   )}`}
                   mono
-                  valueClassName="font-bold text-emerald-700"
+                  valueClassName="font-bold text-emerald-700 dark:text-emerald-500"
                 />
               </div>
             </div>
           </section>
 
           {/* Student Information */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<UserRound className="h-4 w-4" />}
               title="Student information"
@@ -753,7 +753,7 @@ export default async function AdminOrderDetailPage({
 
             <div className="p-5 sm:p-6">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 text-xl font-bold text-slate-700">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 text-xl font-bold text-slate-700 dark:text-slate-200">
                   {student?.full_name_en
                     ?.trim()
                     ?.charAt(0)
@@ -766,7 +766,7 @@ export default async function AdminOrderDetailPage({
                   </h3>
 
                   {student?.full_name_bn ? (
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                       {student.full_name_bn}
                     </p>
                   ) : null}
@@ -775,7 +775,7 @@ export default async function AdminOrderDetailPage({
                     {student?.mobile ? (
                       <a
                         href={`tel:${student.mobile}`}
-                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-200 transition hover:border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:bg-blue-900/20 hover:text-blue-700 dark:text-blue-500"
                       >
                         <Phone className="h-3.5 w-3.5" />
 
@@ -788,7 +788,7 @@ export default async function AdminOrderDetailPage({
                     {student?.email ? (
                       <a
                         href={`mailto:${student.email}`}
-                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-200 transition hover:border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:bg-blue-900/20 hover:text-blue-700 dark:text-blue-500"
                       >
                         <Mail className="h-3.5 w-3.5" />
 
@@ -814,13 +814,13 @@ export default async function AdminOrderDetailPage({
               </div>
 
               {student?.guardian_mobile ? (
-                <div className="mt-6 border-t border-slate-100 pt-5">
+                <div className="mt-6 border-t border-slate-100 dark:border-slate-800 pt-5">
                   <DataField
                     label="Guardian Mobile"
                     value={
                       <a
                         href={`tel:${student.guardian_mobile}`}
-                        className="inline-flex items-center gap-2 hover:text-blue-600"
+                        className="inline-flex items-center gap-2 hover:text-blue-600 dark:text-blue-400"
                       >
                         <Phone className="h-4 w-4 text-slate-400" />
 
@@ -836,7 +836,7 @@ export default async function AdminOrderDetailPage({
           </section>
 
           {/* Payment Session */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <SectionHeader
               icon={<CreditCard className="h-4 w-4" />}
               title="Payment session"
@@ -851,8 +851,8 @@ export default async function AdminOrderDetailPage({
             {session ? (
               <div className="p-5 sm:p-6">
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="flex items-center gap-2 text-slate-500">
+                  <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 p-4">
+                    <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                       <WalletCards className="h-4 w-4" />
 
                       <p className="text-xs font-medium">
@@ -860,7 +860,7 @@ export default async function AdminOrderDetailPage({
                       </p>
                     </div>
 
-                    <p className="mt-3 font-mono text-xl font-bold text-slate-900">
+                    <p className="mt-3 font-mono text-xl font-bold text-slate-900 dark:text-slate-50">
                       ৳
                       {formatMoney(
                         session.base_amount_minor,
@@ -868,8 +868,8 @@ export default async function AdminOrderDetailPage({
                     </p>
                   </div>
 
-                  <div className="rounded-xl border border-blue-200 bg-blue-50/70 p-4">
-                    <div className="flex items-center gap-2 text-blue-600">
+                  <div className="rounded-xl border border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20/70 p-4">
+                    <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
                       <ShieldCheck className="h-4 w-4" />
 
                       <p className="text-xs font-medium">
@@ -877,7 +877,7 @@ export default async function AdminOrderDetailPage({
                       </p>
                     </div>
 
-                    <p className="mt-3 font-mono text-xl font-bold text-blue-800">
+                    <p className="mt-3 font-mono text-xl font-bold text-blue-800 dark:text-blue-400">
                       ৳
                       {formatMoney(
                         session.payable_amount_minor,
@@ -885,8 +885,8 @@ export default async function AdminOrderDetailPage({
                     </p>
                   </div>
 
-                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="flex items-center gap-2 text-slate-500">
+                  <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 p-4">
+                    <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                       <Clock3 className="h-4 w-4" />
 
                       <p className="text-xs font-medium">
@@ -894,13 +894,13 @@ export default async function AdminOrderDetailPage({
                       </p>
                     </div>
 
-                    <p className="mt-3 text-sm font-semibold text-slate-800">
+                    <p className="mt-3 text-sm font-semibold text-slate-800 dark:text-slate-100">
                       {formatDate(session.expires_at)}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-xl border border-slate-200">
+                <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-700">
                   <div className="grid gap-5 p-4 sm:grid-cols-2">
                     <DataField
                       label="Session ID"
@@ -921,15 +921,15 @@ export default async function AdminOrderDetailPage({
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-400">
                   <CreditCard className="h-6 w-6" />
                 </div>
 
-                <h3 className="mt-4 text-sm font-semibold text-slate-800">
+                <h3 className="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-100">
                   No payment session
                 </h3>
 
-                <p className="mt-1 max-w-sm text-xs leading-5 text-slate-500">
+                <p className="mt-1 max-w-sm text-xs leading-5 text-slate-500 dark:text-slate-400">
                   এই order-এর জন্য এখনো কোনো payment
                   session তৈরি হয়নি।
                 </p>
@@ -941,7 +941,7 @@ export default async function AdminOrderDetailPage({
         {/* Right Column */}
         <aside className="space-y-6">
           {/* Payment Review */}
-          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm xl:sticky xl:top-6">
+          <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm xl:sticky xl:top-6">
             <SectionHeader
               icon={<ShieldCheck className="h-4 w-4" />}
               title="Payment verification"
@@ -959,15 +959,15 @@ export default async function AdminOrderDetailPage({
                   className={[
                     "rounded-2xl border p-5",
                     review.status === "PENDING"
-                      ? "border-amber-200 bg-amber-50/60"
+                      ? "border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10/60"
                       : review.status === "APPROVED"
-                        ? "border-emerald-200 bg-emerald-50/50"
-                        : "border-red-200 bg-red-50/50",
+                        ? "border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10/50"
+                        : "border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10/50",
                   ].join(" ")}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-slate-500">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
                         Transaction ID
                       </p>
 
@@ -976,7 +976,7 @@ export default async function AdminOrderDetailPage({
                       </p>
                     </div>
 
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/80 bg-white text-slate-500 shadow-sm">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/80 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 shadow-sm">
                       <Hash className="h-4 w-4" />
                     </div>
                   </div>
@@ -989,7 +989,7 @@ export default async function AdminOrderDetailPage({
                       submittedSender !== "—" ? (
                         <a
                           href={`tel:${submittedSender}`}
-                          className="inline-flex items-center gap-2 hover:text-blue-600"
+                          className="inline-flex items-center gap-2 hover:text-blue-600 dark:text-blue-400"
                         >
                           <Phone className="h-4 w-4 text-slate-400" />
 
@@ -1026,16 +1026,16 @@ export default async function AdminOrderDetailPage({
                 </div>
 
                 {review.rejection_reason ? (
-                  <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4">
+                  <div className="mt-5 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 p-4">
                     <div className="flex items-start gap-3">
-                      <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
+                      <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600 dark:text-red-500" />
 
                       <div>
-                        <p className="text-xs font-semibold text-red-800">
+                        <p className="text-xs font-semibold text-red-800 dark:text-red-400">
                           Rejection reason
                         </p>
 
-                        <p className="mt-1 text-xs leading-5 text-red-700">
+                        <p className="mt-1 text-xs leading-5 text-red-700 dark:text-red-500">
                           {review.rejection_reason}
                         </p>
                       </div>
@@ -1044,15 +1044,15 @@ export default async function AdminOrderDetailPage({
                 ) : null}
 
                 {review.status === "APPROVED" ? (
-                  <div className="mt-6 flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+                  <div className="mt-6 flex items-start gap-3 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 p-4">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-500" />
 
                     <div>
-                      <p className="text-sm font-semibold text-emerald-800">
+                      <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-400">
                         Payment approved
                       </p>
 
-                      <p className="mt-1 text-xs leading-5 text-emerald-700">
+                      <p className="mt-1 text-xs leading-5 text-emerald-700 dark:text-emerald-500">
                         এই পেমেন্ট সফলভাবে যাচাই এবং
                         approve করা হয়েছে।
                       </p>
@@ -1061,8 +1061,8 @@ export default async function AdminOrderDetailPage({
                 ) : null}
 
                 {hasPendingReview ? (
-                  <div className="mt-6 border-t border-slate-100 pt-6">
-                    <p className="mb-3 text-xs leading-5 text-slate-500">
+                  <div className="mt-6 border-t border-slate-100 dark:border-slate-800 pt-6">
+                    <p className="mb-3 text-xs leading-5 text-slate-500 dark:text-slate-400">
                       Approve করার আগে Transaction ID,
                       sender number এবং exact payable amount
                       যাচাই করুন।
@@ -1083,15 +1083,15 @@ export default async function AdminOrderDetailPage({
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-400">
                   <Clock3 className="h-7 w-7" />
                 </div>
 
-                <h3 className="mt-4 text-sm font-semibold text-slate-800">
+                <h3 className="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-100">
                   Waiting for payment
                 </h3>
 
-                <p className="mt-1 max-w-xs text-xs leading-5 text-slate-500">
+                <p className="mt-1 max-w-xs text-xs leading-5 text-slate-500 dark:text-slate-400">
                   স্টুডেন্ট এখনো manual payment verification
                   request সাবমিট করেনি।
                 </p>
@@ -1102,7 +1102,7 @@ export default async function AdminOrderDetailPage({
       </div>
 
       {/* Activity Timeline */}
-      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
         <SectionHeader
           icon={<Clock3 className="h-4 w-4" />}
           title="Order activity"

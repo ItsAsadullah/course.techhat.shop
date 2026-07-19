@@ -104,9 +104,9 @@ export function TrainingLabForm({ mode = "create", labId, initialData }: Props) 
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm max-w-2xl">
       {error && (
-        <div className="p-4 bg-red-50 text-red-700 rounded-lg text-sm font-medium">
+        <div className="p-4 bg-red-50 dark:bg-red-900/10 text-red-700 dark:text-red-500 rounded-lg text-sm font-medium">
           {error}
         </div>
       )}
@@ -143,7 +143,7 @@ export function TrainingLabForm({ mode = "create", labId, initialData }: Props) 
         {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100 dark:border-slate-800">
         <div className="space-y-2">
           <Label htmlFor="total_computers">Total Computers <span className="text-red-500">*</span></Label>
           <Input type="number" id="total_computers" {...register("total_computers")} />
@@ -169,19 +169,19 @@ export function TrainingLabForm({ mode = "create", labId, initialData }: Props) 
         </div>
       </div>
 
-      <div className="p-4 bg-slate-50 border border-slate-100 rounded-lg space-y-2">
-        <p className="text-sm font-semibold text-slate-700">Capacity Summary</p>
-        <div className="text-sm text-slate-500 flex justify-between">
+      <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-lg space-y-2">
+        <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">Capacity Summary</p>
+        <div className="text-sm text-slate-500 dark:text-slate-400 flex justify-between">
           <span>Physical Capacity:</span>
           <span>{physicalCapacity} students</span>
         </div>
-        <div className="text-sm font-semibold text-slate-900 flex justify-between pt-2 border-t border-slate-200">
+        <div className="text-sm font-semibold text-slate-900 dark:text-slate-50 flex justify-between pt-2 border-t border-slate-200 dark:border-slate-700">
           <span>Effective Capacity:</span>
           <span>{effectiveCapacity} students</span>
         </div>
       </div>
 
-      <div className="space-y-2 pt-4 border-t border-slate-100">
+      <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
         <Label>Status</Label>
         <Select value={status} onValueChange={(val) => setValue("status", getInitialStatus(val))}>
           <SelectTrigger>

@@ -53,7 +53,7 @@ export function SettingsSidebar() {
     <aside className="w-64 flex-shrink-0 lg:block hidden sticky top-0 h-screen overflow-y-auto custom-scrollbar border-r border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 pb-20">
       <div className="p-5">
         <h2 className="text-xl font-bold text-slate-900 dark:text-white">Settings</h2>
-        <p className="text-xs text-slate-500 mt-1">Enterprise Configuration</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Enterprise Configuration</p>
       </div>
 
       <div className="px-3 space-y-6">

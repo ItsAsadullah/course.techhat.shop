@@ -21,8 +21,8 @@ export function LanguageToggle() {
           onClick={() => setLanguage(o.key)}
           className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${
             language === o.key
-              ? "bg-white dark:bg-slate-900 text-blue-600 shadow-sm"
-              : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              ? "bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm"
+              : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-300"
           }`}
         >
           {o.label}

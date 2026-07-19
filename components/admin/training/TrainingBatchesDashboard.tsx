@@ -94,13 +94,13 @@ const STATUS_META: Record<
 > = {
   draft: {
     label: "Draft",
-    className: "border-slate-200 bg-slate-100 text-slate-700",
-    dotClassName: "bg-slate-500",
+    className: "border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200",
+    dotClassName: "bg-slate-50 dark:bg-slate-900/500",
   },
   open: {
     label: "Open",
-    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
-    dotClassName: "bg-emerald-500",
+    className: "border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500",
+    dotClassName: "bg-emerald-50 dark:bg-emerald-900/100",
   },
   full: {
     label: "Full",
@@ -109,8 +109,8 @@ const STATUS_META: Record<
   },
   ongoing: {
     label: "Running",
-    className: "border-blue-200 bg-blue-50 text-blue-700",
-    dotClassName: "bg-blue-500",
+    className: "border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-500",
+    dotClassName: "bg-blue-50 dark:bg-blue-900/200",
   },
   completed: {
     label: "Completed",
@@ -119,12 +119,12 @@ const STATUS_META: Record<
   },
   cancelled: {
     label: "Cancelled",
-    className: "border-amber-200 bg-amber-50 text-amber-700",
-    dotClassName: "bg-amber-500",
+    className: "border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 text-amber-700 dark:text-amber-500",
+    dotClassName: "bg-amber-50 dark:bg-amber-900/100",
   },
   archived: {
     label: "Archived",
-    className: "border-slate-200 bg-slate-100 text-slate-500",
+    className: "border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400",
     dotClassName: "bg-slate-400",
   },
 };
@@ -217,7 +217,7 @@ function StatusBadge({ status }: { status: string }) {
 
   if (!meta) {
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
         <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
         {status}
       </span>
@@ -260,11 +260,11 @@ function MetricCard({
       />
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2.5">
-          <p className="text-[14px] font-medium text-slate-500 tracking-tight">{title}</p>
-          <div className="text-4xl font-bold tracking-tight text-slate-900">
+          <p className="text-[14px] font-medium text-slate-500 dark:text-slate-400 tracking-tight">{title}</p>
+          <div className="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
             {value}
           </div>
-          <p className="text-xs text-slate-500 font-medium">{subtitle}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{subtitle}</p>
         </div>
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-admin-primary/10 text-admin-primary">
           <Icon className="h-6 w-6" />
@@ -287,9 +287,9 @@ function SoftMetaChip({
     <span
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium",
-        tone === "success" && "bg-emerald-50 text-emerald-700",
-        tone === "warning" && "bg-amber-50 text-amber-700",
-        tone === "default" && "bg-slate-100 text-slate-600"
+        tone === "success" && "bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500",
+        tone === "warning" && "bg-amber-50 dark:bg-amber-900/10 text-amber-700 dark:text-amber-500",
+        tone === "default" && "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
       )}
     >
       <Icon className="h-3.5 w-3.5" />
@@ -319,8 +319,8 @@ function CircularCapacity({
           background: `conic-gradient(${tone} ${clamped * 3.6}deg, #E5E7EB 0deg)`,
         }}
       />
-      <div className="absolute inset-[5px] rounded-full bg-white" />
-      <span className="relative text-xs font-semibold text-slate-700">
+      <div className="absolute inset-[5px] rounded-full bg-white dark:bg-slate-900" />
+      <span className="relative text-xs font-semibold text-slate-700 dark:text-slate-200">
         {Math.round(clamped)}%
       </span>
     </div>
@@ -336,9 +336,9 @@ function CapacityPanel({
 
   if (batch.status === "archived") {
     return (
-      <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4">
-        <p className="text-sm font-medium text-slate-600">Archived batch</p>
-        <p className="mt-1 text-xs text-slate-500">
+      <div className="rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-4">
+        <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Archived batch</p>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Live capacity is not available for archived batches.
         </p>
       </div>
@@ -347,13 +347,13 @@ function CapacityPanel({
 
   if (!capacity) {
     return (
-      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-        <div className="flex items-center gap-2 text-sm font-semibold text-amber-700">
+      <div className="rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 p-4">
+        <div className="flex items-center gap-2 text-sm font-semibold text-amber-700 dark:text-amber-500">
           <ShieldCheck className="h-4 w-4" />
           Capacity unavailable
         </div>
         {capacityError && (
-          <p className="mt-1 text-xs text-amber-700/80">{capacityError}</p>
+          <p className="mt-1 text-xs text-amber-700 dark:text-amber-500/80">{capacityError}</p>
         )}
       </div>
     );
@@ -368,17 +368,17 @@ function CapacityPanel({
     <div className="rounded-2xl border border-[#E5E7EB] bg-slate-50/70 p-4">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2">
-          <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500">
+          <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500 dark:text-slate-400">
             <UsersRound className="h-4 w-4" />
             Capacity
           </div>
           <div className="flex items-end gap-2">
-            <p className="text-lg font-semibold text-slate-900">
+            <p className="text-lg font-semibold text-slate-900 dark:text-slate-50">
               {capacity.occupied}
               <span className="mx-1 text-slate-300">/</span>
               {capacity.effective_batch_capacity}
             </p>
-            <p className="pb-0.5 text-xs text-slate-500">students</p>
+            <p className="pb-0.5 text-xs text-slate-500 dark:text-slate-400">students</p>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
             <div
@@ -387,7 +387,7 @@ function CapacityPanel({
                 capacity.is_full
                   ? "bg-rose-500"
                   : utilization >= 80
-                    ? "bg-amber-500"
+                    ? "bg-amber-50 dark:bg-amber-900/100"
                     : "bg-blue-600"
               )}
               style={{ width: `${utilization}%` }}
@@ -465,7 +465,7 @@ function ActionMenu({ batchId }: { batchId: string }) {
           <Button
             variant="outline"
             size="icon-sm"
-            className="border-[#E5E7EB] bg-white hover:bg-slate-50"
+            className="border-[#E5E7EB] bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50"
             aria-label="Open batch quick actions"
           >
             <Ellipsis className="h-4 w-4" />
@@ -587,9 +587,9 @@ function BatchGridCard({ item, index }: { item: TrainingBatchListItem; index: nu
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04, duration: 0.24 }}
-      className="group rounded-2xl border border-[#E5E7EB] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_28px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_14px_40px_rgba(15,23,42,0.08)]"
+      className="group rounded-2xl border border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_28px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 dark:border-slate-600 hover:shadow-[0_14px_40px_rgba(15,23,42,0.08)]"
     >
-      <div className="border-b border-slate-100 px-5 py-4 sm:px-6">
+      <div className="border-b border-slate-100 dark:border-slate-800 px-5 py-4 sm:px-6">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
           <div className="min-w-0 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
@@ -605,18 +605,18 @@ function BatchGridCard({ item, index }: { item: TrainingBatchListItem; index: nu
             <div className="space-y-1">
               <Link
                 href={`/admin/training/batches/${batch.id}`}
-                className="inline-flex items-center gap-2 text-[18px] font-semibold text-slate-950 transition-colors hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-sm"
+                className="inline-flex items-center gap-2 text-[18px] font-semibold text-slate-950 transition-colors hover:text-blue-700 dark:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-sm"
               >
-                <BookOpen className="h-4.5 w-4.5 text-slate-500" />
+                <BookOpen className="h-4.5 w-4.5 text-slate-500 dark:text-slate-400" />
                 {batch.name_en}
               </Link>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-slate-500">
-                <span className="font-medium text-slate-700">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-slate-500 dark:text-slate-400">
+                <span className="font-medium text-slate-700 dark:text-slate-200">
                   {batch.course?.name ?? "Course not linked"}
                 </span>
                 {batch.course?.name_bn && <span>{batch.course.name_bn}</span>}
                 {batch.session && (
-                  <span className="inline-flex items-center gap-1 text-slate-500">
+                  <span className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400">
                     <ChevronRight className="h-3.5 w-3.5" />
                     Session {batch.session}
                   </span>
@@ -643,32 +643,32 @@ function BatchGridCard({ item, index }: { item: TrainingBatchListItem; index: nu
       <div className="grid gap-4 px-5 py-5 sm:px-6 xl:grid-cols-[1.15fr_1.15fr_1fr]">
         <div className="space-y-4">
           <div className="rounded-2xl border border-[#E5E7EB] bg-slate-50/70 p-4">
-            <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500">
+            <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500 dark:text-slate-400">
               <CalendarDays className="h-4 w-4" />
               Timeline
             </div>
-            <div className="mt-3 space-y-2 text-[13px] text-slate-600">
+            <div className="mt-3 space-y-2 text-[13px] text-slate-600 dark:text-slate-300">
               <div className="flex items-start justify-between gap-3">
                 <span>Start date</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {formatDate(batch.start_date)}
                 </span>
               </div>
               <div className="flex items-start justify-between gap-3">
                 <span>End date</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {formatDate(batch.end_date)}
                 </span>
               </div>
               <div className="flex items-start justify-between gap-3">
                 <span>Admission</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {formatDate(batch.admission_deadline)}
                 </span>
               </div>
               <div className="flex items-start justify-between gap-3">
                 <span>Orientation</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {formatDate(batch.orientation_date)}
                 </span>
               </div>
@@ -676,20 +676,20 @@ function BatchGridCard({ item, index }: { item: TrainingBatchListItem; index: nu
           </div>
 
           <div className="rounded-2xl border border-[#E5E7EB] bg-slate-50/70 p-4">
-            <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500">
+            <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500 dark:text-slate-400">
               <GraduationCap className="h-4 w-4" />
               Delivery
             </div>
-            <div className="mt-3 space-y-2 text-[13px] text-slate-600">
+            <div className="mt-3 space-y-2 text-[13px] text-slate-600 dark:text-slate-300">
               <div className="flex items-start justify-between gap-3">
                 <span>Primary shift</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {primaryShift?.name_en ?? "Not assigned"}
                 </span>
               </div>
               <div className="flex items-start justify-between gap-3">
                 <span>Time</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {primaryShift
                     ? `${formatTime(primaryShift.start_time)} - ${formatTime(primaryShift.end_time)}`
                     : "TBA"}
@@ -697,18 +697,18 @@ function BatchGridCard({ item, index }: { item: TrainingBatchListItem; index: nu
               </div>
               <div className="flex items-start justify-between gap-3">
                 <span>Lab</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {primaryShift?.lab?.name ?? "Not assigned"}
                 </span>
               </div>
               <div className="flex items-start justify-between gap-3">
                 <span>Room</span>
-                <span className="font-medium text-slate-800">
+                <span className="font-medium text-slate-800 dark:text-slate-100">
                   {batch.room ?? primaryShift?.lab?.code ?? "TBA"}
                 </span>
               </div>
               {additionalShiftCount > 0 && (
-                <p className="pt-1 text-xs font-medium text-blue-600">
+                <p className="pt-1 text-xs font-medium text-blue-600 dark:text-blue-400">
                   +{additionalShiftCount} additional shift(s)
                 </p>
               )}
@@ -720,7 +720,7 @@ function BatchGridCard({ item, index }: { item: TrainingBatchListItem; index: nu
           <CapacityPanel item={item} />
 
           <div className="rounded-2xl border border-[#E5E7EB] bg-slate-50/70 p-4">
-            <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500">
+            <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500 dark:text-slate-400">
               <Building2 className="h-4 w-4" />
               Operations
             </div>
@@ -748,44 +748,44 @@ function BatchGridCard({ item, index }: { item: TrainingBatchListItem; index: nu
         </div>
 
         <div className="rounded-2xl border border-[#E5E7EB] bg-slate-50/70 p-4">
-          <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500">
+          <div className="flex items-center gap-2 text-[13px] font-medium text-slate-500 dark:text-slate-400">
             <Award className="h-4 w-4" />
             Operational insights
           </div>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-            <div className="rounded-xl bg-white px-3 py-3">
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+            <div className="rounded-xl bg-white dark:bg-slate-900 px-3 py-3">
+              <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <UsersRound className="h-3.5 w-3.5" />
                 Instructor
               </div>
-              <p className="mt-1 text-sm font-medium text-slate-700">
+              <p className="mt-1 text-sm font-medium text-slate-700 dark:text-slate-200">
                 Not linked on this dataset
               </p>
             </div>
-            <div className="rounded-xl bg-white px-3 py-3">
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+            <div className="rounded-xl bg-white dark:bg-slate-900 px-3 py-3">
+              <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <Wallet className="h-3.5 w-3.5" />
                 Revenue
               </div>
-              <p className="mt-1 text-sm font-medium text-slate-700">
+              <p className="mt-1 text-sm font-medium text-slate-700 dark:text-slate-200">
                 Not connected on this view
               </p>
             </div>
-            <div className="rounded-xl bg-white px-3 py-3">
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+            <div className="rounded-xl bg-white dark:bg-slate-900 px-3 py-3">
+              <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <ClipboardCheck className="h-3.5 w-3.5" />
                 Attendance
               </div>
-              <p className="mt-1 text-sm font-medium text-slate-700">
+              <p className="mt-1 text-sm font-medium text-slate-700 dark:text-slate-200">
                 Managed in batch workspace
               </p>
             </div>
-            <div className="rounded-xl bg-white px-3 py-3">
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+            <div className="rounded-xl bg-white dark:bg-slate-900 px-3 py-3">
+              <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <Award className="h-3.5 w-3.5" />
                 Certificates
               </div>
-              <p className="mt-1 text-sm font-medium text-slate-700">
+              <p className="mt-1 text-sm font-medium text-slate-700 dark:text-slate-200">
                 Not configured here
               </p>
             </div>
@@ -811,33 +811,33 @@ function BatchListRow({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04, duration: 0.24 }}
-      className="rounded-2xl border border-[#E5E7EB] bg-white px-4 py-4 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(15,23,42,0.07)] sm:px-5"
+      className="rounded-2xl border border-[#E5E7EB] bg-white dark:bg-slate-900 px-4 py-4 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 dark:border-slate-600 hover:shadow-[0_12px_32px_rgba(15,23,42,0.07)] sm:px-5"
     >
       <div className="flex flex-col gap-4 xl:grid xl:grid-cols-[2.2fr_1.1fr_1fr_auto] xl:items-center">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <Link
               href={`/admin/training/batches/${batch.id}`}
-              className="truncate text-[15px] font-semibold text-slate-900 hover:text-blue-700"
+              className="truncate text-[15px] font-semibold text-slate-900 dark:text-slate-50 hover:text-blue-700 dark:text-blue-500"
             >
               {batch.name_en}
             </Link>
             <StatusBadge status={batch.status} />
           </div>
-          <p className="mt-1 truncate text-[13px] text-slate-500">
+          <p className="mt-1 truncate text-[13px] text-slate-500 dark:text-slate-400">
             {batch.course?.name ?? "Course not linked"}
             {batch.session ? ` • Session ${batch.session}` : ""}
             {primaryShift?.name_en ? ` • ${primaryShift.name_en}` : ""}
           </p>
         </div>
 
-        <div className="text-[13px] text-slate-500">
-          <p className="font-medium text-slate-700">{formatDate(batch.start_date)}</p>
+        <div className="text-[13px] text-slate-500 dark:text-slate-400">
+          <p className="font-medium text-slate-700 dark:text-slate-200">{formatDate(batch.start_date)}</p>
           <p>{formatDate(batch.end_date)}</p>
         </div>
 
-        <div className="text-[13px] text-slate-500">
-          <p className="font-medium text-slate-700">
+        <div className="text-[13px] text-slate-500 dark:text-slate-400">
+          <p className="font-medium text-slate-700 dark:text-slate-200">
             {capacity ? `${capacity.occupied}/${capacity.effective_batch_capacity}` : "N/A"}
           </p>
           <p>
@@ -864,14 +864,14 @@ function EmptyState({
   onReset: () => void;
 }) {
   return (
-    <div className="flex min-h-[360px] flex-col items-center justify-center rounded-2xl border border-dashed border-[#E5E7EB] bg-white px-6 py-16 text-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+    <div className="flex min-h-[360px] flex-col items-center justify-center rounded-2xl border border-dashed border-[#E5E7EB] bg-white dark:bg-slate-900 px-6 py-16 text-center">
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
         <Layers3 className="h-8 w-8" />
       </div>
-      <h2 className="mt-5 text-xl font-semibold text-slate-900">
+      <h2 className="mt-5 text-xl font-semibold text-slate-900 dark:text-slate-50">
         {hasFilters ? "No matching batches found" : "No training batches yet"}
       </h2>
-      <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
+      <p className="mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
         {hasFilters
           ? "Try adjusting the search or filters to reveal more training batches."
           : "Create your first batch to manage sessions, capacity, schedules, labs, and students from one place."}
@@ -1064,12 +1064,12 @@ export function TrainingBatchesDashboard({
     <LazyMotion features={domAnimation}>
       <div className="min-h-full bg-[#F7F8FA]">
         <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 p-4 sm:p-6 xl:p-8">
-          <section className="overflow-hidden rounded-[28px] border border-[#E5E7EB] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_16px_40px_rgba(15,23,42,0.06)]">
+          <section className="overflow-hidden rounded-[28px] border border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_16px_40px_rgba(15,23,42,0.06)]">
             <div className="relative overflow-hidden px-5 py-6 sm:px-7 sm:py-7">
               <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.12),transparent_50%)] lg:block" />
               <div className="relative flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
                 <div className="max-w-3xl space-y-4">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-[12px] font-medium text-blue-700">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 text-[12px] font-medium text-blue-700 dark:text-blue-500">
                     <GraduationCap className="h-3.5 w-3.5" />
                     Training operations
                   </div>
@@ -1077,7 +1077,7 @@ export function TrainingBatchesDashboard({
                     <h1 className="text-[32px] font-bold tracking-tight text-slate-950">
                       Training Batches
                     </h1>
-                    <p className="max-w-2xl text-[15px] leading-7 text-slate-500">
+                    <p className="max-w-2xl text-[15px] leading-7 text-slate-500 dark:text-slate-400">
                       Manage all training sessions, capacity, schedules, labs,
                       students, and operational status from one premium workspace.
                     </p>
@@ -1112,7 +1112,7 @@ export function TrainingBatchesDashboard({
                     </Button>
                     <Button
                       variant="outline"
-                      className="rounded-xl border-[#E5E7EB] bg-white"
+                      className="rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900"
                       disabled
                       title="Import is not wired for this route yet."
                     >
@@ -1121,7 +1121,7 @@ export function TrainingBatchesDashboard({
                     </Button>
                     <Button
                       variant="outline"
-                      className="rounded-xl border-[#E5E7EB] bg-white"
+                      className="rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900"
                       onClick={() => downloadCsv(filteredItems)}
                       disabled={filteredItems.length === 0}
                     >
@@ -1130,7 +1130,7 @@ export function TrainingBatchesDashboard({
                     </Button>
                     <Button
                       variant="outline"
-                      className="rounded-xl border-[#E5E7EB] bg-white"
+                      className="rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900"
                       onClick={() => router.refresh()}
                     >
                       <RefreshCw className="mr-2 h-4 w-4" />
@@ -1146,7 +1146,7 @@ export function TrainingBatchesDashboard({
                       onChange={(event) => setSearchQuery(event.target.value)}
                       placeholder="Search by batch, course, session, shift, or lab"
                       aria-label="Search training batches"
-                      className="h-11 rounded-xl border-[#E5E7EB] bg-white pl-9 text-sm shadow-sm placeholder:text-slate-400"
+                      className="h-11 rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900 pl-9 text-sm shadow-sm placeholder:text-slate-400"
                     />
                   </div>
                 </div>
@@ -1170,7 +1170,7 @@ export function TrainingBatchesDashboard({
               value={metrics.running.toLocaleString()}
               subtitle={`${formatRelativeShare(metrics.running, Math.max(metrics.total, 1))} of all batches`}
               icon={CheckCircle2}
-              accent="bg-emerald-500"
+              accent="bg-emerald-50 dark:bg-emerald-900/100"
             />
             <MetricCard
               title="Completed"
@@ -1184,7 +1184,7 @@ export function TrainingBatchesDashboard({
               value={metrics.students.toLocaleString()}
               subtitle="Current occupied seats"
               icon={Users}
-              accent="bg-amber-500"
+              accent="bg-amber-50 dark:bg-amber-900/100"
             />
             <MetricCard
               title="Avg capacity"
@@ -1195,20 +1195,20 @@ export function TrainingBatchesDashboard({
             />
           </section>
 
-          <section className="rounded-[24px] border border-[#E5E7EB] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_30px_rgba(15,23,42,0.05)]">
-            <div className="border-b border-slate-100 px-5 py-5 sm:px-6">
+          <section className="rounded-[24px] border border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_30px_rgba(15,23,42,0.05)]">
+            <div className="border-b border-slate-100 dark:border-slate-800 px-5 py-5 sm:px-6">
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
                   <div>
                     <h2 className="text-[20px] font-semibold text-slate-950">
                       Batch directory
                     </h2>
-                    <p className="mt-1 text-[13px] text-slate-500">
+                    <p className="mt-1 text-[13px] text-slate-500 dark:text-slate-400">
                       Explore and manage batches with fast search, focused filters,
                       and action-driven workflows.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 self-start rounded-xl bg-slate-50 p-1">
+                  <div className="flex items-center gap-2 self-start rounded-xl bg-slate-50 dark:bg-slate-900/50 p-1">
                     <Button
                       variant={viewMode === "grid" ? "default" : "ghost"}
                       size="sm"
@@ -1247,13 +1247,13 @@ export function TrainingBatchesDashboard({
                       onChange={(event) => setSearchQuery(event.target.value)}
                       placeholder="Search batches"
                       aria-label="Search batches"
-                      className="h-10 rounded-xl border-[#E5E7EB] bg-white pl-9 shadow-sm"
+                      className="h-10 rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900 pl-9 shadow-sm"
                     />
                   </div>
 
                   <div className="lg:col-span-2">
                     <Select value={statusFilter} onValueChange={setStatusFilter}>
-                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white shadow-sm">
+                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-sm">
                         <SelectValue placeholder="Status" />
                       </SelectTrigger>
                       <SelectContent className="rounded-xl border-[#E5E7EB]">
@@ -1269,7 +1269,7 @@ export function TrainingBatchesDashboard({
 
                   <div className="lg:col-span-2">
                     <Select value={courseFilter} onValueChange={setCourseFilter}>
-                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white shadow-sm">
+                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-sm">
                         <SelectValue placeholder="Course" />
                       </SelectTrigger>
                       <SelectContent className="rounded-xl border-[#E5E7EB]">
@@ -1285,7 +1285,7 @@ export function TrainingBatchesDashboard({
 
                   <div className="lg:col-span-2">
                     <Select value={sessionFilter} onValueChange={setSessionFilter}>
-                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white shadow-sm">
+                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-sm">
                         <SelectValue placeholder="Session" />
                       </SelectTrigger>
                       <SelectContent className="rounded-xl border-[#E5E7EB]">
@@ -1306,7 +1306,7 @@ export function TrainingBatchesDashboard({
                         setCapacityFilter(value as CapacityMode)
                       }
                     >
-                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white shadow-sm">
+                      <SelectTrigger className="h-10 w-full rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-sm">
                         <SelectValue placeholder="Capacity" />
                       </SelectTrigger>
                       <SelectContent className="rounded-xl border-[#E5E7EB]">
@@ -1321,16 +1321,16 @@ export function TrainingBatchesDashboard({
                 </div>
 
                 <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-                  <div className="flex flex-wrap items-center gap-2 text-[13px] text-slate-500">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-slate-600">
+                  <div className="flex flex-wrap items-center gap-2 text-[13px] text-slate-500 dark:text-slate-400">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-slate-600 dark:text-slate-300">
                       <Filter className="h-3.5 w-3.5" />
                       {filteredItems.length} result(s)
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-slate-600">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-slate-600 dark:text-slate-300">
                       <ClipboardCheck className="h-3.5 w-3.5" />
                       Client-side search and sort
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-slate-600">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-slate-600 dark:text-slate-300">
                       <UsersRound className="h-3.5 w-3.5" />
                       Instructor filter unavailable in current dataset
                     </span>
@@ -1341,7 +1341,7 @@ export function TrainingBatchesDashboard({
                       value={sortBy}
                       onValueChange={(value) => setSortBy(value as SortMode)}
                     >
-                      <SelectTrigger className="h-10 w-[170px] rounded-xl border-[#E5E7EB] bg-white shadow-sm">
+                      <SelectTrigger className="h-10 w-[170px] rounded-xl border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-sm">
                         <ArrowDownUp className="mr-1 h-4 w-4 text-slate-400" />
                         <SelectValue placeholder="Sort" />
                       </SelectTrigger>

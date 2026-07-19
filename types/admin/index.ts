@@ -142,4 +142,5 @@ export interface DashboardStats {
   totalStudents: number;
   totalRevenue: number;
   totalDues: number;
+  totalCourses: number;
 }

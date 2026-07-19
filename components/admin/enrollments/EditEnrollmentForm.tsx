@@ -113,28 +113,28 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Course Info (Read Only) */}
-      <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-        <div className="border-b border-slate-100 bg-slate-50/80 px-5 py-4 flex items-center gap-2">
-          <BadgeCheck className="h-4 w-4 text-slate-500" />
-          <h2 className="text-sm font-semibold text-slate-900">Course Information (Locked)</h2>
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+        <div className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 px-5 py-4 flex items-center gap-2">
+          <BadgeCheck className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">Course Information (Locked)</h2>
         </div>
         <div className="p-5 grid gap-6 sm:grid-cols-2">
           <div className="space-y-2">
             <Label>Course Name</Label>
-            <Input disabled value={enrollment.course_name} className="bg-slate-50" />
+            <Input disabled value={enrollment.course_name} className="bg-slate-50 dark:bg-slate-900/50" />
           </div>
           <div className="space-y-2">
             <Label>Student</Label>
-            <Input disabled value={`${enrollment.student_name} (${enrollment.student_mobile})`} className="bg-slate-50" />
+            <Input disabled value={`${enrollment.student_name} (${enrollment.student_mobile})`} className="bg-slate-50 dark:bg-slate-900/50" />
           </div>
         </div>
       </div>
 
       {/* Enrollment Status & Academic */}
-      <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-        <div className="border-b border-slate-100 bg-slate-50/80 px-5 py-4 flex items-center gap-2">
-          <CheckCircle2 className="h-4 w-4 text-slate-500" />
-          <h2 className="text-sm font-semibold text-slate-900">Status & Academic</h2>
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+        <div className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 px-5 py-4 flex items-center gap-2">
+          <CheckCircle2 className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">Status & Academic</h2>
         </div>
         <div className="p-5 grid gap-6 sm:grid-cols-2">
           <div className="space-y-2">
@@ -142,7 +142,7 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
             <select
               value={state.status}
               onChange={(e) => update("status", e.target.value)}
-              className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="pending">Pending</option>
               <option value="active">Active</option>
@@ -158,7 +158,7 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
               <select
                 value={state.batchId}
                 onChange={(e) => update("batchId", e.target.value)}
-                className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="none">No batch assigned</option>
                 {selectedCourse.batches.map((b: any) => (
@@ -174,7 +174,7 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
               <select
                 value={state.shiftId}
                 onChange={(e) => update("shiftId", e.target.value)}
-                className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="none">No shift assigned</option>
                 {selectedBatch.shifts.map((s: any) => (
@@ -192,7 +192,7 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
             <select
               value={state.certificateType}
               onChange={(e) => update("certificateType", e.target.value)}
-              className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="none">No Certificate / Pending</option>
               <option value="institute">Institute Certified</option>
@@ -203,11 +203,11 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
       </div>
 
       {/* Financial Adjustment */}
-      <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-        <div className="border-b border-slate-100 bg-slate-50/80 px-5 py-4 flex items-center justify-between">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+        <div className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CircleDollarSign className="h-4 w-4 text-slate-500" />
-            <h2 className="text-sm font-semibold text-slate-900">Financial Adjustments</h2>
+            <CircleDollarSign className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">Financial Adjustments</h2>
           </div>
           <div className="flex items-center gap-2">
             <input 
@@ -215,9 +215,9 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
               id="override" 
               checked={state.overrideCourseFee}
               onChange={(e) => update("overrideCourseFee", e.target.checked)}
-              className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" 
+              className="rounded border-slate-300 dark:border-slate-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500" 
             />
-            <Label htmlFor="override" className="cursor-pointer text-xs font-semibold text-blue-600">Override Course Fee</Label>
+            <Label htmlFor="override" className="cursor-pointer text-xs font-semibold text-blue-600 dark:text-blue-400">Override Course Fee</Label>
           </div>
         </div>
         
@@ -226,7 +226,7 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
             <div className="space-y-2">
               <Label>Base Course Fee</Label>
               <div className="relative">
-                <span className="absolute left-3 top-2.5 text-sm text-slate-500">৳</span>
+                <span className="absolute left-3 top-2.5 text-sm text-slate-500 dark:text-slate-400">৳</span>
                 <Input type="number" value={state.courseFee} onChange={(e) => update("courseFee", e.target.value)} className="pl-7" />
               </div>
             </div>
@@ -237,7 +237,7 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
                 <select
                   value={state.discountType}
                   onChange={(e) => update("discountType", e.target.value)}
-                  className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="fixed">Fixed (৳)</option>
                   <option value="percentage">Percentage (%)</option>
@@ -246,7 +246,7 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
               <div className="space-y-2">
                 <Label>Discount Amount</Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-sm text-slate-500">
+                  <span className="absolute left-3 top-2.5 text-sm text-slate-500 dark:text-slate-400">
                     {state.discountType === "fixed" ? "৳" : "%"}
                   </span>
                   <Input
@@ -259,20 +259,20 @@ export function EditEnrollmentForm({ enrollment, courses }: EditEnrollmentFormPr
               </div>
             </div>
 
-            <div className="sm:col-span-2 rounded-lg bg-emerald-50 p-4 border border-emerald-100 flex items-center justify-between">
+            <div className="sm:col-span-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/10 p-4 border border-emerald-100 flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-emerald-800">New Final Course Fee</p>
-                <p className="text-xs text-emerald-600 mt-0.5">Calculated after discount</p>
+                <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-400">New Final Course Fee</p>
+                <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">Calculated after discount</p>
               </div>
-              <p className="text-2xl font-bold font-mono text-emerald-700">
+              <p className="text-2xl font-bold font-mono text-emerald-700 dark:text-emerald-500">
                 ৳{calculations.finalFee.toLocaleString("en-BD")}
               </p>
             </div>
           </div>
         ) : (
-          <div className="p-5 text-sm text-slate-500 bg-slate-50/50">
+          <div className="p-5 text-sm text-slate-500 dark:text-slate-400 bg-slate-50/50 dark:bg-slate-800/50">
             Check "Override Course Fee" if you need to adjust the discount or final fee for this enrollment.
-            Currently Final Fee is: <span className="font-bold text-slate-700">৳{enrollment.final_fee.toLocaleString("en-BD")}</span>
+            Currently Final Fee is: <span className="font-bold text-slate-700 dark:text-slate-200">৳{enrollment.final_fee.toLocaleString("en-BD")}</span>
           </div>
         )}
       </div>

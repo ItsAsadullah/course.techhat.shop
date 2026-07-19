@@ -47,9 +47,9 @@ export default function PendingAdmissionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="border rounded-lg bg-white overflow-hidden shadow-sm">
+      <div className="border rounded-lg bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
         <Table>
-          <TableHeader className="bg-slate-50">
+          <TableHeader className="bg-slate-50 dark:bg-slate-900/50">
             <TableRow>
               <TableHead>Admission ID</TableHead>
               <TableHead>Student Details</TableHead>
@@ -63,34 +63,34 @@ export default function PendingAdmissionsPage() {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-10 text-slate-500">
+                <TableCell colSpan={7} className="text-center py-10 text-slate-500 dark:text-slate-400">
                   <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2" />
                   Loading pending admissions...
                 </TableCell>
               </TableRow>
             ) : admissions.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-10 text-slate-500">
+                <TableCell colSpan={7} className="text-center py-10 text-slate-500 dark:text-slate-400">
                   No pending admissions requiring verification.
                 </TableCell>
               </TableRow>
             ) : (
               admissions.map((adm) => (
                 <TableRow key={adm.id}>
-                  <TableCell className="font-medium text-blue-600">{adm.admission_id as string}</TableCell>
+                  <TableCell className="font-medium text-blue-600 dark:text-blue-400">{adm.admission_id as string}</TableCell>
                   <TableCell>
                     <div className="font-semibold">{(adm.students?.[0]?.full_name_en as string) || "N/A"}</div>
-                    <div className="text-xs text-slate-500">{(adm.students?.[0]?.mobile as string) || "N/A"}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">{(adm.students?.[0]?.mobile as string) || "N/A"}</div>
                   </TableCell>
                   <TableCell>
                     <Badge variant="outline" className="uppercase">{(adm.payment_method as string) || "N/A"}</Badge>
                   </TableCell>
                   <TableCell className="font-mono text-sm">{(adm.payment_number as string) || "N/A"}</TableCell>
                   <TableCell>
-                    <code className="bg-slate-100 px-2 py-1 rounded text-slate-800">{(adm.trx_id as string) || "N/A"}</code>
+                    <code className="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-800 dark:text-slate-100">{(adm.trx_id as string) || "N/A"}</code>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="secondary" className="bg-amber-100 text-amber-800">Pending Verification</Badge>
+                    <Badge variant="secondary" className="bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-400">Pending Verification</Badge>
                   </TableCell>
                   <TableCell className="text-right">
                     <Button 

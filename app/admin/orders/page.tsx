@@ -48,15 +48,15 @@ const STATUS_TABS: { key: OrderStatus; label: string; icon: React.ReactNode }[] 
 function StatusBadge({ orderStatus, reviewStatus }: { orderStatus: string; reviewStatus?: string }) {
   if (reviewStatus === "PENDING" || orderStatus === "PENDING_MANUAL_REVIEW") {
     return (
-      <Badge className="bg-amber-50 text-amber-700 border-amber-200 gap-1.5">
-        <span className="h-1.5 w-1.5 rounded-full bg-amber-500 inline-block animate-pulse" />
+      <Badge className="bg-amber-50 dark:bg-amber-900/10 text-amber-700 dark:text-amber-500 border-amber-200 dark:border-amber-900/50 gap-1.5">
+        <span className="h-1.5 w-1.5 rounded-full bg-amber-50 dark:bg-amber-900/100 inline-block animate-pulse" />
         Pending Review
       </Badge>
     );
   }
   if (orderStatus === "PAID" || reviewStatus === "APPROVED") {
     return (
-      <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1.5">
+      <Badge className="bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500 border-emerald-200 dark:border-emerald-900/50 gap-1.5">
         <CheckCircle2 className="h-3 w-3" />
         Approved
       </Badge>
@@ -64,7 +64,7 @@ function StatusBadge({ orderStatus, reviewStatus }: { orderStatus: string; revie
   }
   if (reviewStatus === "REJECTED") {
     return (
-      <Badge className="bg-red-50 text-red-600 border-red-200 gap-1.5">
+      <Badge className="bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-500 border-red-200 dark:border-red-900/50 gap-1.5">
         <XCircle className="h-3 w-3" />
         Rejected
       </Badge>
@@ -72,7 +72,7 @@ function StatusBadge({ orderStatus, reviewStatus }: { orderStatus: string; revie
   }
   if (orderStatus === "PENDING_PAYMENT") {
     return (
-      <Badge className="bg-slate-100 text-slate-600 border-slate-200 gap-1.5">
+      <Badge className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 gap-1.5">
         <Clock className="h-3 w-3" />
         Awaiting Payment
       </Badge>
@@ -115,8 +115,8 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Orders & Enrollments</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Orders & Enrollments</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
             স্টুডেন্টদের কোর্স অর্ডার ম্যানেজ করুন এবং পেমেন্ট অ্যাপ্রুভ করুন।
           </p>
         </div>
@@ -130,50 +130,50 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
               <ShoppingCart className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-medium">মোট অর্ডার</p>
-              <p className="text-xl font-black text-slate-900">{stats.totalOrders}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">মোট অর্ডার</p>
+              <p className="text-xl font-black text-slate-900 dark:text-slate-50">{stats.totalOrders}</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 shadow-sm">
+        <div className="rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 p-4 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-500">
               <AlertCircle className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-xs text-amber-700 font-medium">Pending Review</p>
-              <p className="text-xl font-black text-amber-800">{stats.pendingReview}</p>
+              <p className="text-xs text-amber-700 dark:text-amber-500 font-medium">Pending Review</p>
+              <p className="text-xl font-black text-amber-800 dark:text-amber-400">{stats.pendingReview}</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-sm">
+        <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 p-4 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-500">
               <TrendingUp className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-xs text-emerald-700 font-medium">আজকের Revenue</p>
-              <p className="text-xl font-black text-emerald-800">৳{stats.todayRevenue}</p>
+              <p className="text-xs text-emerald-700 dark:text-emerald-500 font-medium">আজকের Revenue</p>
+              <p className="text-xl font-black text-emerald-800 dark:text-emerald-400">৳{stats.todayRevenue}</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
               <Users className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-medium">এই পেজে দেখাচ্ছে</p>
-              <p className="text-xl font-black text-slate-900">{filtered.length}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">এই পেজে দেখাচ্ছে</p>
+              <p className="text-xl font-black text-slate-900 dark:text-slate-50">{filtered.length}</p>
             </div>
           </div>
         </div>
@@ -181,9 +181,9 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
 
       {/* Pending Review Alert */}
       {pendingReviewOrders.length > 0 && activeStatus === "all" && (
-        <div className="flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm">
-          <AlertCircle className="h-5 w-5 shrink-0 text-amber-600" />
-          <p className="text-amber-800 font-medium">
+        <div className="flex items-center gap-3 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 p-4 text-sm">
+          <AlertCircle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-500" />
+          <p className="text-amber-800 dark:text-amber-400 font-medium">
             <strong>{pendingReviewOrders.length}টি</strong> পেমেন্ট রিভিউ অপেক্ষায় আছে।{" "}
             <Link href="/admin/orders?status=PENDING_MANUAL_REVIEW" className="underline font-bold">
               এখনই দেখুন →
@@ -205,7 +205,7 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
                 className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                   isActive
                     ? "bg-blue-600 text-white shadow-sm"
-                    : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                    : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50"
                 }`}
               >
                 {tab.icon}
@@ -223,23 +223,23 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
             name="search"
             defaultValue={search}
             placeholder="নাম / মোবাইল / TrxID খুঁজুন..."
-            className="h-9 w-64 rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+            className="h-9 w-64 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
           />
         </form>
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-50 hover:bg-slate-50">
-              <TableHead className="text-xs font-bold uppercase text-slate-500">Order</TableHead>
-              <TableHead className="text-xs font-bold uppercase text-slate-500">স্টুডেন্ট</TableHead>
-              <TableHead className="text-xs font-bold uppercase text-slate-500">কোর্স</TableHead>
-              <TableHead className="text-xs font-bold uppercase text-slate-500">পরিমাণ</TableHead>
-              <TableHead className="text-xs font-bold uppercase text-slate-500">TrxID</TableHead>
-              <TableHead className="text-xs font-bold uppercase text-slate-500">Status</TableHead>
-              <TableHead className="text-xs font-bold uppercase text-slate-500 text-right">Actions</TableHead>
+            <TableRow className="bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50">
+              <TableHead className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Order</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">স্টুডেন্ট</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">কোর্স</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">পরিমাণ</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">TrxID</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Status</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -256,10 +256,10 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
                 return (
                   <TableRow
                     key={order.id}
-                    className={hasPendingReview ? "bg-amber-50/40 hover:bg-amber-50/60" : "hover:bg-slate-50/60"}
+                    className={hasPendingReview ? "bg-amber-50 dark:bg-amber-900/10/40 hover:bg-amber-50 dark:bg-amber-900/10/60" : "hover:bg-slate-50/60"}
                   >
                     <TableCell>
-                      <p className="font-mono text-xs font-bold text-slate-800">
+                      <p className="font-mono text-xs font-bold text-slate-800 dark:text-slate-100">
                         {order.orderNumber || order.id.slice(0, 8).toUpperCase()}
                       </p>
                       <p className="text-[10px] text-slate-400 mt-0.5">
@@ -268,7 +268,7 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
                     </TableCell>
 
                     <TableCell>
-                      <p className="font-semibold text-slate-900 text-sm leading-tight">
+                      <p className="font-semibold text-slate-900 dark:text-slate-50 text-sm leading-tight">
                         {order.student?.full_name_en || "—"}
                       </p>
                       <p className="text-xs text-slate-400 mt-0.5">
@@ -277,13 +277,13 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
                     </TableCell>
 
                     <TableCell>
-                      <p className="text-sm text-slate-700 font-medium line-clamp-1 max-w-[160px]">
+                      <p className="text-sm text-slate-700 dark:text-slate-200 font-medium line-clamp-1 max-w-[160px]">
                         {(order.course as Record<string, unknown>)?.title as string || "—"}
                       </p>
                     </TableCell>
 
                     <TableCell>
-                      <p className="font-bold text-slate-900 text-sm">
+                      <p className="font-bold text-slate-900 dark:text-slate-50 text-sm">
                         ৳{formatMoney(order.session?.payableAmountMinor ?? order.totalMinor)}
                       </p>
                       {order.discountMinor > 0 && (
@@ -295,7 +295,7 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
 
                     <TableCell>
                       {order.review?.trxId ? (
-                        <span className="font-mono text-xs bg-slate-100 text-slate-700 rounded px-2 py-0.5">
+                        <span className="font-mono text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded px-2 py-0.5">
                           {order.review.trxId}
                         </span>
                       ) : (
@@ -324,7 +324,7 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
                           size="sm"
                           variant="ghost"
                           asChild
-                          className="h-8 text-xs gap-1.5 text-slate-500 hover:text-blue-600"
+                          className="h-8 text-xs gap-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:text-blue-400"
                         >
                           <Link href={`/admin/orders/${order.id}`}>
                             <Eye className="h-3.5 w-3.5" />

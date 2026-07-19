@@ -299,25 +299,25 @@ export function TrainingShiftForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-3xl space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+      className="max-w-3xl space-y-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm"
     >
       {(formError || initialSchedule.error) && (
         <div
           role="alert"
-          className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700"
+          className="rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 p-4 text-sm font-medium text-red-700 dark:text-red-500"
         >
           {formError ?? initialSchedule.error}
         </div>
       )}
 
       {hasInvalidInitialSchedule && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+        <div className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 p-4">
           <p className="text-sm font-semibold text-amber-900">
             Schedule data requires administrator
             attention
           </p>
 
-          <p className="mt-1 text-sm text-amber-700">
+          <p className="mt-1 text-sm text-amber-700 dark:text-amber-500">
             এই শিফটের class_days ডেটা invalid।
             ভুল ডেটাকে খালি schedule হিসেবে ধরে edit
             করা হচ্ছে না।
@@ -435,7 +435,7 @@ export function TrainingShiftForm({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 border-t border-slate-100 pt-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 border-t border-slate-100 dark:border-slate-800 pt-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="start_time">
             Start Time (24h){" "}
@@ -481,7 +481,7 @@ export function TrainingShiftForm({
         </div>
       </div>
 
-      <div className="space-y-3 border-t border-slate-100 pt-4">
+      <div className="space-y-3 border-t border-slate-100 dark:border-slate-800 pt-4">
         <Label>
           Class Days{" "}
           <span className="text-red-500">
@@ -526,7 +526,7 @@ export function TrainingShiftForm({
         )}
       </div>
 
-      <div className="grid grid-cols-1 gap-6 border-t border-slate-100 pt-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 border-t border-slate-100 dark:border-slate-800 pt-4 md:grid-cols-3">
         <div className="space-y-2">
           <Label htmlFor="capacity_override">
             Capacity Override
@@ -597,7 +597,7 @@ export function TrainingShiftForm({
         </div>
       </div>
 
-      <div className="flex justify-end gap-3 border-t border-slate-100 pt-4">
+      <div className="flex justify-end gap-3 border-t border-slate-100 dark:border-slate-800 pt-4">
         <Button
           type="button"
           variant="outline"

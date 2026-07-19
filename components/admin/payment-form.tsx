@@ -49,15 +49,15 @@ function MetricCard({
   iconBg: string;
 }) {
   return (
-    <div className="group relative overflow-hidden rounded-3xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
+    <div className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800/60 bg-white dark:bg-slate-900 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
       <div className={cn("absolute inset-x-0 top-0 h-1.5 opacity-90", accent)} />
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2.5">
-          <p className="text-[14px] font-medium text-slate-500 tracking-tight">{title}</p>
+          <p className="text-[14px] font-medium text-slate-500 dark:text-slate-400 tracking-tight">{title}</p>
           <div className={cn("text-4xl font-bold tracking-tight", colorTone)}>
             {value}
           </div>
-          <p className="text-xs text-slate-500 font-medium line-clamp-1">{subtitle}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-1">{subtitle}</p>
         </div>
         <div className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl", iconBg)}>
           <Icon className="h-6 w-6" />
@@ -99,18 +99,18 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
             value={selected ? `৳${selected.final_fee.toLocaleString()}` : "৳0"} 
             subtitle={selected ? selected.course_name : "Select a student first"}
             icon={Receipt}
-            accent="bg-blue-500"
-            colorTone="text-slate-900"
-            iconBg="bg-blue-50 text-blue-600"
+            accent="bg-blue-50 dark:bg-blue-900/200"
+            colorTone="text-slate-900 dark:text-slate-50"
+            iconBg="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
           />
           <MetricCard 
             title="Total Paid" 
             value={selected ? `৳${selected.total_paid.toLocaleString()}` : "৳0"} 
             subtitle="Already collected"
             icon={Wallet}
-            accent="bg-emerald-500"
-            colorTone="text-emerald-700"
-            iconBg="bg-emerald-50 text-emerald-600"
+            accent="bg-emerald-50 dark:bg-emerald-900/100"
+            colorTone="text-emerald-700 dark:text-emerald-500"
+            iconBg="bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-500"
           />
           <MetricCard 
             title="Current Due" 
@@ -127,14 +127,14 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
           action={submit} 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-3xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden"
         >
-          <div className="border-b border-slate-100 bg-slate-50/50 px-6 py-5 sm:px-8">
-            <h2 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
+          <div className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 px-6 py-5 sm:px-8">
+            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
               <Banknote className="h-5 w-5 text-slate-400" />
               Payment Details
             </h2>
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
               Fill out the form below to record a new payment transaction.
             </p>
           </div>
@@ -142,9 +142,9 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
           <div className="p-6 sm:p-8 space-y-8">
             <div className="grid gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="student_id" className="flex items-center gap-1.5 text-slate-700">
+                <Label htmlFor="student_id" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                   <User className="h-4 w-4 text-slate-400" />
-                  Student <span className="text-rose-500">*</span>
+                  Student <span className="text-rose-500 dark:text-rose-400">*</span>
                 </Label>
                 <select 
                   id="student_id" 
@@ -152,7 +152,7 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
                   value={studentId} 
                   onChange={(event) => { setStudentId(event.target.value); setEnrollmentId(""); }} 
                   required 
-                  className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 focus:border-blue-500 focus:ring-blue-500 transition-colors shadow-sm"
+                  className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 text-sm font-medium text-slate-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 transition-colors shadow-sm"
                 >
                   <option value="">Select a student...</option>
                   {students.map((student) => (
@@ -164,9 +164,9 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="enrollment_id" className="flex items-center gap-1.5 text-slate-700">
+                <Label htmlFor="enrollment_id" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                   <BookOpen className="h-4 w-4 text-slate-400" />
-                  Course Enrollment <span className="text-rose-500">*</span>
+                  Course Enrollment <span className="text-rose-500 dark:text-rose-400">*</span>
                 </Label>
                 <select 
                   id="enrollment_id" 
@@ -175,7 +175,7 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
                   onChange={(event) => setEnrollmentId(event.target.value)} 
                   disabled={!studentId} 
                   required 
-                  className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 focus:border-blue-500 focus:ring-blue-500 transition-colors shadow-sm disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed"
+                  className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 text-sm font-medium text-slate-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 transition-colors shadow-sm disabled:bg-slate-50 dark:bg-slate-900/50 disabled:text-slate-400 disabled:cursor-not-allowed"
                 >
                   <option value="">Select an active course...</option>
                   {options.map((enrollment) => (
@@ -195,9 +195,9 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 flex items-center gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100">
-                      <User className="h-4 w-4 text-amber-600" />
+                  <div className="rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 p-4 text-sm text-amber-800 dark:text-amber-400 flex items-center gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/40">
+                      <User className="h-4 w-4 text-amber-600 dark:text-amber-500" />
                     </div>
                     <p>No payable course enrollment is available for this student. Please assign a course first.</p>
                   </div>
@@ -205,11 +205,11 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
               )}
             </AnimatePresence>
 
-            <div className="grid gap-6 md:grid-cols-3 pt-4 border-t border-slate-100">
+            <div className="grid gap-6 md:grid-cols-3 pt-4 border-t border-slate-100 dark:border-slate-800">
               <div className="space-y-2">
-                <Label htmlFor="payment_date" className="flex items-center gap-1.5 text-slate-700">
+                <Label htmlFor="payment_date" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                   <CalendarDays className="h-4 w-4 text-slate-400" />
-                  Payment Date <span className="text-rose-500">*</span>
+                  Payment Date <span className="text-rose-500 dark:text-rose-400">*</span>
                 </Label>
                 <Input 
                   id="payment_date" 
@@ -222,9 +222,9 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="amount" className="flex items-center gap-1.5 text-slate-700">
+                <Label htmlFor="amount" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                   <Banknote className="h-4 w-4 text-slate-400" />
-                  Amount Paid (৳) <span className="text-rose-500">*</span>
+                  Amount Paid (৳) <span className="text-rose-500 dark:text-rose-400">*</span>
                 </Label>
                 <Input 
                   id="amount" 
@@ -240,15 +240,15 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="payment_method" className="flex items-center gap-1.5 text-slate-700">
+                <Label htmlFor="payment_method" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                   <CreditCard className="h-4 w-4 text-slate-400" />
-                  Payment Method <span className="text-rose-500">*</span>
+                  Payment Method <span className="text-rose-500 dark:text-rose-400">*</span>
                 </Label>
                 <select 
                   id="payment_method" 
                   name="payment_method" 
                   defaultValue="Cash" 
-                  className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 focus:border-blue-500 focus:ring-blue-500 transition-colors shadow-sm"
+                  className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 text-sm font-medium text-slate-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 transition-colors shadow-sm"
                 >
                   <option>Cash</option>
                   <option>Mobile Banking</option>
@@ -258,9 +258,9 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
               </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 pt-4 border-t border-slate-100">
+            <div className="grid gap-6 md:grid-cols-2 pt-4 border-t border-slate-100 dark:border-slate-800">
               <div className="space-y-2">
-                <Label htmlFor="transaction_id" className="flex items-center gap-1.5 text-slate-700">
+                <Label htmlFor="transaction_id" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                   <Hash className="h-4 w-4 text-slate-400" />
                   Transaction ID
                 </Label>
@@ -272,7 +272,7 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="reference" className="flex items-center gap-1.5 text-slate-700">
+                <Label htmlFor="reference" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                   <FileText className="h-4 w-4 text-slate-400" />
                   Reference
                 </Label>
@@ -286,7 +286,7 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="remarks" className="flex items-center gap-1.5 text-slate-700">
+              <Label htmlFor="remarks" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200">
                 <MessageSquare className="h-4 w-4 text-slate-400" />
                 Remarks
               </Label>
@@ -299,12 +299,12 @@ export function PaymentForm({ students, enrollments, defaultStudentId = "", defa
             </div>
           </div>
 
-          <div className="bg-slate-50 px-6 py-5 sm:px-8 flex items-center justify-between border-t border-slate-100">
+          <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-5 sm:px-8 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
             <Button 
               type="button" 
               variant="outline" 
               onClick={() => router.back()}
-              className="rounded-xl h-11 px-6 font-medium text-slate-600 shadow-sm hover:bg-white hover:text-slate-900"
+              className="rounded-xl h-11 px-6 font-medium text-slate-600 dark:text-slate-300 shadow-sm hover:bg-white dark:bg-slate-900 hover:text-slate-900 dark:text-slate-50"
             >
               Cancel
             </Button>

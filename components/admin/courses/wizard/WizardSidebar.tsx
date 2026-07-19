@@ -36,13 +36,13 @@ export function WizardSidebar() {
               isActive
                 ? "bg-blue-600 text-white shadow-sm"
                 : disabled
-                ? "cursor-not-allowed text-slate-300 dark:text-slate-600"
+                ? "cursor-not-allowed text-slate-300 dark:text-slate-600 dark:text-slate-300"
                 : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
             <span
               className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold ${
-                isActive ? "bg-white/20" : isDone ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15" : "bg-slate-100 dark:bg-slate-800"
+                isActive ? "bg-white/20 dark:bg-slate-900/20" : isDone ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-500 dark:bg-emerald-50 dark:bg-emerald-900/100/15" : "bg-slate-100 dark:bg-slate-800"
               }`}
             >
               {disabled ? <Lock className="h-3.5 w-3.5" /> : isDone ? <Check className="h-3.5 w-3.5" /> : step.index}
@@ -52,7 +52,7 @@ export function WizardSidebar() {
                 {lang === "bn" ? step.labelBn : step.labelEn}
               </span>
             </span>
-            <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-white" : "text-slate-400 group-hover:text-slate-500"}`} />
+            <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-white" : "text-slate-400 group-hover:text-slate-500 dark:text-slate-400"}`} />
           </button>
         );
       })}

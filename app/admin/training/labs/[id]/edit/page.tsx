@@ -22,13 +22,13 @@ export default async function EditTrainingLabPage({ params }: { params: Promise<
         <div>
           <Link
             href={`/admin/training/labs/${lab.id}`}
-            className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-900 mb-2 transition-colors"
+            className="inline-flex items-center text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 mb-2 transition-colors"
           >
             <ArrowLeft className="mr-1 h-4 w-4" />
             Back to Lab Details
           </Link>
           <h1 className="text-2xl font-bold tracking-tight text-slate-950">Edit Training Lab</h1>
-          <p className="mt-1 text-sm text-slate-500">Update this lab's information and training resources.</p>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Update this lab's information and training resources.</p>
         </div>
       </div>
 

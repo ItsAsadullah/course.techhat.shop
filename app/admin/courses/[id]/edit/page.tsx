@@ -27,7 +27,7 @@ export default async function EditCoursePage({ params }: EditCoursePageProps) {
       <div className="px-4 sm:px-6 pt-4">
         <Link
           href="/admin/courses"
-          className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors"
+          className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-100 dark:hover:text-white transition-colors"
         >
           <ChevronLeft className="w-4 h-4" /> কোর্স তালিকায় ফিরুন
         </Link>

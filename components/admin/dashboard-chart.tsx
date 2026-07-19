@@ -24,24 +24,26 @@ interface DashboardChartProps {
 
 export function DashboardChart({ data }: DashboardChartProps) {
   return (
-    <Card className="border-none shadow-sm shadow-slate-200/50 rounded-[24px] overflow-hidden bg-white">
-      <CardHeader className="flex flex-row items-center justify-between pb-8 pt-6 px-8">
+    <Card className="border-none shadow-sm shadow-slate-200/50 dark:shadow-none rounded-[24px] overflow-hidden bg-white dark:bg-slate-900">
+      <CardHeader className="flex flex-col md:flex-row items-start md:items-center justify-between pb-6 md:pb-8 pt-6 px-4 md:px-8 gap-4 md:gap-0">
         <div>
-          <CardTitle className="text-xl font-bold text-slate-800">Growth Statistics</CardTitle>
-          <CardDescription className="text-sm font-medium text-slate-500 mt-1">
+          <CardTitle className="text-xl font-bold text-slate-800 dark:text-slate-100">Growth Statistics</CardTitle>
+          <CardDescription className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">
             Revenue and Enrollment overview for the last 8 weeks
           </CardDescription>
         </div>
-        <div className="flex items-center gap-5">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-indigo-600 shadow-[0_0_8px_rgba(79,70,229,0.5)]" />
-            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Revenue</span>
+        <div className="flex flex-wrap items-center gap-3 md:gap-5 w-full md:w-auto justify-between md:justify-end">
+          <div className="flex gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-indigo-600 shadow-[0_0_8px_rgba(79,70,229,0.5)]" />
+              <span className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Revenue</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
+              <span className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Students</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
-            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Students</span>
-          </div>
-          <button className="p-2 hover:bg-slate-50 rounded-full transition-colors ml-2">
+          <button className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 rounded-full transition-colors">
             <MoreHorizontal className="h-5 w-5 text-slate-400" />
           </button>
         </div>
@@ -72,11 +74,21 @@ export function DashboardChart({ data }: DashboardChartProps) {
                 dy={15}
               />
               <YAxis
+                yAxisId="left"
+                orientation="left"
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: "#64748b", fontSize: 12, fontWeight: 500 }}
                 tickFormatter={(value) => `৳${value / 1000}k`}
                 dx={-10}
+              />
+              <YAxis
+                yAxisId="right"
+                orientation="right"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#64748b", fontSize: 12, fontWeight: 500 }}
+                dx={10}
               />
               <Tooltip
                 contentStyle={{
@@ -91,6 +103,7 @@ export function DashboardChart({ data }: DashboardChartProps) {
                 labelStyle={{ color: "#64748b", marginBottom: "8px", fontWeight: 600 }}
               />
               <Area
+                yAxisId="left"
                 type="monotone"
                 dataKey="revenue"
                 stroke="#4f46e5"
@@ -100,6 +113,7 @@ export function DashboardChart({ data }: DashboardChartProps) {
                 activeDot={{ r: 6, strokeWidth: 3, stroke: "#fff", fill: "#4f46e5" }}
               />
               <Area
+                yAxisId="right"
                 type="monotone"
                 dataKey="students"
                 stroke="#34d399"

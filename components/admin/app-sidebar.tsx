@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import { createClient } from "@/lib/admin/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSiteSettings } from "@/context/SiteSettingsContext";
 
 const navGroups = [
   {
@@ -57,6 +58,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const { siteLogo, orgName } = useSiteSettings();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -80,18 +82,18 @@ export function AppSidebar() {
     <aside className="hidden md:flex w-[280px] h-full flex-col relative rounded-none shrink-0 bg-transparent text-white/90">
 
       {/* Background Decorators */}
-      <div className="absolute top-[-50px] left-[-50px] w-[150px] h-[150px] bg-white/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-[-50px] left-[-50px] w-[150px] h-[150px] bg-white/10 dark:bg-slate-900/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-[-100px] right-[-50px] w-[200px] h-[200px] bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header section */}
       <div className="p-6 relative z-10 flex-shrink-0">
         <Link href="/admin" className="flex items-center gap-4 group">
-          <div className="bg-white/10 p-2.5 rounded-xl shadow-inner border border-white/10 backdrop-blur-md group-hover:bg-white/20 transition-colors">
-            <GraduationCap className="h-6 w-6 text-[var(--admin-sidebar-text)]" />
+          <div className="bg-white/10 dark:bg-slate-900/10 p-2 rounded-xl shadow-inner border border-white/10 backdrop-blur-md group-hover:bg-white/20 dark:bg-slate-900/20 transition-colors">
+            <img src={siteLogo || "/logo.png"} alt={`${orgName || "TechHat"} Logo`} className="h-7 w-7 object-contain" />
           </div>
           <div>
             <h1 className="font-bold text-[var(--admin-sidebar-text)] leading-tight tracking-wide text-[15px]">
-              TechHat Institute
+              {orgName || "TechHat Institute"}
             </h1>
             <p className="text-[11px] text-[var(--admin-sidebar-text)] opacity-60 tracking-wider uppercase mt-0.5">
               LMS Platform
@@ -125,19 +127,21 @@ export function AppSidebar() {
                       <motion.div
                         layoutId="sidebar-active-cutout"
                         className="sidebar-cutout is-active-cutout"
+                        style={{ "--cutout-bg": "var(--sidebar-cutout-active)" } as React.CSSProperties}
                         transition={{ type: "spring", stiffness: 350, damping: 30 }}
                       />
                     ) : (
                       <div
                         className="sidebar-cutout opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
                         style={{ "--cutout-bg": "var(--admin-sidebar-active-bg, rgba(255, 255, 255, 0.08))" } as React.CSSProperties}
+
                       />
                     )}
                     <div
                       className={cn(
                         "relative flex items-center gap-3 pl-8 pr-6 h-[52px] rounded-l-full transition-colors duration-300 ease-in-out z-10",
                         isActive
-                          ? "text-slate-900 font-bold"
+                          ? "text-slate-900 dark:text-slate-50 font-bold"
                           : "text-[var(--admin-sidebar-text)] opacity-70 group-hover:opacity-100"
                       )}
                     >
@@ -163,7 +167,7 @@ export function AppSidebar() {
       <div className="p-4 relative z-10 flex-shrink-0 mt-auto">
         <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-white/10 to-transparent mb-4" />
 
-        <div className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group">
+        <div className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/10 dark:bg-slate-900/10 transition-colors cursor-pointer group">
           <div className="w-9 h-9 rounded-full bg-indigo-500/50 border border-white/20 flex items-center justify-center shrink-0">
             <User className="h-4 w-4 text-white/90" />
           </div>
@@ -180,7 +184,7 @@ export function AppSidebar() {
               e.preventDefault();
               handleLogout();
             }}
-            className="p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+            className="p-2 text-white/50 hover:text-white hover:bg-white/10 dark:bg-slate-900/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
             title="Logout"
           >
             <LogOut className="h-4 w-4" />

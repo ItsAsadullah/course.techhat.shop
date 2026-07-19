@@ -63,7 +63,7 @@ export function OrderApproveActions({
         <Button
           size="sm"
           variant="outline"
-          className="gap-1.5 border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-800 h-8 text-xs font-bold"
+          className="gap-1.5 border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-500 hover:bg-emerald-100 dark:bg-emerald-900/40 hover:text-emerald-800 dark:text-emerald-400 h-8 text-xs font-bold"
           onClick={() => setApproveOpen(true)}
           disabled={isPending}
         >
@@ -73,7 +73,7 @@ export function OrderApproveActions({
         <Button
           size="sm"
           variant="outline"
-          className="gap-1.5 border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 h-8 text-xs font-bold"
+          className="gap-1.5 border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-500 hover:bg-red-100 dark:bg-red-900/40 hover:text-red-700 dark:text-red-500 h-8 text-xs font-bold"
           onClick={() => setRejectOpen(true)}
           disabled={isPending}
         >
@@ -91,20 +91,20 @@ export function OrderApproveActions({
               এই পেমেন্ট অ্যাপ্রুভ করলে স্টুডেন্ট কোর্সে ভর্তি হয়ে যাবে।
             </DialogDescription>
           </DialogHeader>
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm space-y-2">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-4 text-sm space-y-2">
             <div className="flex justify-between">
-              <span className="text-slate-500">স্টুডেন্ট</span>
-              <span className="font-semibold text-slate-900">{studentName}</span>
+              <span className="text-slate-500 dark:text-slate-400">স্টুডেন্ট</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-50">{studentName}</span>
             </div>
             {trxId && (
               <div className="flex justify-between">
-                <span className="text-slate-500">TrxID</span>
-                <span className="font-mono font-bold text-slate-900">{trxId}</span>
+                <span className="text-slate-500 dark:text-slate-400">TrxID</span>
+                <span className="font-mono font-bold text-slate-900 dark:text-slate-50">{trxId}</span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-slate-500">পরিমাণ</span>
-              <span className="font-bold text-emerald-600">৳{amountStr}</span>
+              <span className="text-slate-500 dark:text-slate-400">পরিমাণ</span>
+              <span className="font-bold text-emerald-600 dark:text-emerald-500">৳{amountStr}</span>
             </div>
           </div>
           <DialogFooter>
@@ -133,12 +133,12 @@ export function OrderApproveActions({
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm">
-              <p className="text-slate-500">স্টুডেন্ট: <span className="font-semibold text-slate-900">{studentName}</span></p>
-              {trxId && <p className="text-slate-500 mt-1">TrxID: <span className="font-mono font-bold">{trxId}</span></p>}
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-4 text-sm">
+              <p className="text-slate-500 dark:text-slate-400">স্টুডেন্ট: <span className="font-semibold text-slate-900 dark:text-slate-50">{studentName}</span></p>
+              {trxId && <p className="text-slate-500 dark:text-slate-400 mt-1">TrxID: <span className="font-mono font-bold">{trxId}</span></p>}
             </div>
             <div>
-              <label className="text-sm font-semibold text-slate-700 block mb-1.5">
+              <label className="text-sm font-semibold text-slate-700 dark:text-slate-200 block mb-1.5">
                 কারণ (ঐচ্ছিক)
               </label>
               <textarea
@@ -146,7 +146,7 @@ export function OrderApproveActions({
                 placeholder="যেমন: ভুল পরিমাণ পাঠানো হয়েছে, ভুল TrxID..."
                 value={rejectReason}
                 onChange={(e) => setRejectReason(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none"
+                className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none"
               />
             </div>
           </div>

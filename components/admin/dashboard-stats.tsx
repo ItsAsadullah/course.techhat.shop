@@ -1,6 +1,6 @@
 "use client";
 
-import { Users, DollarSign, AlertCircle } from "lucide-react";
+import { Users, DollarSign, AlertCircle, BookOpen } from "lucide-react";
 import type { DashboardStats } from "@/types/admin";
 import { cn } from "@/lib/admin/utils";
 
@@ -11,56 +11,63 @@ interface DashboardStatsProps {
 export function DashboardStats({ stats }: DashboardStatsProps) {
   const cards = [
     {
+      title: "Total Courses",
+      value: stats.totalCourses,
+      icon: BookOpen,
+      bg: "bg-gradient-to-br from-violet-500 to-fuchsia-600",
+      iconBg: "bg-white/20 dark:bg-slate-900/20",
+    },
+    {
       title: "Active Students",
       value: stats.totalStudents,
       icon: Users,
       bg: "bg-gradient-to-br from-indigo-500 to-indigo-700",
-      iconBg: "bg-white/20",
+      iconBg: "bg-white/20 dark:bg-slate-900/20",
     },
     {
       title: "Total Revenue",
       value: `৳${stats.totalRevenue.toLocaleString()}`,
       icon: DollarSign,
-      bg: "bg-gradient-to-br from-sky-400 to-blue-500",
-      iconBg: "bg-white/20",
+      bg: "bg-gradient-to-br from-emerald-400 to-emerald-600",
+      iconBg: "bg-white/20 dark:bg-slate-900/20",
     },
     {
       title: "Total Dues",
       value: `৳${stats.totalDues.toLocaleString()}`,
       icon: AlertCircle,
-      bg: "bg-gradient-to-br from-emerald-400 to-emerald-600",
-      iconBg: "bg-white/20",
+      bg: "bg-gradient-to-br from-rose-500 to-rose-700",
+      iconBg: "bg-white/20 dark:bg-slate-900/20",
     },
   ];
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-3 md:gap-6 grid-cols-2 lg:grid-cols-4">
       {cards.map((card) => {
         const Icon = card.icon;
         return (
           <div
             key={card.title}
             className={cn(
-              "relative overflow-hidden rounded-[24px] p-6 text-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
+              "relative overflow-hidden rounded-[24px] md:rounded-[32px] p-4 md:p-6 text-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
               card.bg
             )}
           >
             {/* Background Decorative Elements */}
-            <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-white/20 blur-2xl" />
-            <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-black/10 blur-2xl" />
+            <div className="absolute -right-6 -top-6 h-20 w-20 md:h-28 md:w-28 rounded-full bg-white/20 dark:bg-slate-900/20 blur-2xl" />
+            <div className="absolute -bottom-8 -left-8 h-24 w-24 md:h-32 md:w-32 rounded-full bg-black/10 blur-2xl" />
 
-            <div className="relative z-10 flex flex-col gap-6">
-              <div className="flex flex-col gap-4">
-                <div className="flex justify-between items-start">
-                  <div className={cn("rounded-2xl p-3.5 backdrop-blur-md shadow-inner", card.iconBg)}>
-                    <Icon className="h-6 w-6 text-white" strokeWidth={2.5} />
+            <div className="relative z-10 flex flex-col gap-3 md:gap-6">
+              <div className="flex flex-col gap-2 md:gap-4">
+                <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-1 sm:gap-0">
+                  <div className={cn("rounded-lg md:rounded-2xl p-2 md:p-3.5 backdrop-blur-md shadow-inner w-fit", card.iconBg)}>
+                    <Icon className="h-4 w-4 md:h-6 md:w-6 text-white" strokeWidth={2.5} />
                   </div>
-                  <span className="text-[13px] font-semibold text-white/80 uppercase tracking-widest mt-1">
+                  <span className="text-[9px] md:text-[13px] font-semibold text-white/90 uppercase tracking-widest mt-1 sm:mt-1 sm:text-right leading-tight">
                     {card.title}
                   </span>
                 </div>
                 <div>
-                  <h3 className="text-4xl font-bold tracking-tight drop-shadow-sm">
+                  <h3 className="text-xl sm:text-2xl md:text-4xl font-bold tracking-tight drop-shadow-sm mt-1 md:mt-0 truncate">
                     {card.value}
                   </h3>
                 </div>

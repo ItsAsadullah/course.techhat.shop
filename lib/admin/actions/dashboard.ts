@@ -47,10 +47,19 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     0
   );
 
+  const { count: totalCourses, error: coursesError } = await supabaseAdmin
+    .from("courses")
+    .select("*", { count: "exact", head: true });
+
+  if (coursesError) {
+    console.error("Failed to fetch total courses:", coursesError);
+  }
+
   return {
     totalStudents: totalStudents || 0,
     totalRevenue,
     totalDues: totalCourseFees - totalRevenue,
+    totalCourses: totalCourses || 0,
   };
 }
 

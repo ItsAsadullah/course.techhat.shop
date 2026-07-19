@@ -9,6 +9,7 @@ import NavControls from "@/components/ui/NavControls"
 import { useLang } from "@/context/GlobalLangContext"
 import { createClient } from "@/lib/admin/supabase/client"
 import { User as SupabaseUser } from "@supabase/supabase-js"
+import { useSiteSettings } from "@/context/SiteSettingsContext"
 
 type NavLink = { id: string; tKey: keyof typeof import("@/context/GlobalLangContext").translations.en } | { href: string; tKey: keyof typeof import("@/context/GlobalLangContext").translations.en };
 
@@ -22,6 +23,7 @@ export default function Navbar() {
   const router = useRouter()
   const pathname = usePathname()
   const { t, isBn } = useLang();
+  const { siteLogo, orgName } = useSiteSettings();
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [coursesDropdownOpen, setCoursesDropdownOpen] = useState(false)
@@ -156,11 +158,11 @@ export default function Navbar() {
             <Link href="/" className="flex items-center gap-3 group shrink-0">
               <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-600 to-slate-900 p-[1px] shadow-[0_10px_30px_rgba(14,165,233,0.22)]">
                 <div className="w-full h-full rounded-[15px] bg-white dark:bg-slate-950 flex items-center justify-center overflow-hidden">
-                  <img src="/logo.png" alt="TechHat Logo" className="w-8 h-8 object-contain" />
+                  <img src={siteLogo || "/logo.png"} alt={`${orgName || "TechHat"} Logo`} className="w-8 h-8 object-contain" />
                 </div>
               </div>
               <div className="leading-none">
-                <p className="font-bold text-slate-900 dark:text-white text-[16px] md:text-[17px] tracking-tight">TechHat</p>
+                <p className="font-bold text-slate-900 dark:text-white text-[16px] md:text-[17px] tracking-tight">{orgName || "TechHat"}</p>
                 <p className="text-[10px] md:text-[11px] text-cyan-600 dark:text-cyan-400 font-semibold tracking-[0.18em] uppercase">
                   Computer Training Center
                 </p>

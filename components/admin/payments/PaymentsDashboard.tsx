@@ -69,16 +69,16 @@ function MetricCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="group relative overflow-hidden rounded-3xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)]"
+      className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800/60 bg-white dark:bg-slate-900 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)]"
     >
       <div className={cn("absolute inset-x-0 top-0 h-1.5 opacity-90", accent)} />
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2.5">
-          <p className="text-[14px] font-medium text-slate-500 tracking-tight">{title}</p>
+          <p className="text-[14px] font-medium text-slate-500 dark:text-slate-400 tracking-tight">{title}</p>
           <div className={cn("text-4xl font-bold tracking-tight", colorTone)}>
             {value}
           </div>
-          <p className="text-xs text-slate-500 font-medium line-clamp-1">{subtitle}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-1">{subtitle}</p>
         </div>
         <div className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl", iconBg)}>
           <Icon className="h-6 w-6" />
@@ -121,8 +121,8 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Payments</h1>
-            <p className="text-slate-500 mt-1">Track and manage all transactions</p>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 tracking-tight">Payments</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-1">Track and manage all transactions</p>
           </div>
           <Button asChild className="rounded-xl shadow-sm bg-blue-600 hover:bg-blue-700">
             <Link href="/admin/payments/new">
@@ -139,9 +139,9 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
             value={metrics.totalEnrollments}
             subtitle="Active students in courses"
             icon={Users}
-            accent="bg-blue-500"
-            colorTone="text-slate-900"
-            iconBg="bg-blue-50 text-blue-600"
+            accent="bg-blue-50 dark:bg-blue-900/200"
+            colorTone="text-slate-900 dark:text-slate-50"
+            iconBg="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
             delay={0.1}
           />
           <MetricCard
@@ -149,9 +149,9 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
             value={metrics.totalPaidStudents}
             subtitle="Students with 0 due"
             icon={UserCheck}
-            accent="bg-emerald-500"
-            colorTone="text-emerald-700"
-            iconBg="bg-emerald-50 text-emerald-600"
+            accent="bg-emerald-50 dark:bg-emerald-900/100"
+            colorTone="text-emerald-700 dark:text-emerald-500"
+            iconBg="bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-500"
             delay={0.2}
           />
           <MetricCard
@@ -179,7 +179,7 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
               placeholder="Search by student, phone, or receipt ID..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 h-11 rounded-xl border-slate-200 bg-white shadow-sm"
+              className="pl-9 h-11 rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
             />
           </div>
           <div className="flex items-center gap-3">
@@ -188,7 +188,7 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
               <select
                 value={filterMethod}
                 onChange={(e) => setFilterMethod(e.target.value)}
-                className="h-11 pl-9 pr-8 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="h-11 pl-9 pr-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="All">All Methods</option>
                 <option value="Cash">Cash</option>
@@ -205,20 +205,20 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.5 }}
-          className="rounded-3xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden"
         >
           <div className="overflow-x-auto">
             <Table>
-              <TableHeader className="bg-slate-50/50 border-b border-slate-100">
+              <TableHeader className="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
                 <TableRow className="hover:bg-transparent">
-                  <TableHead className="py-4 font-semibold text-slate-600">Receipt #</TableHead>
-                  <TableHead className="py-4 font-semibold text-slate-600">Date</TableHead>
-                  <TableHead className="py-4 font-semibold text-slate-600">Student</TableHead>
-                  <TableHead className="py-4 font-semibold text-slate-600">Course</TableHead>
-                  <TableHead className="py-4 font-semibold text-slate-600">Method</TableHead>
-                  <TableHead className="py-4 font-semibold text-slate-600">Remarks</TableHead>
-                  <TableHead className="py-4 font-semibold text-slate-600 text-right">Amount</TableHead>
-                  <TableHead className="py-4 font-semibold text-slate-600 text-right">Actions</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300">Receipt #</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300">Date</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300">Student</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300">Course</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300">Method</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300">Remarks</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300 text-right">Amount</TableHead>
+                  <TableHead className="py-4 font-semibold text-slate-600 dark:text-slate-300 text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -227,30 +227,30 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
                     <TableCell colSpan={8} className="py-16 text-center">
                       <div className="flex flex-col items-center justify-center text-slate-400">
                         <FileText className="h-12 w-12 mb-3 text-slate-300" />
-                        <p className="text-base font-medium text-slate-600">No payments found</p>
+                        <p className="text-base font-medium text-slate-600 dark:text-slate-300">No payments found</p>
                         <p className="text-sm mt-1">Try adjusting your search or filter</p>
                       </div>
                     </TableCell>
                   </TableRow>
                 ) : (
                   filteredPayments.map((payment) => (
-                    <TableRow key={payment.id} className="hover:bg-slate-50/50 transition-colors">
-                      <TableCell className="font-mono text-xs font-medium text-slate-500">
+                    <TableRow key={payment.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+                      <TableCell className="font-mono text-xs font-medium text-slate-500 dark:text-slate-400">
                         {payment.id.slice(0, 8).toUpperCase()}
                       </TableCell>
-                      <TableCell className="text-sm font-medium text-slate-700">
+                      <TableCell className="text-sm font-medium text-slate-700 dark:text-slate-200">
                         {format(new Date(payment.payment_date), "MMM d, yyyy")}
                       </TableCell>
                       <TableCell>
                         <div>
-                          <p className="font-medium text-slate-900">{payment.student?.name || "N/A"}</p>
+                          <p className="font-medium text-slate-900 dark:text-slate-50">{payment.student?.name || "N/A"}</p>
                           {payment.student?.phone && (
-                            <p className="text-xs text-slate-500">{payment.student.phone}</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{payment.student.phone}</p>
                           )}
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-200">
+                        <Badge variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200">
                           {(() => {
                             const translations = (payment.enrollment as any)?.course?.course_translations || [];
                             return translations.find((item: any) => item.lang === "en")?.name || translations.find((item: any) => item.lang === "bn")?.name || "Unassigned";
@@ -258,22 +258,22 @@ export function PaymentsDashboard({ payments, metrics }: PaymentsDashboardProps)
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <span className="inline-flex items-center text-sm font-medium text-slate-600">
+                        <span className="inline-flex items-center text-sm font-medium text-slate-600 dark:text-slate-300">
                           {methodIcon(payment.payment_method)}
                           {payment.payment_method}
                         </span>
                       </TableCell>
-                      <TableCell className="text-sm text-slate-500">
+                      <TableCell className="text-sm text-slate-500 dark:text-slate-400">
                         <span className="line-clamp-1 max-w-[150px]">{payment.remarks || "-"}</span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className="inline-flex items-center justify-end rounded-xl bg-emerald-50 px-2.5 py-1 text-sm font-bold text-emerald-700">
+                        <span className="inline-flex items-center justify-end rounded-xl bg-emerald-50 dark:bg-emerald-900/10 px-2.5 py-1 text-sm font-bold text-emerald-700 dark:text-emerald-500">
                           ৳{Number(payment.amount).toLocaleString()}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
-                          <Button variant="ghost" size="sm" asChild className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+                          <Button variant="ghost" size="sm" asChild className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:text-blue-500 hover:bg-blue-50 dark:bg-blue-900/20">
                             <Link href={`/admin/payments/receipt/${payment.id}`}>Receipt</Link>
                           </Button>
                           <DeleteButton

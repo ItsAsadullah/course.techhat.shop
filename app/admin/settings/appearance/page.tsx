@@ -33,19 +33,19 @@ export default function AppearanceSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium text-slate-800">Appearance & Theming</h3>
-        <p className="text-sm text-slate-500">
+        <h3 className="text-lg font-medium text-slate-800 dark:text-slate-100">Appearance & Theming</h3>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Customize the look and feel of the admin panel.
         </p>
       </div>
 
-      <Card className="border-none shadow-sm shadow-slate-200/50 rounded-[24px] overflow-hidden bg-white">
-        <CardHeader className="border-b border-slate-100 pb-5">
+      <Card className="border-none shadow-sm shadow-slate-200/50 dark:shadow-none rounded-[24px] overflow-hidden bg-white dark:bg-slate-900">
+        <CardHeader className="border-b border-slate-100 dark:border-slate-800 pb-5">
           <CardTitle className="flex items-center gap-2 text-xl">
             <Palette className="h-5 w-5 text-indigo-500" />
             Preset Themes
           </CardTitle>
-          <CardDescription className="text-slate-500">
+          <CardDescription className="text-slate-500 dark:text-slate-400">
             Select a predefined color palette for the admin panel.
           </CardDescription>
         </CardHeader>
@@ -57,14 +57,14 @@ export default function AppearanceSettingsPage() {
                 onClick={() => setTheme(key)}
                 className={`
                   relative flex flex-col items-center justify-center p-5 rounded-2xl border-2 transition-all duration-300 group hover:-translate-y-1
-                  ${theme === key ? 'border-indigo-600 bg-indigo-50 shadow-md shadow-indigo-100/50' : 'border-slate-100 hover:border-indigo-200 bg-white hover:shadow-sm'}
+                  ${theme === key ? 'border-indigo-600 bg-indigo-50 shadow-md shadow-indigo-100/50' : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 bg-white dark:bg-slate-900 hover:shadow-sm'}
                 `}
               >
                 <div 
                   className="w-14 h-14 rounded-full mb-3 shadow-md shadow-black/10 border-4 border-white transition-transform group-hover:scale-110" 
                   style={{ background: colors.sidebarBg }}
                 />
-                <span className={`text-sm font-bold capitalize ${theme === key ? 'text-indigo-900' : 'text-slate-600'}`}>{key}</span>
+                <span className={`text-sm font-bold capitalize ${theme === key ? 'text-indigo-900' : 'text-slate-600 dark:text-slate-300'}`}>{key}</span>
                 {theme === key && (
                   <div className="absolute -top-3 -right-3 w-8 h-8 bg-indigo-600 rounded-full border-4 border-white flex items-center justify-center shadow-sm">
                     <CheckCircle2 className="h-4 w-4 text-white" strokeWidth={3} />
@@ -76,39 +76,39 @@ export default function AppearanceSettingsPage() {
         </CardContent>
       </Card>
 
-      <Card className="border-none shadow-sm shadow-slate-200/50 rounded-[24px] overflow-hidden bg-white">
-        <CardHeader className="border-b border-slate-100 pb-5">
+      <Card className="border-none shadow-sm shadow-slate-200/50 dark:shadow-none rounded-[24px] overflow-hidden bg-white dark:bg-slate-900">
+        <CardHeader className="border-b border-slate-100 dark:border-slate-800 pb-5">
           <CardTitle className="flex items-center gap-2 text-xl">
             <Settings2 className="h-5 w-5 text-indigo-500" />
             Custom Colors
           </CardTitle>
-          <CardDescription className="text-slate-500">
+          <CardDescription className="text-slate-500 dark:text-slate-400">
             Create your own custom theme by selecting individual colors.
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <Label className="text-slate-700 font-semibold">Primary Color</Label>
+              <Label className="text-slate-700 dark:text-slate-200 font-semibold">Primary Color</Label>
               <div className="flex items-center gap-3">
                 <Input 
                   type="color" 
                   value={localColors.primary} 
                   onChange={(e) => handleColorChange('primary', e.target.value)}
-                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200"
+                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200 dark:border-slate-700"
                 />
                 <Input 
                   type="text" 
                   value={localColors.primary} 
                   onChange={(e) => handleColorChange('primary', e.target.value)}
-                  className="flex-1 h-14 rounded-xl border-slate-200 bg-slate-50 font-mono"
+                  className="flex-1 h-14 rounded-xl border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 font-mono"
                 />
               </div>
             </div>
             
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-slate-700 font-semibold">Sidebar Background</Label>
+                <Label className="text-slate-700 dark:text-slate-200 font-semibold">Sidebar Background</Label>
                 <div className="flex gap-2">
                   <Button 
                     variant="outline" 
@@ -141,17 +141,17 @@ export default function AppearanceSettingsPage() {
                     type="color" 
                     value={localColors.sidebarBg.startsWith('#') ? localColors.sidebarBg : '#4c3c92'} 
                     onChange={(e) => handleColorChange('sidebarBg', e.target.value)}
-                    className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200"
+                    className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200 dark:border-slate-700"
                   />
                   <Input 
                     type="text" 
                     value={localColors.sidebarBg} 
                     onChange={(e) => handleColorChange('sidebarBg', e.target.value)}
-                    className="flex-1 h-14 rounded-xl border-slate-200 bg-slate-50 font-mono"
+                    className="flex-1 h-14 rounded-xl border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 font-mono"
                   />
                 </div>
               ) : (
-                <div className="flex flex-col gap-4 p-5 bg-slate-50/50 rounded-2xl border border-slate-100">
+                <div className="flex flex-col gap-4 p-5 bg-slate-50/50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
                   <div className="w-full h-10 rounded-xl shadow-inner" style={{ background: localColors.sidebarBg }} />
                   
                   {(() => {
@@ -191,16 +191,16 @@ export default function AppearanceSettingsPage() {
                     return (
                       <div className="flex flex-col gap-3">
                         <div className="flex items-center justify-between">
-                          <Label className="text-[11px] font-bold text-slate-500 uppercase">Style</Label>
-                          <div className="flex gap-1 bg-white p-1 rounded-lg border border-slate-200">
+                          <Label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">Style</Label>
+                          <div className="flex gap-1 bg-white dark:bg-slate-900 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
                             <button 
-                              className={`px-3 py-1 text-xs font-semibold rounded-md ${!isRadial ? 'bg-indigo-100 text-indigo-700' : 'text-slate-500 hover:bg-slate-100'}`}
+                              className={`px-3 py-1 text-xs font-semibold rounded-md ${!isRadial ? 'bg-indigo-100 text-indigo-700' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:bg-slate-800'}`}
                               onClick={() => updateGradient({ isRadial: false })}
                             >
                               Linear
                             </button>
                             <button 
-                              className={`px-3 py-1 text-xs font-semibold rounded-md ${isRadial ? 'bg-indigo-100 text-indigo-700' : 'text-slate-500 hover:bg-slate-100'}`}
+                              className={`px-3 py-1 text-xs font-semibold rounded-md ${isRadial ? 'bg-indigo-100 text-indigo-700' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:bg-slate-800'}`}
                               onClick={() => updateGradient({ isRadial: true })}
                             >
                               Radial
@@ -210,7 +210,7 @@ export default function AppearanceSettingsPage() {
 
                         {!isRadial && (
                           <div className="flex items-center justify-between gap-4">
-                            <Label className="text-[11px] font-bold text-slate-500 uppercase whitespace-nowrap">Rotation ({angle}°)</Label>
+                            <Label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase whitespace-nowrap">Rotation ({angle}°)</Label>
                             <input 
                               type="range" 
                               min="0" max="360" 
@@ -223,9 +223,9 @@ export default function AppearanceSettingsPage() {
 
                         <div className="grid grid-cols-2 gap-4 mt-2">
                           {/* Start Color Group */}
-                          <div className="space-y-3 bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
+                          <div className="space-y-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
                             <div className="flex justify-between items-center">
-                              <Label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Start Color</Label>
+                              <Label className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Start Color</Label>
                               <span className="text-[10px] font-mono font-bold text-slate-400">{startPos}%</span>
                             </div>
                             <Input 
@@ -244,9 +244,9 @@ export default function AppearanceSettingsPage() {
                           </div>
                           
                           {/* End Color Group */}
-                          <div className="space-y-3 bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
+                          <div className="space-y-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
                             <div className="flex justify-between items-center">
-                              <Label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">End Color</Label>
+                              <Label className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">End Color</Label>
                               <span className="text-[10px] font-mono font-bold text-slate-400">{endPos}%</span>
                             </div>
                             <Input 
@@ -272,61 +272,61 @@ export default function AppearanceSettingsPage() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-slate-700 font-semibold">Sidebar Text Color</Label>
+              <Label className="text-slate-700 dark:text-slate-200 font-semibold">Sidebar Text Color</Label>
               <div className="flex items-center gap-3">
                 <Input 
                   type="color" 
                   value={localColors.sidebarText} 
                   onChange={(e) => handleColorChange('sidebarText', e.target.value)}
-                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200"
+                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200 dark:border-slate-700"
                 />
                 <Input 
                   type="text" 
                   value={localColors.sidebarText} 
                   onChange={(e) => handleColorChange('sidebarText', e.target.value)}
-                  className="flex-1 h-14 rounded-xl border-slate-200 bg-slate-50 font-mono"
+                  className="flex-1 h-14 rounded-xl border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 font-mono"
                 />
               </div>
             </div>
 
             <div className="space-y-3">
-              <Label className="text-slate-700 font-semibold">Sidebar Active Menu Background</Label>
+              <Label className="text-slate-700 dark:text-slate-200 font-semibold">Sidebar Active Menu Background</Label>
               <div className="flex items-center gap-3">
                 <Input 
                   type="color" 
                   value={localColors.sidebarActiveBg} 
                   onChange={(e) => handleColorChange('sidebarActiveBg', e.target.value)}
-                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200"
+                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200 dark:border-slate-700"
                 />
                 <Input 
                   type="text" 
                   value={localColors.sidebarActiveBg} 
                   onChange={(e) => handleColorChange('sidebarActiveBg', e.target.value)}
-                  className="flex-1 h-14 rounded-xl border-slate-200 bg-slate-50 font-mono"
+                  className="flex-1 h-14 rounded-xl border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 font-mono"
                 />
               </div>
             </div>
 
             <div className="space-y-3">
-              <Label className="text-slate-700 font-semibold">Sidebar Active Menu Text</Label>
+              <Label className="text-slate-700 dark:text-slate-200 font-semibold">Sidebar Active Menu Text</Label>
               <div className="flex items-center gap-3">
                 <Input 
                   type="color" 
                   value={localColors.sidebarActiveText} 
                   onChange={(e) => handleColorChange('sidebarActiveText', e.target.value)}
-                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200"
+                  className="w-14 h-14 p-1 cursor-pointer rounded-xl border-slate-200 dark:border-slate-700"
                 />
                 <Input 
                   type="text" 
                   value={localColors.sidebarActiveText} 
                   onChange={(e) => handleColorChange('sidebarActiveText', e.target.value)}
-                  className="flex-1 h-14 rounded-xl border-slate-200 bg-slate-50 font-mono"
+                  className="flex-1 h-14 rounded-xl border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 font-mono"
                 />
               </div>
             </div>
           </div>
         </CardContent>
-        <CardFooter className="p-6 bg-slate-50/50 border-t border-slate-100 flex justify-end">
+        <CardFooter className="p-6 bg-slate-50/50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-end">
           <Button 
             onClick={applyCustomTheme}
             className="rounded-xl h-12 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md shadow-indigo-200 hover:-translate-y-0.5 transition-all"

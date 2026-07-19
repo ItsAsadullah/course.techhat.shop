@@ -27,12 +27,12 @@ function Toggle({
   return (
     <label className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${checked ? "border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"}`}>
       <input type="checkbox" {...register(`step5.${name}` as Path<CourseWizardValues>)} className="sr-only" />
-      <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-colors ${checked ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600"}`}>
+      <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-colors ${checked ? "border-blue-500 bg-blue-50 dark:bg-blue-900/200" : "border-slate-300 dark:border-slate-600"}`}>
         {checked && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
       </div>
       <div>
         <p className="text-sm font-semibold text-slate-800 dark:text-white">{label}</p>
-        {desc && <p className="text-xs text-slate-500">{desc}</p>}
+        {desc && <p className="text-xs text-slate-500 dark:text-slate-400">{desc}</p>}
       </div>
     </label>
   );
@@ -50,12 +50,12 @@ export default function Step5Pricing({ form }: Step5Props) {
       <div className="flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-emerald-200 dark:border-emerald-800">
         <label className="flex items-center gap-3 cursor-pointer flex-1">
           <input type="checkbox" {...register("step5.is_free")} className="sr-only" />
-          <div className={`relative w-11 h-6 rounded-full transition-colors ${isFree ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-600"}`}>
-            <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${isFree ? "translate-x-5" : "translate-x-0"}`} />
+          <div className={`relative w-11 h-6 rounded-full transition-colors ${isFree ? "bg-emerald-50 dark:bg-emerald-900/100" : "bg-slate-300 dark:bg-slate-600"}`}>
+            <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white dark:bg-slate-900 shadow-sm transition-transform ${isFree ? "translate-x-5" : "translate-x-0"}`} />
           </div>
           <div>
             <p className="text-sm font-bold text-slate-800 dark:text-white">🆓 বিনামূল্যে কোর্স (Free Course)</p>
-            <p className="text-xs text-slate-500">চালু করলে ফি ক্ষেত্রগুলো নিষ্ক্রিয় হবে</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">চালু করলে ফি ক্ষেত্রগুলো নিষ্ক্রিয় হবে</p>
           </div>
         </label>
       </div>
@@ -137,7 +137,7 @@ export default function Step5Pricing({ form }: Step5Props) {
               <label key={value} className={`p-3 rounded-xl border-2 cursor-pointer text-center transition-all ${isActive ? "border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-slate-200 dark:border-slate-700"}`}>
                 <input type="radio" {...register("step5.certificate_option")} value={value} className="sr-only" />
                 <p className="text-sm font-bold text-slate-800 dark:text-white">{label}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{desc}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{desc}</p>
               </label>
             );
           })}

@@ -7,6 +7,7 @@ import { TopBar } from "@/components/admin/top-bar";
 import { Toaster } from "@/components/ui/sonner";
 import { createClient } from "@/lib/admin/supabase/server";
 import { AdminThemeProvider, AdminThemeInit } from "@/components/admin/admin-theme-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,36 +36,38 @@ export default async function AdminLayout({
 
   return (
     <div
-      className={`${geistSans.variable} ${geistMono.variable} antialiased bg-admin-background min-h-screen`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased bg-admin-background dark:bg-slate-950 min-h-screen`}
     >
-      <AdminThemeInit />
-      <AdminThemeProvider>
-        {/* Login page has its own centered layout */}
-        {!user ? (
-          <>{children}</>
-        ) : (
-          <div className="flex flex-col h-[100dvh] overflow-hidden">
-            <MobileNav />
-            <div 
-              className="flex flex-1 overflow-hidden" 
-              style={{ 
-                background: 'var(--admin-sidebar-bg)',
-                backgroundSize: '320px 100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: '#0f172a' // Fallback color behind main if needed
-              }}
-            >
-              <AppSidebar />
-              <main className="flex-1 h-full overflow-y-auto relative bg-admin-background md:rounded-l-[40px] flex flex-col md:shadow-2xl w-full">
-                <TopBar email={user.email} />
-                <div className="px-4 sm:px-6 md:px-8 pb-8 pt-4 flex-1">
-                  {children}
-                </div>
-              </main>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AdminThemeInit />
+        <AdminThemeProvider>
+          {/* Login page has its own centered layout */}
+          {!user ? (
+            <>{children}</>
+          ) : (
+            <div className="flex flex-col h-[100dvh] overflow-hidden">
+              <MobileNav />
+              <div
+                className="flex flex-1 overflow-hidden"
+                style={{
+                  background: 'var(--admin-sidebar-bg)',
+                  backgroundSize: '320px 100%',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundColor: '#0f172a' // Fallback color behind main if needed
+                }}
+              >
+                <AppSidebar />
+                <main className="flex-1 h-full overflow-y-auto relative bg-admin-background dark:bg-slate-950 md:rounded-l-[40px] flex flex-col md:shadow-2xl w-full">
+                  <TopBar email={user.email} />
+                  <div className="px-4 sm:px-6 md:px-8 pb-8 pt-4 flex-1">
+                    {children}
+                  </div>
+                </main>
+              </div>
             </div>
-          </div>
-        )}
-      </AdminThemeProvider>
+          )}
+        </AdminThemeProvider>
+      </ThemeProvider>
     </div>
   );
 }

@@ -30,7 +30,7 @@ export function WizardSaveBar({ onSave, onPublish, onPreview, publishing, status
 
   const renderStatusPill = () => {
     if (saveStatus === "saving")
-      return <span className="flex items-center gap-1.5 text-slate-500"><Loader2 className="h-3.5 w-3.5 animate-spin" /> {t("saving")}</span>;
+      return <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400"><Loader2 className="h-3.5 w-3.5 animate-spin" /> {t("saving")}</span>;
     if (saveStatus === "error")
       return <span className="flex items-center gap-1.5 text-red-500"><AlertCircle className="h-3.5 w-3.5" /> {t("saveError")}</span>;
     if (saveStatus === "saved")
@@ -39,7 +39,7 @@ export function WizardSaveBar({ onSave, onPublish, onPreview, publishing, status
   };
 
   return (
-    <div className="sticky bottom-0 z-20 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur px-4 sm:px-6 py-3">
+    <div className="sticky bottom-0 z-20 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur px-4 sm:px-6 py-3">
       <div className="flex items-center justify-between gap-3">
         <div className="text-xs">
           {renderStatusPill()}

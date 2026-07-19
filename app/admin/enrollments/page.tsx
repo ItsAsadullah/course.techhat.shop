@@ -79,9 +79,9 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
             key={label}
             className={`group relative overflow-hidden rounded-2xl ${gradient} p-4 shadow-lg ${shadow} transition-all hover:-translate-y-1 hover:shadow-xl sm:p-5 text-white`}
           >
-            <div className="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-white/10 blur-2xl transition-all group-hover:bg-white/20" />
+            <div className="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-white/10 dark:bg-slate-900/10 blur-2xl transition-all group-hover:bg-white/20 dark:bg-slate-900/20" />
             <div className="relative z-10 flex items-center gap-3">
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white/20 text-white backdrop-blur-sm ring-1 ring-white/30">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white/20 dark:bg-slate-900/20 text-white backdrop-blur-sm ring-1 ring-white/30">
                 <Icon className="h-6 w-6 drop-shadow-sm" />
               </div>
               <div className="min-w-0">
@@ -98,20 +98,20 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
       </div>
 
       {/* Filter Toolbar */}
-      <form className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:flex-wrap sm:items-center">
+      <form className="flex flex-col gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:flex-wrap sm:items-center">
         <div className="relative flex-1 sm:min-w-[220px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
             name="search"
             defaultValue={search || ""}
             placeholder="স্টুডেন্ট, কোর্স বা ফোন নম্বর খুঁজুন…"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm outline-none transition focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-400/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:bg-slate-800"
+            className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 py-2.5 pl-9 pr-3 text-sm outline-none transition focus:border-blue-400 focus:bg-white dark:bg-slate-900 focus:ring-2 focus:ring-blue-400/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:bg-slate-800"
           />
         </div>
         <select
           name="status"
           defaultValue={status || ""}
-          className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+          className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 px-3 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value="">সব স্ট্যাটাস</option>
           <option value="active">অ্যাক্টিভ</option>
@@ -130,7 +130,7 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
           {hasFilters && (
             <Link
               href="/admin/enrollments"
-              className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-3 py-2.5 text-sm font-medium text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-700 dark:border-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+              className="inline-flex items-center gap-1 rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2.5 text-sm font-medium text-slate-500 dark:text-slate-400 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-900/50 hover:text-slate-700 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
             >
               <X className="h-4 w-4" /> ক্লিয়ার
             </Link>
@@ -144,10 +144,10 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
         </div>
       </form>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[920px] text-left text-sm">
-            <thead className="border-b border-slate-200 bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
               <tr>
                 <th className="px-5 py-3">Student</th>
                 <th className="px-5 py-3">Course</th>
@@ -157,10 +157,10 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
                 <th className="px-5 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500 dark:text-slate-400">
                     No enrollments found.
                   </td>
                 </tr>
@@ -172,7 +172,7 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
                   <tr key={enrollment.id} className="group hover:bg-slate-50/70 transition-colors">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-4">
-                        <Avatar className="h-10 w-10 border border-slate-200 shadow-sm">
+                        <Avatar className="h-10 w-10 border border-slate-200 dark:border-slate-700 shadow-sm">
                           {enrollment.student_photo && (
                             <AvatarImage src={enrollment.student_photo} alt={enrollment.student_name} className="object-cover" />
                           )}
@@ -181,10 +181,10 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
+                          <p className="font-semibold text-slate-900 dark:text-slate-50 group-hover:text-blue-700 dark:text-blue-500 transition-colors">
                             {enrollment.student_name}
                           </p>
-                          <div className="mt-0.5 flex items-center gap-2 text-xs text-slate-500">
+                          <div className="mt-0.5 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                             <span>{enrollment.student_mobile || "No mobile"}</span>
                             {enrollment.student_reg_no && (
                               <>
@@ -198,7 +198,7 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
                     </td>
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-slate-200">
+                        <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
                           {enrollment.course_thumbnail ? (
                             <img src={enrollment.course_thumbnail} alt={enrollment.course_name} className="h-full w-full object-cover" />
                           ) : (
@@ -208,8 +208,8 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
                           )}
                         </div>
                         <div className="min-w-0">
-                          <p className="font-medium text-slate-900 truncate">{enrollment.course_name}</p>
-                          <p className="mt-0.5 text-xs text-slate-500 truncate">{enrollment.batch_name || "No batch"}</p>
+                          <p className="font-medium text-slate-900 dark:text-slate-50 truncate">{enrollment.course_name}</p>
+                          <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400 truncate">{enrollment.batch_name || "No batch"}</p>
                         </div>
                       </div>
                     </td>
@@ -224,17 +224,17 @@ export default async function AdminEnrollmentsPage({ searchParams }: { searchPar
                     <td className="px-5 py-4">
                       <div className="flex flex-col items-end w-32 ml-auto">
                         <div className="flex justify-between w-full text-xs font-bold mb-1.5">
-                          <span className="text-slate-500">৳{Number(enrollment.total_paid || 0).toLocaleString('en-BD')}</span>
-                          <span className="text-slate-900">৳{Number(enrollment.final_fee || 0).toLocaleString('en-BD')}</span>
+                          <span className="text-slate-500 dark:text-slate-400">৳{Number(enrollment.total_paid || 0).toLocaleString('en-BD')}</span>
+                          <span className="text-slate-900 dark:text-slate-50">৳{Number(enrollment.final_fee || 0).toLocaleString('en-BD')}</span>
                         </div>
-                        <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                           <div 
-                            className={`h-full rounded-full ${feeProgress >= 100 ? 'bg-emerald-500' : feeProgress > 0 ? 'bg-indigo-500' : 'bg-slate-300'}`} 
+                            className={`h-full rounded-full ${feeProgress >= 100 ? 'bg-emerald-50 dark:bg-emerald-900/100' : feeProgress > 0 ? 'bg-indigo-500' : 'bg-slate-300'}`} 
                             style={{ width: `${Math.min(feeProgress, 100)}%` }}
                           />
                         </div>
                         {(enrollment.current_due || 0) > 0 && (
-                          <span className="text-[10px] text-rose-500 font-bold mt-1.5 uppercase tracking-wide">
+                          <span className="text-[10px] text-rose-500 dark:text-rose-400 font-bold mt-1.5 uppercase tracking-wide">
                             Due: ৳{Number(enrollment.current_due).toLocaleString('en-BD')}
                           </span>
                         )}

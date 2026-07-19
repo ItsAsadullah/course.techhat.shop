@@ -173,7 +173,7 @@ export function Step3Seo() {
               type="button"
               onClick={() => setTab(l)}
               className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition ${
-                tab === l ? "bg-blue-600 text-white" : "text-slate-500 hover:text-slate-700"
+                tab === l ? "bg-blue-600 text-white" : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200"
               }`}
             >
               {l === "en" ? "English SEO" : "বাংলা SEO"}

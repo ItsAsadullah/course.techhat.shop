@@ -41,7 +41,7 @@ export default function CourseListActions({ course }: Props) {
       </button>
       <button
         onClick={() => handle(() => duplicateCourse(course.id), "কোর্স কপি হয়েছে")}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 disabled:opacity-50 dark:hover:bg-slate-800"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 transition-colors hover:bg-slate-100 disabled:opacity-50 dark:hover:bg-slate-800"
         title="কপি করুন"
         aria-label="কপি করুন"
         disabled={loading}
@@ -53,7 +53,7 @@ export default function CourseListActions({ course }: Props) {
           if (!confirm("এই কোর্সটি মুছে ফেলবেন?")) return;
           handle(() => deleteCourse(course.id), "কোর্স মুছে ফেলা হয়েছে");
         }}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-500 transition-colors hover:bg-red-50 disabled:opacity-50 dark:hover:bg-red-900/20"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-500 transition-colors hover:bg-red-50 dark:bg-red-900/10 disabled:opacity-50 dark:hover:bg-red-900/20"
         title="মুছুন"
         aria-label="মুছুন"
         disabled={loading}

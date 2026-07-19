@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { updateSettings } from '@/lib/actions/settings.actions';
 import { toast } from 'sonner';
+import FileUpload from '@/components/ui/FileUpload';
 
 interface GeneralSettingsFormProps {
   initialGroup: SettingGroup;
@@ -152,6 +153,39 @@ export function GeneralSettingsForm({ initialGroup }: GeneralSettingsFormProps) 
               onChange={(e) => updateSetting('primary_color', e.target.value)}
               className="w-32 font-mono uppercase"
               disabled={isBn}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div className="space-y-2">
+            <FileUpload
+              label="Site Logo (Header)"
+              value={getValue('site_logo', 'en')}
+              onUpload={(url) => updateSetting('site_logo', url)}
+              onRemove={() => updateSetting('site_logo', '')}
+              folder="settings"
+              accept="image/*"
+            />
+          </div>
+          <div className="space-y-2">
+            <FileUpload
+              label="Favicon (Icon)"
+              value={getValue('site_favicon', 'en')}
+              onUpload={(url) => updateSetting('site_favicon', url)}
+              onRemove={() => updateSetting('site_favicon', '')}
+              folder="settings"
+              accept="image/png,image/x-icon,image/svg+xml"
+            />
+          </div>
+          <div className="space-y-2">
+            <FileUpload
+              label="OG Image (Social Share)"
+              value={getValue('site_og_image', 'en')}
+              onUpload={(url) => updateSetting('site_og_image', url)}
+              onRemove={() => updateSetting('site_og_image', '')}
+              folder="settings"
+              accept="image/*"
             />
           </div>
         </div>

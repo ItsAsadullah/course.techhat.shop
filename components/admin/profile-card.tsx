@@ -37,24 +37,24 @@ export function ProfileCard() {
   }, []);
 
   return (
-    <Card className="border-none shadow-sm shadow-slate-200/50 rounded-[24px] overflow-hidden bg-white">
+    <Card className="border-none shadow-sm shadow-slate-200/50 dark:shadow-none rounded-[24px] overflow-hidden bg-white dark:bg-slate-900">
       <div className="h-28 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20" />
         <div className="absolute inset-0 bg-black/10" />
       </div>
       <CardContent className="px-6 pb-8 relative -mt-14">
         <div className="flex flex-col items-center">
-          <div className="w-28 h-28 rounded-full border-[6px] border-white bg-white shadow-md flex items-center justify-center relative overflow-hidden">
+          <div className="w-28 h-28 rounded-full border-[6px] border-white bg-white dark:bg-slate-900 shadow-md flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-purple-50" />
             <User className="h-12 w-12 text-indigo-400 relative z-10" strokeWidth={1.5} />
             
             {/* Status indicator */}
-            <div className="absolute bottom-1 right-1 w-6 h-6 bg-emerald-500 rounded-full border-[3px] border-white flex items-center justify-center z-20">
+            <div className="absolute bottom-1 right-1 w-6 h-6 bg-emerald-50 dark:bg-emerald-900/100 rounded-full border-[3px] border-white flex items-center justify-center z-20">
               <CheckCircle2 className="h-3 w-3 text-white" />
             </div>
           </div>
           
-          <h2 className="mt-5 text-xl font-bold text-slate-800 tracking-tight">
+          <h2 className="mt-5 text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">
             {userEmail ? userEmail.split('@')[0] : "Admin User"}
           </h2>
           <p className="text-sm font-semibold text-indigo-500 flex items-center gap-1.5 mt-1 uppercase tracking-wider">
@@ -65,16 +65,16 @@ export function ProfileCard() {
             <Mail className="h-3.5 w-3.5" /> {userEmail || "admin@techhat.com"}
           </div>
 
-          <div className="w-full h-[1px] bg-slate-100 my-8" />
+          <div className="w-full h-[1px] bg-slate-100 dark:bg-slate-800 my-8" />
 
           <div className="w-full flex justify-center px-4 gap-8">
             <div className="flex flex-col items-center gap-3">
               <CircularProgress value={malePercentage} color="text-sky-500" />
-              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Male</span>
+              <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Male</span>
             </div>
             <div className="flex flex-col items-center gap-3">
               <CircularProgress value={femalePercentage} color="text-rose-400" />
-              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Female</span>
+              <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Female</span>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ function CircularProgress({ value, color }: { value: number; color: string }) {
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-[13px] font-bold text-slate-700">{value}%</span>
+        <span className="text-[13px] font-bold text-slate-700 dark:text-slate-200">{value}%</span>
       </div>
     </div>
   );

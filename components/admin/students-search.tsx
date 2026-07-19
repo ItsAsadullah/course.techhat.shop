@@ -43,11 +43,11 @@ export function StudentsSearch({ defaultValue }: { defaultValue?: string }) {
         onChange={handleChange}
         placeholder="Search students..."
         autoComplete="off"
-        className="pl-9 h-9 text-xs bg-white border-slate-200 rounded-xl shadow-sm focus-visible:border-indigo-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+        className="pl-9 h-9 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-xl shadow-sm focus-visible:border-indigo-500 focus-visible:ring-0 focus-visible:ring-offset-0"
       />
       {isPending && (
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
-          <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-200 border-t-indigo-500" />
+          <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-200 dark:border-slate-700 border-t-indigo-500" />
         </div>
       )}
     </div>

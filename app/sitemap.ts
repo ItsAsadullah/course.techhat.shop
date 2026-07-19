@@ -14,6 +14,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const courses = await getPublishedCoursesForSeo();
 
+  // Fetch settings for dynamic logo
+  const { createServerClient } = require("@/lib/supabase-server");
+  const supabase = await createServerClient();
+  const { data: logoSetting } = await supabase
+    .from('system_settings')
+    .select('value')
+    .eq('key', 'site_logo')
+    .single();
+  const siteLogo = logoSetting?.value || `${SITE_URL}/logo.png`;
+
   const courseRoutes: MetadataRoute.Sitemap = courses
     .map((c) => {
       const slug = bestSlug(c, "en");
@@ -36,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry.videos = [
           {
             title: c.name_en || c.name_bn || "Course intro",
-            thumbnail_loc: c.thumbnail_url || `${SITE_URL}/logo.png`,
+            thumbnail_loc: c.thumbnail_url || siteLogo,
             description: c.short_en || c.short_bn || c.name_en || "Course introduction video",
             content_loc: c.intro_video_url,
           },

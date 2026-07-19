@@ -10,7 +10,7 @@ export default function LoadingTrainingBatchesPage() {
   return (
     <div className="min-h-full bg-[#F7F8FA]">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 p-4 sm:p-6 xl:p-8">
-        <section className="rounded-[28px] border border-[#E5E7EB] bg-white px-5 py-6 shadow-sm sm:px-7 sm:py-7">
+        <section className="rounded-[28px] border border-[#E5E7EB] bg-white dark:bg-slate-900 px-5 py-6 shadow-sm sm:px-7 sm:py-7">
           <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
             <div className="space-y-4">
               <SkeletonBlock className="h-7 w-36 rounded-full" />
@@ -38,7 +38,7 @@ export default function LoadingTrainingBatchesPage() {
           {Array.from({ length: 5 }).map((_, index) => (
             <div
               key={index}
-              className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-sm"
+              className="rounded-2xl border border-[#E5E7EB] bg-white dark:bg-slate-900 p-5 shadow-sm"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="w-full space-y-3">
@@ -52,8 +52,8 @@ export default function LoadingTrainingBatchesPage() {
           ))}
         </section>
 
-        <section className="rounded-[24px] border border-[#E5E7EB] bg-white shadow-sm">
-          <div className="border-b border-slate-100 px-5 py-5 sm:px-6">
+        <section className="rounded-[24px] border border-[#E5E7EB] bg-white dark:bg-slate-900 shadow-sm">
+          <div className="border-b border-slate-100 dark:border-slate-800 px-5 py-5 sm:px-6">
             <div className="space-y-4">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                 <div className="space-y-2">
@@ -76,7 +76,7 @@ export default function LoadingTrainingBatchesPage() {
             {Array.from({ length: 3 }).map((_, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-sm sm:p-6"
+                className="rounded-2xl border border-[#E5E7EB] bg-white dark:bg-slate-900 p-5 shadow-sm sm:p-6"
               >
                 <div className="space-y-5">
                   <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">

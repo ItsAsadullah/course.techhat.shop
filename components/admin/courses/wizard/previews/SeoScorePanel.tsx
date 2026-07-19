@@ -20,7 +20,7 @@ export function SeoScorePanel({ result }: { result: SeoScoreResult }) {
   const circumference = 2 * Math.PI * 26;
 
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5">
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-5">
       <div className="flex items-center gap-4">
         <div className="relative h-16 w-16 shrink-0">
           <svg className="h-16 w-16 -rotate-90" viewBox="0 0 60 60">
