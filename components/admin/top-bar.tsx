@@ -112,8 +112,8 @@ export function TopBar({ email }: TopBarProps) {
   ];
 
   return (
-    <div className="sticky top-0 z-40 bg-admin-background/95 backdrop-blur-md rounded-tl-[40px] border-b border-slate-100/50 transition-all flex flex-col">
-      <div className="px-8 py-5 flex items-center justify-between w-full">
+    <div className="sticky top-0 z-40 bg-admin-background/95 backdrop-blur-md md:rounded-tl-[40px] border-b border-slate-100/50 transition-all flex flex-col">
+      <div className="px-4 md:px-8 py-3 md:py-5 flex items-center justify-between w-full">
       
       {/* Left: Page Title & Subtitle */}
       <div className="flex flex-col gap-0.5 min-w-[250px] w-auto whitespace-nowrap">
@@ -128,7 +128,7 @@ export function TopBar({ email }: TopBarProps) {
       </div>
 
       {/* Center: Search Bar */}
-      <div className="flex-1 flex justify-center max-w-2xl px-4" ref={searchContainerRef}>
+      <div className="hidden md:flex flex-1 justify-center max-w-2xl px-4" ref={searchContainerRef}>
         <div className="relative w-full max-w-lg">
           <div 
             className={cn(
@@ -224,7 +224,7 @@ export function TopBar({ email }: TopBarProps) {
       </div>
 
       {/* Right: Actions, Notifications & Profile */}
-      <div className="flex items-center justify-end gap-5 w-auto">
+      <div className="flex items-center justify-end gap-2 md:gap-5 w-auto">
         <div className="hidden xl:flex items-center gap-2 mr-2">
           <Button asChild variant="outline" className="rounded-full border-slate-200 text-slate-600 font-bold h-10 px-4 shadow-sm hover:bg-slate-50 transition-all text-xs">
             <Link href="/admin/payments/new">
@@ -240,7 +240,7 @@ export function TopBar({ email }: TopBarProps) {
           </Button>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1">
           <Button variant="ghost" size="icon" className="relative rounded-full h-11 w-11 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
             <MessageSquare className="h-[22px] w-[22px]" />
             <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white" />

@@ -77,7 +77,7 @@ export function AppSidebar() {
   };
 
   return (
-    <aside className="w-[280px] h-full flex flex-col relative rounded-none shrink-0 bg-transparent text-white/90">
+    <aside className="hidden md:flex w-[280px] h-full flex-col relative rounded-none shrink-0 bg-transparent text-white/90">
 
       {/* Background Decorators */}
       <div className="absolute top-[-50px] left-[-50px] w-[150px] h-[150px] bg-white/10 rounded-full blur-3xl pointer-events-none" />
