@@ -316,6 +316,10 @@ export default async function StudentDetailPage({
 }: StudentDetailPageProps) {
   const { id } = await params;
 
+  if (id === "undefined") {
+    notFound();
+  }
+
   const student = await getStudentById(id);
 
   if (!student) {

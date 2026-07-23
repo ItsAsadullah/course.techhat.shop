@@ -235,7 +235,7 @@ export async function submitAdmissionForm(data: AdmissionFormValues) {
     const message = `🎉 *New Admission Submitted!*\n\n*Name:* ${data.fullNameEn}\n*Course:* ${data.courseId}\n*Mobile:* ${data.mobile}\n*Status:* Pending - Will proceed to checkout`;
     await sendTelegramNotification(message);
 
-    return { success: true, admissionId: admission.admission_id };
+    return { success: true, admissionId: admission.admission_id, studentId: student.id };
   } catch (error: any) {
     console.error("Submit Form Error:", error);
     return { success: false, error: error.message };

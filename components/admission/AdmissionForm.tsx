@@ -155,7 +155,7 @@ export default function AdmissionForm({ initialData }: { initialData?: Record<st
         setShowSuccess(true);
         setTimeout(() => {
           if (pathname.startsWith("/admin")) {
-            router.push(`/admin/students/${initialData?.id}`);
+            router.push(`/admin/students/${result.studentId || initialData?.id}`);
           } else if (initialData) {
             router.push("/dashboard/profile");
           } else {

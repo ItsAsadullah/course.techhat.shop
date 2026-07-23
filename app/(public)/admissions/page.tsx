@@ -1,13 +1,11 @@
-import { redirect } from "next/navigation";
+import PublicAdmissionForm from "@/components/home/PublicAdmissionForm";
+import type { Metadata } from "next";
 
-export default async function AdmissionsPage({ searchParams }: { searchParams: Promise<{ course?: string }> }) {
-  const resolvedParams = await searchParams;
-  const courseParam = resolvedParams?.course;
+export const metadata: Metadata = {
+  title: "ভর্তি হোন | TechHat IT Institute",
+  description: "TechHat IT Institute-এ ভর্তির আবেদন করুন। কম্পিউটার প্রশিক্ষণ কোর্সে আজই যোগ দিন।",
+};
 
-  if (courseParam) {
-    redirect(`/enroll/${courseParam}`);
-  } else {
-    redirect("/courses");
-  }
+export default function AdmissionsPage() {
+  return <PublicAdmissionForm />;
 }
-

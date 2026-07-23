@@ -35,7 +35,7 @@ export default function AboutSection() {
             </div>
             <div>
               <p className="font-black text-slate-800 dark:text-white leading-tight">20% OFF</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-tight">{t("about_float_off")}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-tight">{h('about_float_off', 'about_float_off')}</p>
             </div>
           </div>
 
@@ -46,7 +46,7 @@ export default function AboutSection() {
             </div>
             <div>
               <p className="font-black text-slate-800 dark:text-white leading-tight flex items-center gap-1">4.6 <span className="text-xs font-normal text-slate-500 dark:text-slate-400">(2.4k)</span></p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-tight">{t("about_float_rev")}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-tight">{h('about_float_rev', 'about_float_rev')}</p>
             </div>
           </div>
 
@@ -59,8 +59,8 @@ export default function AboutSection() {
               </div>
               <div className="absolute top-0 right-0 bg-[#f97316] text-white text-[10px] font-bold px-1 rounded">90%</div>
             </div>
-            <p className="font-bold text-slate-800 dark:text-white text-sm">90% {t("about_float_sat")}</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400">{t("about_float_exc")}</p>
+            <p className="font-bold text-slate-800 dark:text-white text-sm">90% {h('about_float_sat', 'about_float_sat')}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{h('about_float_exc', 'about_float_exc')}</p>
           </div>
         </div>
 

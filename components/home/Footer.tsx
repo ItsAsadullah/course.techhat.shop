@@ -134,7 +134,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-6 uppercase tracking-wider">{t("ft_ql")}</h4>
+            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-6 uppercase tracking-wider">{h('ft_ql', 'ft_ql')}</h4>
             <ul className="space-y-3.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -152,7 +152,7 @@ export default function Footer() {
 
           {/* Courses */}
           <div>
-            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-6 uppercase tracking-wider">{t("nav_courses")}</h4>
+            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-6 uppercase tracking-wider">{h('nav_courses', 'nav_courses')}</h4>
             <ul className="space-y-3.5">
               {courseLinks.map((course) => (
                 <li key={course}>
@@ -170,7 +170,7 @@ export default function Footer() {
 
           {/* Shifts & Social */}
           <div>
-            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-6 uppercase tracking-wider">{t("ft_cs")}</h4>
+            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-6 uppercase tracking-wider">{h('ft_cs', 'ft_cs')}</h4>
             <ul className="space-y-3 mb-8">
               {shifts.map((s) => (
                 <li key={s.label} className="flex items-center justify-between text-sm group">
@@ -217,7 +217,7 @@ export default function Footer() {
               <div className="text-center relative z-10">
                 <MapPin className="w-6 h-6 text-slate-400 dark:text-slate-500 group-hover:text-blue-500 dark:group-hover:text-blue-400 mx-auto mb-1.5 transition-colors" />
                 <p className="text-xs text-slate-500 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300">Google Map</p>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500">{t("ft_embed")}</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">{h('ft_embed', 'ft_embed')}</p>
               </div>
             </div>
           </div>
@@ -231,11 +231,11 @@ export default function Footer() {
             © {new Date().getFullYear()} <span className="text-slate-900 dark:text-white font-medium">{orgName || 'TechHat'}</span> IT Training Center. {isBn ? 'সকল অধিকার সংরক্ষিত।' : 'All rights reserved.'}
           </p>
           <div className="flex items-center gap-5 text-xs text-slate-500 dark:text-slate-400 font-medium">
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{t("ft_privacy")}</a>
+            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{h('ft_privacy', 'ft_privacy')}</a>
             <span className="text-slate-300 dark:text-slate-600">|</span>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{t("ft_terms")}</a>
+            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{h('ft_terms', 'ft_terms')}</a>
             <span className="text-slate-300 dark:text-slate-600">|</span>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{t("ft_refund")}</a>
+            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{h('ft_refund', 'ft_refund')}</a>
           </div>
         </div>
       </div>
