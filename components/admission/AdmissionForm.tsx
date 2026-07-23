@@ -14,6 +14,7 @@ import GuardianSection from "./sections/GuardianSection";
 import DocumentsSection from "./sections/DocumentsSection";
 
 import DeclarationSection from "./sections/DeclarationSection";
+import PasswordSection from "./sections/PasswordSection";
 
 import { Button } from "@/components/ui/button";
 import { useRouter, usePathname } from "next/navigation";
@@ -31,10 +32,17 @@ const SECTIONS = [
   { id: "declaration", key: "sec_declaration" as AdmissionTKey, fields: ["termsAccepted"] },
 ];
 
-export default function AdmissionForm({ initialData }: { initialData?: Record<string, unknown> }) {
+const SECTIONS_WITH_PASSWORD = [
+  ...SECTIONS.slice(0, 5),
+  { id: "password", key: "sec_password" as AdmissionTKey, fields: ["password", "confirmPassword"] },
+  SECTIONS[5]
+];
+
+export default function AdmissionForm({ initialData, showPasswordSection }: { initialData?: Record<string, unknown>; showPasswordSection?: boolean }) {
   const { lang } = useLang();
   const t = (key: AdmissionTKey) => admissionTranslations[lang][key];
-  const [activeSection, setActiveSection] = useState(SECTIONS[0].id);
+  const activeSections = showPasswordSection ? SECTIONS_WITH_PASSWORD : SECTIONS;
+  const [activeSection, setActiveSection] = useState(activeSections[0].id);
   const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -126,6 +134,10 @@ export default function AdmissionForm({ initialData }: { initialData?: Record<st
       const el = document.getElementById(section.id);
       if (el) observer.observe(el);
     });
+    if (showPasswordSection) {
+      const pwEl = document.getElementById("password");
+      if (pwEl) observer.observe(pwEl);
+    }
 
     // Fallback for bottom of page
     const handleScroll = () => {
@@ -158,6 +170,9 @@ export default function AdmissionForm({ initialData }: { initialData?: Record<st
             router.push(`/admin/students/${result.studentId || initialData?.id}`);
           } else if (initialData) {
             router.push("/dashboard/profile");
+          } else if (showPasswordSection) {
+            // Public admission → go to login
+            router.push("/login");
           } else {
             router.push("/dashboard");
           }
@@ -202,11 +217,11 @@ export default function AdmissionForm({ initialData }: { initialData?: Record<st
       <FormProvider {...methods}>
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Sticky Sidebar Navigation */}
-          <StickySidebar sections={SECTIONS} activeSection={activeSection} />
+          <StickySidebar sections={activeSections} activeSection={activeSection} />
 
           {/* Main Form Content */}
           <div className="flex-1 min-w-0">
-            <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={methods.handleSubmit(onSubmit, onError)} className="space-y-8">
               
               <PersonalInfoSection id="personal" />
               
@@ -219,6 +234,9 @@ export default function AdmissionForm({ initialData }: { initialData?: Record<st
               <DocumentsSection id="documents" />
               
               <DeclarationSection id="declaration" />
+
+              {/* Password Section — only shown on public admission page */}
+              {showPasswordSection && <PasswordSection id="password" />}
 
               {/* Submit Buttons */}
               <div className="sticky bottom-4 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 flex items-center justify-between">

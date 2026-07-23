@@ -8,6 +8,7 @@ export const admissionTranslations = {
     sec_docs: "5. Documents Upload",
     sec_medical: "Medical Information",
     sec_declaration: "6. Declaration",
+    sec_password: "7. Create Password",
     sec_payment: "Payment Verification (Manual)",
     
     // Personal Info
@@ -88,6 +89,13 @@ export const admissionTranslations = {
     terms: "I declare that the information provided is true and correct.",
     privacy: "I agree to the privacy policy and terms of conditions.",
     
+    // Password
+    password: "Password",
+    confirm_password: "Confirm Password",
+    password_placeholder: "At least 6 characters",
+    confirm_password_placeholder: "Re-enter your password",
+    password_hint: "You will use this password along with your mobile number to log into your student portal.",
+    
     // Payment
     payment_method: "Payment Method",
     payment_number: "Sender Phone Number (e.g., bKash Number)",
@@ -122,6 +130,7 @@ export const admissionTranslations = {
     sec_docs: "৫. ডকুমেন্টস আপলোড",
     sec_medical: "মেডিকেল তথ্য",
     sec_declaration: "৬. ঘোষণাপত্র",
+    sec_password: "৭. পাসওয়ার্ড তৈরি করুন",
     sec_payment: "পেমেন্ট ভেরিফিকেশন",
     
     // Personal Info
@@ -201,6 +210,13 @@ export const admissionTranslations = {
     // Declaration
     terms: "আমি ঘোষণা করছি যে উপরের প্রদত্ত সকল তথ্য সত্য ও সঠিক।",
     privacy: "আমি প্রাইভেসি পলিসি এবং শর্তাবলীর সাথে একমত।",
+
+    // Password
+    password: "পাসওয়ার্ড",
+    confirm_password: "পাসওয়ার্ড নিশ্চিত করুন",
+    password_placeholder: "কমপক্ষে ৬ অক্ষর",
+    confirm_password_placeholder: "পাসওয়ার্ড আবার লিখুন",
+    password_hint: "এই পাসওয়ার্ড ব্যবহার করে আপনার মোবাইল নম্বর দিয়ে স্টুডেন্ট পোর্টালে লগইন করতে পারবেন।",
     
     // Payment
     payment_method: "পেমেন্ট মেথড (বিকাশ/নগদ)",

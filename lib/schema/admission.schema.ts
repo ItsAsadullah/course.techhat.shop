@@ -90,6 +90,28 @@ export const admissionSchema = z.object({
 
   // Step 9: Declaration
   termsAccepted: z.boolean().refine(val => val === true, "You must accept the terms and conditions"),
+
+  // Optional: Password for public admission portal (creates student login account)
+  password: z.string().optional().or(z.literal("")),
+  confirmPassword: z.string().optional().or(z.literal("")),
+}).superRefine((data, ctx) => {
+  // Only validate password match if a password is provided
+  if (data.password && data.password.length > 0) {
+    if (data.password.length < 6) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Password must be at least 6 characters",
+        path: ["password"],
+      });
+    }
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      });
+    }
+  }
 });
 
 export type AdmissionFormValues = z.infer<typeof admissionSchema>;

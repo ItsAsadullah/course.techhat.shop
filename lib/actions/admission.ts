@@ -73,7 +73,8 @@ export async function submitAdmissionForm(data: AdmissionFormValues) {
       );
 
       const userEmail = data.email || `${data.mobile}@student.techhat.local`;
-      const defaultPassword = data.mobile; // Temporary password is their mobile number
+      // Use the user-provided password if available (public form), otherwise default to mobile
+      const defaultPassword = (data.password && data.password.trim().length >= 6) ? data.password : data.mobile;
 
       // Check if user is currently logged in
       const { data: { user: currentUser } } = await supabase.auth.getUser();
