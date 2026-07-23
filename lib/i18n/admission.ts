@@ -7,8 +7,8 @@ export const admissionTranslations = {
     sec_guardian: "4. Guardian Information",
     sec_docs: "5. Documents Upload",
     sec_medical: "Medical Information",
-    sec_declaration: "6. Declaration",
-    sec_password: "7. Create Password",
+    sec_password: "6. Create Password",
+    sec_declaration: "7. Declaration",
     sec_payment: "Payment Verification (Manual)",
     
     // Personal Info
@@ -129,8 +129,8 @@ export const admissionTranslations = {
     sec_guardian: "৪. অভিভাবকের তথ্য",
     sec_docs: "৫. ডকুমেন্টস আপলোড",
     sec_medical: "মেডিকেল তথ্য",
-    sec_declaration: "৬. ঘোষণাপত্র",
-    sec_password: "৭. পাসওয়ার্ড তৈরি করুন",
+    sec_password: "৬. পাসওয়ার্ড তৈরি করুন",
+    sec_declaration: "৭. ঘোষণাপত্র",
     sec_payment: "পেমেন্ট ভেরিফিকেশন",
     
     // Personal Info
