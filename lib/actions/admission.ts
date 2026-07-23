@@ -9,6 +9,10 @@ import { sendTelegramNotification } from "@/lib/telegram";
 export async function submitAdmissionForm(data: AdmissionFormValues) {
   try {
     const supabase = await createServerClient();
+    const supabaseAdmin = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
 
     // 1. Create Admission Record
     const admissionId = `ADM-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
@@ -18,7 +22,7 @@ export async function submitAdmissionForm(data: AdmissionFormValues) {
     const safeCourseId = isValidUUID(data.courseId) ? data.courseId : null;
     const fallbackSource = !isValidUUID(data.courseId) ? data.courseId : data.sourceOfAdmission;
 
-    const { data: admission, error: admissionError } = await supabase
+    const { data: admission, error: admissionError } = await supabaseAdmin
       .from("admissions")
       .insert({
         admission_id: admissionId,
@@ -38,7 +42,7 @@ export async function submitAdmissionForm(data: AdmissionFormValues) {
     if (admissionError) throw new Error(`Admission Error: ${admissionError.message}`);
 
     // 2. Create Student Record
-    const { data: student, error: studentError } = await supabase
+    const { data: student, error: studentError } = await supabaseAdmin
       .from("students")
       .insert({
         admission_id: admission.id,
@@ -67,10 +71,6 @@ export async function submitAdmissionForm(data: AdmissionFormValues) {
 
     // Auto-Registration Logic (Create User Account)
     try {
-      const supabaseAdmin = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!
-      );
 
       const userEmail = data.email || `${data.mobile}@student.techhat.local`;
       // Use the user-provided password if available (public form), otherwise default to mobile
