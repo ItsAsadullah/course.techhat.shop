@@ -130,19 +130,15 @@ export default function AdmissionForm({ initialData, showPasswordSection }: { in
       { rootMargin: "-20% 0px -40% 0px", threshold: 0 } 
     );
 
-    SECTIONS.forEach((section) => {
+    activeSections.forEach((section) => {
       const el = document.getElementById(section.id);
       if (el) observer.observe(el);
     });
-    if (showPasswordSection) {
-      const pwEl = document.getElementById("password");
-      if (pwEl) observer.observe(pwEl);
-    }
 
     // Fallback for bottom of page
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
-        setActiveSection(SECTIONS[SECTIONS.length - 1].id);
+        setActiveSection(activeSections[activeSections.length - 1].id);
       }
     };
     window.addEventListener("scroll", handleScroll);
