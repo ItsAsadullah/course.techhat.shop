@@ -135,17 +135,8 @@ export default function AdmissionForm({ initialData, showPasswordSection }: { in
       if (el) observer.observe(el);
     });
 
-    // Fallback for bottom of page
-    const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
-        setActiveSection(activeSections[activeSections.length - 1].id);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-
     return () => {
       observer.disconnect();
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
