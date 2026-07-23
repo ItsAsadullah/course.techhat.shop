@@ -119,13 +119,24 @@ export default function AdmissionForm({ initialData, showPasswordSection }: { in
 
   // Intersection Observer to update active section on scroll
   useEffect(() => {
+    const intersectingIds = new Set<string>();
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            intersectingIds.add(entry.target.id);
+          } else {
+            intersectingIds.delete(entry.target.id);
           }
         });
+
+        // Find the first section in activeSections that is currently intersecting
+        const visibleId = activeSections.find(s => intersectingIds.has(s.id))?.id;
+        
+        if (visibleId) {
+          setActiveSection(visibleId);
+        }
       },
       { rootMargin: "-20% 0px -40% 0px", threshold: 0 } 
     );
