@@ -233,10 +233,10 @@ export default function AdmissionForm({ initialData, showPasswordSection }: { in
               
               <DocumentsSection id="documents" />
               
-              <DeclarationSection id="declaration" />
-
               {/* Password Section — only shown on public admission page */}
               {showPasswordSection && <PasswordSection id="password" />}
+              
+              <DeclarationSection id="declaration" />
 
               {/* Submit Buttons */}
               <div className="sticky bottom-4 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 flex items-center justify-between">
